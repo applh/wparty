@@ -9,4 +9,11 @@ Author URI: http://Applh.com
 License: GPLv3
 */
 
+// shortcode [part]
+function shortcode_part() {
+    return date("H:i:s");
+}
+ 
+add_shortcode( 'part', 'shortcode_part' );
+
 ?>

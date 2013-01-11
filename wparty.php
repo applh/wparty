@@ -21,7 +21,7 @@ function shortcode_part ($atts) {
         $args=array(
           'name' => $name,
           'post_type' => 'any',
-          'post_status' => 'publish',
+          'post_status' => 'publish,private',
           'numberposts' => 1
         );
         $my_posts = get_posts($args);

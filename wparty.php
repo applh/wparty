@@ -20,7 +20,7 @@ function shortcode_part ($atts) {
     if ($name) {
         $args=array(
           'name' => $name,
-          'post_type' => 'page',
+          'post_type' => 'any',
           'post_status' => 'publish',
           'numberposts' => 1
         );

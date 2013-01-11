@@ -9,9 +9,28 @@ Author URI: http://Applh.com
 License: GPLv3
 */
 
-// shortcode [part]
-function shortcode_part() {
-    return date("H:i:s");
+// shortcode [part name="page-name"]
+function shortcode_part ($atts) {
+    $res='';
+    
+    extract( shortcode_atts( array(
+		                'name' => '',
+	                    ), 
+                        $atts ) );
+    if ($name) {
+        $args=array(
+          'name' => $name,
+          'post_type' => 'page',
+          'post_status' => 'publish',
+          'numberposts' => 1
+        );
+        $my_posts = get_posts($args);
+        if ($my_posts) {
+            $res='<div class="part">'.$my_posts[0]->post_content.'</div>';
+        }
+    }
+
+    return $res;
 }
  
 add_shortcode( 'part', 'shortcode_part' );

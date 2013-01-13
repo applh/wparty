@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media content
-Version: 1.0
+Version: 1.1
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -26,7 +26,8 @@ function shortcode_part ($atts) {
         );
         $my_posts = get_posts($args);
         if ($my_posts) {
-            $res='<div class="part">'.$my_posts[0]->post_content.'</div>';
+            $content=do_shortcode($my_posts[0]->post_content);	
+            $res='<div class="part">'.$content.'</div>';
         }
     }
 
@@ -34,5 +35,3 @@ function shortcode_part ($atts) {
 }
  
 add_shortcode( 'part', 'shortcode_part' );
-
-?>

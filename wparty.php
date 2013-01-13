@@ -35,3 +35,7 @@ function shortcode_part ($atts) {
 }
  
 add_shortcode( 'part', 'shortcode_part' );
+
+// Use shortcodes in text widgets.
+add_filter( 'widget_text', 'do_shortcode' );
+

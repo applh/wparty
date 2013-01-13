@@ -46,10 +46,18 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.1 =
+* Add recursion in page content for embedded shortcodes
+
 = 1.0 =
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.1 =
+The plugin activates shortcodes in Text Widget.
+Easier writing of HTML with WP Editor!
+Simply include [part page="page-name"] to get your HTML content in text widget.
 
 = 1.0 =
 Improve content management for your website.

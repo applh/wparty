@@ -16,6 +16,12 @@ WParty is a WordPress plugin to mix pages/articles/media content.
 
 [part name="page-name"]
 
+
+The plugin also activates shortcodes in Text Widgets.
+It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
+
+Content can embed recursive shortcodes.
+
 == Installation ==
 
 This section describes how to install the plugin and get it working.
@@ -48,6 +54,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 = 1.1 =
 * Add recursion in page content for embedded shortcodes
+* Activate shortcodes in Text Widget
 
 = 1.0 =
 * Initial version

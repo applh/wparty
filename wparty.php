@@ -11,6 +11,7 @@ License: GPLv3
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" class="my-class" style="background-color:#123456;"]
+// shortcode [part menu="my-menu" name="page-name"]
 function shortcode_part ($atts) {
     $res='';
     

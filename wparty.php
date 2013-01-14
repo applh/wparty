@@ -11,7 +11,6 @@ License: GPLv3
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" class="my-class" style="background-color:#123456;"]
-// shortcode [part menu="my-menu"]
 function shortcode_part ($atts) {
     $res='';
     
@@ -24,7 +23,8 @@ function shortcode_part ($atts) {
                         $atts ) );
     if ($menu) {
        $menu=trim($menu);
-       $res.=wp_nav_menu(array('menu' => $menu, 'echo' => false));
+       $menu_html=wp_nav_menu(array('menu' => $menu, 'echo' => false));
+       $res.='<div class="part-menu">'.$menu_html.'</div>';
     }
 
     if ($name) {
@@ -43,10 +43,12 @@ function shortcode_part ($atts) {
 
             $content=do_shortcode($my_posts[0]->post_content);	
 
-            $res.='<div class="part'.$class.'" style="'.$style.'">'.$content.'</div>';
+            $res.='<div class="part-content">'.$content.'</div>';
         }
     }
-
+    if ($res) {
+       $res.='<div class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
+    }
     return $res;
 }
  

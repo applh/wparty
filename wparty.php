@@ -15,8 +15,10 @@ function shortcode_part ($atts) {
     
     extract( shortcode_atts( array(
 		                'name' => '',
-	                    ), 
-                        $atts ) );
+		                'class' => '',
+		                'style' => '',
+	                    	), 
+                        	$atts ) );
     if ($name) {
         $args=array(
           'name' => $name,
@@ -26,8 +28,14 @@ function shortcode_part ($atts) {
         );
         $my_posts = get_posts($args);
         if ($my_posts) {
+
+            $style=trim($style);
+            $class=trim($class);
+            if ($class) $class=" $class";
+
             $content=do_shortcode($my_posts[0]->post_content);	
-            $res='<div class="part">'.$content.'</div>';
+
+            $res='<div class="part'.$class.'" style="'.$style.'">'.$content.'</div>';
         }
     }
 
@@ -38,4 +46,5 @@ add_shortcode( 'part', 'shortcode_part' );
 
 // Use shortcodes in text widgets.
 add_filter( 'widget_text', 'do_shortcode' );
+
 

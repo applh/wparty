@@ -11,6 +11,7 @@ License: GPLv3
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" class="my-class" style="background-color:#123456;"]
+// shortcode [part menu="my-menu"]
 function shortcode_part ($atts) {
     $res='';
     
@@ -18,8 +19,14 @@ function shortcode_part ($atts) {
 		                'name' => '',
 		                'class' => '',
 		                'style' => '',
-	                    	), 
-                        	$atts ) );
+		                'menu' => '',
+	                    ), 
+                        $atts ) );
+    if ($menu) {
+       $menu=trim($menu);
+       $res.=wp_nav_menu(array('menu' => $menu, 'echo' => false));
+    }
+
     if ($name) {
         $args=array(
           'name' => $name,
@@ -36,7 +43,7 @@ function shortcode_part ($atts) {
 
             $content=do_shortcode($my_posts[0]->post_content);	
 
-            $res='<div class="part'.$class.'" style="'.$style.'">'.$content.'</div>';
+            $res.='<div class="part'.$class.'" style="'.$style.'">'.$content.'</div>';
         }
     }
 
@@ -47,5 +54,4 @@ add_shortcode( 'part', 'shortcode_part' );
 
 // Use shortcodes in text widgets.
 add_filter( 'widget_text', 'do_shortcode' );
-
 

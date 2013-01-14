@@ -10,13 +10,14 @@ License: GPLv3
 */
 
 // shortcode [part name="page-name"]
-// shortcode [part name="page-name" class="my-class" style="background-color:#123456;"]
+// shortcode [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 // shortcode [part menu="my-menu" name="page-name"]
 function shortcode_part ($atts) {
     $res='';
     
     extract( shortcode_atts( array(
 		                'name' => '',
+		                'id' => '',
 		                'class' => '',
 		                'style' => '',
 		                'menu' => '',
@@ -37,18 +38,19 @@ function shortcode_part ($atts) {
         );
         $my_posts = get_posts($args);
         if ($my_posts) {
-
-            $style=trim($style);
-            $class=trim($class);
-            if ($class) $class=" $class";
-
             $content=do_shortcode($my_posts[0]->post_content);	
-
             $res.='<div class="part-content">'.$content.'</div>';
         }
     }
     if ($res) {
-       $res.='<div class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
+       $style=trim($style);
+       $class=trim($class);
+       $id=trim($id);
+       $html_id='';
+       if ($id) $html_id='id="'.$id.'" ';
+       if ($class) $class=" $class";
+
+       $res.='<div '.$html_id.'class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
     }
     return $res;
 }

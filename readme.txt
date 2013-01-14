@@ -12,14 +12,16 @@ WParty is a WordPress plugin to mix pages/articles/media content.
 
 == Description ==
 
-WParty is a WordPress plugin to mix pages/articles/media content.
+WParty is a WordPress plugin to mix pages/articles/media/menus content.
 
 [part name="page-name"]
-[part name="page-name" class="my-class" style="background-color:#123456;"]
+[part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 [part menu="my-menu" name="page-name"]
 
 The plugin also activates shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
+
+Custom HTML styles attributes can be added (id, class, style).
 
 Content can embed recursive shortcodes.
 
@@ -56,7 +58,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Changelog ==
 
 = 1.2 =
-* Add custom CSS (class and style)
+* Add custom CSS (id, class and style)
 * Add custom menu inclusion
 
 = 1.1 =

@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-WParty is a WordPress plugin to mix pages/articles/media content.
+WParty is a WordPress plugin to mix pages/articles/media/widgets/menus content.
 
 == Description ==
 

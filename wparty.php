@@ -44,11 +44,7 @@ function shortcode_part ($atts) {
 
    if ($theme) {
        if (current_user_can('edit_themes')) {
-          $res.="THEME/$theme/$name";
           wparty_create_theme($theme, $name);
-       }
-       else {
-          $res.="ERROR";
        }
     }
     else if ($name) {

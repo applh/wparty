@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: pages, content, mix, multi loop
+Tags: pages, content, mix, multi loop, widgets, shortcode
 Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: trunk

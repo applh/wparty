@@ -87,6 +87,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Upgrade Notice ==
 
+= 1.3 =
+More features. Bugs Correction.
+
+= 1.2 =
+More features
+
 = 1.1 =
 The plugin activates shortcodes in Text Widget.
 Easier writing of HTML with WP Editor!

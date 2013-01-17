@@ -230,7 +230,8 @@ function wparty ($part, $attr=null) {
    }
 }
 
-
+// Unuseful is theme is not used
+// but allow to deactivate/replace completely theme code 
 function wparty_filter_functions ($res) {
    global $WParty;
    include($WParty['wparty.dir']."/wparty-theme.php");

@@ -216,6 +216,10 @@ THEMEFUNCTIONS;
 }
 
 function wparty ($part, $attr=null) {
+
+   global $WParty;
+   $WParty['debug']="<!--$part-->";
+
    $res='';
    if ($part == "functions") {
        // CUSTOM FILTERS    

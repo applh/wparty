@@ -9,9 +9,12 @@ Author URI: http://Applh.com
 License: GPLv3
 */
 
+$curdir=dirname(__FILE__);
+
 global $WParty;
 $WParty=array(
    "version" => "1.4",
+   "wparty.dir" => $curdir,
 );
 
 
@@ -127,7 +130,9 @@ function shortcode_part ($atts) {
 
        $res='<div '.$html_id.'class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
     }
-    
+
+    // CUSTOM FILTERS    
+    $res=apply_filters('wparty', $res);
 
     return $res;
 }
@@ -141,7 +146,6 @@ add_filter( 'widget_text', 'do_shortcode' );
 function wparty_create_theme ($title, $name, $reset=true) {
    global $WParty;
 
-   $curdir=dirname(__FILE__);
    $themeroot=get_theme_root();
 
    $newtheme=strtolower(trim($name));
@@ -212,10 +216,24 @@ THEMEFUNCTIONS;
 }
 
 function wparty ($part, $attr=null) {
+   $res='';
    if ($part == "functions") {
+       // CUSTOM FILTERS    
+       $res=apply_filters('wparty_functions', $res);
    }
    else {
-      echo "<h1>$part</h1>";
+       $res="<h1>$part</h1>";
+       // CUSTOM FILTERS    
+       $res=apply_filters('wparty_response', $res);
+
+       if ($res) echo $res;
    }
 }
 
+
+function wparty_filter_functions ($res) {
+   global $WParty;
+   include($WParty['wparty.dir']."/wparty-theme.php");
+   return $res;
+}
+add_filter('wparty_functions', 'wparty_filter_functions');

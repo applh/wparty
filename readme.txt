@@ -12,7 +12,7 @@ WParty is a WordPress plugin to mix pages/articles/media/widgets/menus content.
 
 == Description ==
 
-WParty is a WordPress plugin to mix pages/articles/media/menus content.
+WParty is a WordPress plugin to mix pages / articles / widgets / media / menus content.
 
 // shortcode [part name="page-name"]
 
@@ -20,20 +20,32 @@ WParty is a WordPress plugin to mix pages/articles/media/menus content.
 
 // shortcode [part menu="my-menu" name="page-name"]
 
-// shortcode [part widget="calendar"]
+// http://codex.wordpress.org/Function_Reference/the_widget
 
 // shortcode [part widget="news"]
 
 // shortcode [part widget="tags"]
 
-// shortcode [part theme="new-theme"]
+// shortcode [part widget="categories"]
 
-The plugin also activates shortcodes in Text Widgets.
+// shortcode [part widget="archives"]
+
+// shortcode [part widget="calendar"]
+
+// shortcode [part widget="pages"]
+
+// shortcode [part widget="rss" instance="url=http://applh.com/feed/"]
+
+// shortcode [part widget="menu" instance="nav_menu=toto"]
+
+// shortcode [part theme="My Theme" name="new-theme"]
+
+The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
 
 Custom HTML styles attributes can be added (id, class, style).
 
-Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags).
+Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 
 Content can embed recursive shortcodes.
 

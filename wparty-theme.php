@@ -1,5 +1,15 @@
 <?php
 
+if (!function_exists('wparty_filter_debug')) :
+function wparty_filter_debug ($res) {
+    global $WParty;
+    $res.=$WParty['debug'];
+    return $res;
+}
+add_filter('wparty_response', 'wparty_filter_debug');
+endif;
+
+if (!function_exists('wparty_filter_loop')) :
 function wparty_filter_loop ($res) {
      ob_start();
 
@@ -13,6 +23,6 @@ function wparty_filter_loop ($res) {
     $res.=ob_get_clean();
     return $res;
 }
-
 add_filter('wparty_response', 'wparty_filter_loop');
+endif;
 

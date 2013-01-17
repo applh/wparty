@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.3
+Version: 1.4
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -11,17 +11,26 @@ License: GPLv3
 
 global $WParty;
 $WParty=array(
-   "version" => "1.3",
+   "version" => "1.4",
 );
 
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 // shortcode [part menu="my-menu" name="page-name"]
-// shortcode [part widget="calendar"]
+
+// http://codex.wordpress.org/Function_Reference/the_widget
 // shortcode [part widget="news"]
 // shortcode [part widget="tags"]
+// shortcode [part widget="categories"]
+// shortcode [part widget="archives"]
+// shortcode [part widget="calendar"]
+// shortcode [part widget="pages"]
+// shortcode [part widget="rss" instance="url=http://applh.com/feed/"]
+// shortcode [part widget="menu" instance="nav_menu=toto"]
+
 // shortcode [part theme="My Theme" name="new-theme"]
+
 function shortcode_part ($atts) {
     $res='';
     
@@ -33,6 +42,8 @@ function shortcode_part ($atts) {
 		                'menu' => '',
 		                'widget' => '',
 		                'theme' => '',
+		                'instance' => '',
+		                'args' => '',
 	                    ), 
                         $atts ) );
 
@@ -63,8 +74,6 @@ function shortcode_part ($atts) {
 
     if ($widget) {
        $widget=strtolower(trim($widget));
-       $instance='';
-       $args='';
        ob_start();
 
        if ($widget == 'calendar') {
@@ -75,6 +84,33 @@ function shortcode_part ($atts) {
        }
        else if ($widget == 'tags') {
           the_widget('WP_Widget_Tag_Cloud', $instance, $args);
+       }
+       else if ($widget == 'cats') {
+          the_widget('WP_Widget_Categories', $instance, $args);
+       }
+       else if ($widget == 'text') {
+          the_widget('WP_Widget_Text', $instance, $args);
+       }
+       else if ($widget == 'pages') {
+          the_widget('WP_Widget_Pages', $instance, $args);
+       }
+       else if ($widget == 'menu') {
+          the_widget('WP_Nav_Menu_Widget', $instance, $args);
+       }
+       else if ($widget == 'comments') {
+          the_widget('WP_Widget_Recent_Comments', $instance, $args);
+       }
+       else if ($widget == 'archives') {
+          the_widget('WP_Widget_Archives', $instance, $args);
+       }
+       else if ($widget == 'rss') {
+          the_widget('WP_Widget_RSS', $instance, $args);
+       }
+       else if ($widget == 'search') {
+          the_widget('WP_Widget_Search', $instance, $args);
+       }
+       else if ($widget == 'meta') {
+          the_widget('WP_Widget_Meta', $instance, $args);
        }
 
        $html_widget=ob_get_clean();
@@ -176,11 +212,10 @@ THEMEFUNCTIONS;
 }
 
 function wparty ($part, $attr=null) {
-   if ($part == "index") {
-      echo "<h1>$part</h1>";
+   if ($part == "functions") {
    }
    else {
-      echo "<!--$part-->";
+      echo "<h1>$part</h1>";
    }
 }
 

@@ -10,7 +10,7 @@ function wparty_filter_loop ($res) {
            echo '<div>';The_content();echo '</div>';   
         }
      }
-    $res=ob_get_clean();
+    $res.=ob_get_clean();
     return $res;
 }
 

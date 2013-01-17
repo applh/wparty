@@ -81,6 +81,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.4 =
+* Add Widgets
+
 = 1.3 =
 * Bug Correction
 * Add Widgets
@@ -98,6 +101,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.4 =
+More features.
 
 = 1.3 =
 More features. Bugs Correction.

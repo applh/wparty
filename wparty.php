@@ -222,7 +222,6 @@ function wparty ($part, $attr=null) {
        $res=apply_filters('wparty_functions', $res);
    }
    else {
-       $res="<h1>$part</h1>";
        // CUSTOM FILTERS    
        $res=apply_filters('wparty_response', $res);
 

@@ -219,6 +219,7 @@ function wparty ($part, $attr=null) {
 
    global $WParty;
    $WParty['debug']="<!--$part-->";
+   $WParty['part']="$part";
 
    $res='';
    if ($part == "functions") {

@@ -242,3 +242,10 @@ function wparty_filter_functions ($res) {
    return $res;
 }
 add_filter('wparty_functions', 'wparty_filter_functions');
+
+if (is_admin()) {
+   global $WParty;
+   include($WParty['wparty.dir']."/wparty-admin.php");   
+}
+
+

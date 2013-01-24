@@ -5,17 +5,24 @@ global $WParty;
 $wpartydir=$WParty['wparty.dir'];
 
 $WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
-$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootsrap-responsive.js");
+$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.js");
 $WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
 
 $WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
 $WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
+$WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
 
 
 $WParty['theme.head']=
 <<<WPARTYHEAD
 
 <style type="text/css">
+
+body {
+width:100%;
+padding:0px;
+}
+
 {$WParty['css.bootstrap']}
 
 {$WParty['css.bootstrap.responsive']}
@@ -29,12 +36,51 @@ $WParty['theme.head']=
 
 {$WParty['js.flexslider']}
 
+{$WParty['js.wparty']}
+
 </script>
 
 WPARTYHEAD;
 
+
+$WParty['body.slider']=
+<<<WPARTYSLIDER
+<div class="slider">
+ <div class="flexslider">
+  <ul class="slides">
+    <li data-thumb="slide1-thumb.jpg">
+      <img src="slide1.jpg" />
+    </li>
+    <li data-thumb="slide2-thumb.jpg">
+      <img src="slide2.jpg" />
+    </li>
+    <li data-thumb="slide3-thumb.jpg">
+      <img src="slide3.jpg" />
+    </li>
+    <li data-thumb="slide4-thumb.jpg">
+      <img src="slide4.jpg" />
+    </li>
+    <li data-thumb="slide5-thumb.jpg">
+      <img src="slide5.jpg" />
+    </li>
+    <li data-thumb="slide6-thumb.jpg">
+      <img src="slide6.jpg" />
+    </li>
+    <li data-thumb="slide7-thumb.jpg">
+      <img src="slide7.jpg" />
+    </li>
+    <li data-thumb="slide8-thumb.jpg">
+      <img src="slide8.jpg" />
+    </li data-thumb="slide9-thumb.jpg">
+  </ul>
+ </div>
+</div>
+WPARTYSLIDER;
+
+
 if (!function_exists('wparty_filter_header')) :
 function wparty_filter_header ($res) {
+     global $WParty;
      ob_start();
      $N="\n";
            echo $N.'<!doctype html>';
@@ -51,6 +97,7 @@ bloginfo( 'name' );
            wp_head();
            echo $N.'</head>';
            echo $N.'<body>';
+           echo $N.$WParty['body.slider'];
            echo $N.'<div class="container">';
     $res.=ob_get_clean();
     return $res;
@@ -282,17 +329,61 @@ function wparty_widgets_init() {
  */
 add_action( 'after_setup_theme', 'wparty_theme_setup' );
 add_action( 'init', 'wparty_widgets_init' );
-add_action( 'wp_head', 'wparty_theme_head' );
 
-add_filter('wparty_response', 'wparty_filter_header');
-add_filter('wparty_response', 'wparty_filter_widget1');
-add_filter('wparty_response', 'wparty_filter_widget2');
-add_filter('wparty_response', 'wparty_filter_widget3');
-add_filter('wparty_response', 'wparty_filter_loop');
-add_filter('wparty_response', 'wparty_filter_widget4');
-add_filter('wparty_response', 'wparty_filter_widget5');
-add_filter('wparty_response', 'wparty_filter_widget6');
-add_filter('wparty_response', 'wparty_filter_footer');
-add_filter('wparty_response', 'wparty_filter_debug');
+$uri=$_SERVER['REQUEST_URI'];
+$tab_uri=parse_url($uri);
+$uri_path=$tab_uri['path'];
+$tab_pathinfo=pathinfo($uri_path);
+$path_ext=$tab_pathinfo['extension'];
 
+if ($path_ext == 'jpg') {
+   add_filter('wparty_response', 'wparty_response_jpeg');
+}
+else {
+   add_action( 'wp_head', 'wparty_theme_head' );
+
+   add_filter('wparty_response', 'wparty_filter_header'); 
+   add_filter('wparty_response', 'wparty_filter_widget1');
+   add_filter('wparty_response', 'wparty_filter_widget2');
+   add_filter('wparty_response', 'wparty_filter_widget3');
+   add_filter('wparty_response', 'wparty_filter_loop');
+   add_filter('wparty_response', 'wparty_filter_widget4');
+   add_filter('wparty_response', 'wparty_filter_widget5');
+   add_filter('wparty_response', 'wparty_filter_widget6');
+   add_filter('wparty_response', 'wparty_filter_footer');
+   add_filter('wparty_response', 'wparty_filter_debug');
+
+}
+
+function wparty_create_jpeg ($imgname)
+{
+    /* Tente d'ouvrir l'image */
+    $im = @imagecreatefromjpeg($imgname);
+
+    /* Traitement en cas d'échec */
+    if(!$im)
+    {
+        /* Création d'une image vide */
+        $im  = imagecreatetruecolor(640, 320);
+        $bgc = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255) );
+        $tc  = imagecolorallocate($im, 0, 0, 0);
+
+        imagefilledrectangle($im, 0, 0, 640, 320, $bgc);
+
+        /* On y affiche un message*/
+        imagestring($im, 1, 5, 5, $imgname, $tc);
+    }
+
+    return $im;
+}
+
+function wparty_response_jpeg ($res) {
+   status_header(200);
+   header('Content-Type: image/jpeg');
+
+   $img = wparty_create_jpeg('WPARTY');
+
+   imagejpeg($img);
+   imagedestroy($img);
+}
 

@@ -1,14 +1,47 @@
 <?php
 
+global $WParty;
+
+$wpartydir=$WParty['wparty.dir'];
+
+$WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
+$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootsrap-responsive.js");
+$WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
+
+$WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
+$WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
+
+
+$WParty['theme.head']=
+<<<WPARTYHEAD
+
+<style type="text/css">
+{$WParty['css.bootstrap']}
+
+{$WParty['css.bootstrap.responsive']}
+
+{$WParty['css.flexslider']}
+
+</style>
+
+<script type="text/javascript">
+{$WParty['js.jquery']}
+
+{$WParty['js.flexslider']}
+
+</script>
+
+WPARTYHEAD;
+
 if (!function_exists('wparty_filter_header')) :
 function wparty_filter_header ($res) {
      ob_start();
      $N="\n";
            echo $N.'<!doctype html>';
-           echo $N.'<html>';
+           echo $N.'<html lang="'; bloginfo( 'language' ) ;echo '">';
            echo $N.'<head>';
            echo $N.'<meta charset="'; bloginfo( 'charset' );echo '" />';
-           echo $N.'<meta name="viewport" content="width=device-width" />';
+           echo $N.'<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
            echo $N.'<title>';
 wp_title( '|', true, 'right' );
 // Add the blog name.
@@ -18,6 +51,7 @@ bloginfo( 'name' );
            wp_head();
            echo $N.'</head>';
            echo $N.'<body>';
+           echo $N.'<div class="container">';
     $res.=ob_get_clean();
     return $res;
 }
@@ -107,6 +141,7 @@ if (!function_exists('wparty_filter_footer')) :
 function wparty_filter_footer ($res) {
      ob_start();
      $N="\n";
+           echo $N.'</div>';
            echo $N.'<div class="footer">';
            wp_footer();
            echo $N.'</div>';
@@ -122,6 +157,14 @@ function wparty_filter_debug ($res) {
     global $WParty;
     $res.=$WParty['debug'];
     return $res;
+}
+endif;
+
+
+if (!function_exists('wparty_theme_head')) :
+function wparty_theme_head () {
+    global $WParty;
+    echo $WParty['theme.head'];
 }
 endif;
 
@@ -158,6 +201,13 @@ function wparty_theme_setup () {
 	 * Add support for the Aside and Gallery Post Formats
 	 */
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'gallery' ) );
+
+        add_theme_support( 'post-thumbnails' );
+        set_post_thumbnail_size( 150, 150, true ); // default Post Thumbnail dimensions (cropped)
+        // additional image sizes
+        // delete the next line if you do not need additional image sizes
+        // add_image_size( 'category-thumb', 300, 9999 ); //300 pixels wide (and unlimited height)
+
 }
 endif; // wparty_theme_setup
 
@@ -232,6 +282,7 @@ function wparty_widgets_init() {
  */
 add_action( 'after_setup_theme', 'wparty_theme_setup' );
 add_action( 'init', 'wparty_widgets_init' );
+add_action( 'wp_head', 'wparty_theme_head' );
 
 add_filter('wparty_response', 'wparty_filter_header');
 add_filter('wparty_response', 'wparty_filter_widget1');
@@ -243,4 +294,5 @@ add_filter('wparty_response', 'wparty_filter_widget5');
 add_filter('wparty_response', 'wparty_filter_widget6');
 add_filter('wparty_response', 'wparty_filter_footer');
 add_filter('wparty_response', 'wparty_filter_debug');
+
 

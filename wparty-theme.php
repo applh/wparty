@@ -5,7 +5,7 @@ global $WParty;
 $wpartydir=$WParty['wparty.dir'];
 
 $WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
-$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.js");
+$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.css");
 $WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
 
 $WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
@@ -15,36 +15,50 @@ $WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
 
 $WParty['theme.head']=
 <<<WPARTYHEAD
-
 <style type="text/css">
-
+</style>
+<style type="text/css">
+{$WParty['css.bootstrap']}
+</style>
+<style type="text/css">
+{$WParty['css.bootstrap.responsive']}
+</style>
+<style type="text/css">
+{$WParty['css.flexslider']}
+</style>
+<style type="text/css">
 body {
 width:100%;
 padding:0px;
 }
 
-{$WParty['css.bootstrap']}
-
-{$WParty['css.bootstrap.responsive']}
-
-{$WParty['css.flexslider']}
-
+.wrapper1 {
+background-color:#222222;
+}
+.slider {
+width:100%;
+padding:0px;
+position:relative;
+}
+.slider .flexslider {
+border:none;
+}
 </style>
-
 <script type="text/javascript">
 {$WParty['js.jquery']}
-
-{$WParty['js.flexslider']}
-
-{$WParty['js.wparty']}
-
 </script>
-
+<script type="text/javascript">
+{$WParty['js.flexslider']}
+</script>
+<script type="text/javascript">
+{$WParty['js.wparty']}
+</script>
 WPARTYHEAD;
-
 
 $WParty['body.slider']=
 <<<WPARTYSLIDER
+<div class="wrapper wrapper1">
+<div class="container">
 <div class="slider">
  <div class="flexslider">
   <ul class="slides">
@@ -60,22 +74,13 @@ $WParty['body.slider']=
     <li data-thumb="slide4-thumb.jpg">
       <img src="slide4.jpg" />
     </li>
-    <li data-thumb="slide5-thumb.jpg">
-      <img src="slide5.jpg" />
-    </li>
-    <li data-thumb="slide6-thumb.jpg">
-      <img src="slide6.jpg" />
-    </li>
-    <li data-thumb="slide7-thumb.jpg">
-      <img src="slide7.jpg" />
-    </li>
-    <li data-thumb="slide8-thumb.jpg">
-      <img src="slide8.jpg" />
-    </li data-thumb="slide9-thumb.jpg">
   </ul>
  </div>
 </div>
+</div>
+</div>
 WPARTYSLIDER;
+
 
 
 if (!function_exists('wparty_filter_header')) :
@@ -83,7 +88,7 @@ function wparty_filter_header ($res) {
      global $WParty;
      ob_start();
      $N="\n";
-           echo $N.'<!doctype html>';
+           echo $N.'<!DOCTYPE html>';
            echo $N.'<html lang="'; bloginfo( 'language' ) ;echo '">';
            echo $N.'<head>';
            echo $N.'<meta charset="'; bloginfo( 'charset' );echo '" />';
@@ -336,8 +341,22 @@ $uri_path=$tab_uri['path'];
 $tab_pathinfo=pathinfo($uri_path);
 $path_ext=$tab_pathinfo['extension'];
 
-if ($path_ext == 'jpg') {
-   add_filter('wparty_response', 'wparty_response_jpeg');
+if ($path_ext != '') {
+   if ($path_ext == 'css') {
+      add_filter('wparty_response', 'wparty_response_css');
+   }
+   else if ($path_ext == 'js') {
+      add_filter('wparty_response', 'wparty_response_js');
+   }
+   else if ($path_ext == 'jpg') {
+      add_filter('wparty_response', 'wparty_response_jpeg');
+   }
+   else if ($path_ext == 'png') {
+      add_filter('wparty_response', 'wparty_response_png');
+   }
+   else if ($path_ext == 'gif') {
+      add_filter('wparty_response', 'wparty_response_gif');
+   }
 }
 else {
    add_action( 'wp_head', 'wparty_theme_head' );
@@ -358,11 +377,10 @@ else {
 function wparty_create_jpeg ($imgname)
 {
     /* Tente d'ouvrir l'image */
-    $im = @imagecreatefromjpeg($imgname);
+    $im = null;
 
     /* Traitement en cas d'échec */
-    if(!$im)
-    {
+    if (!$im) {
         /* Création d'une image vide */
         $im  = imagecreatetruecolor(640, 320);
         $bgc = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255) );
@@ -377,6 +395,29 @@ function wparty_create_jpeg ($imgname)
     return $im;
 }
 
+function wparty_response_css ($res) {
+   status_header(200);
+   header('Content-Type: text/css');
+   $res=
+<<<RESPONSECSS
+/* HELLO CSS */
+RESPONSECSS;
+
+   echo $res;
+}
+
+function wparty_response_js ($res) {
+   status_header(200);
+   header('Content-Type: text/javascript');
+   $res=
+<<<RESPONSEJS
+/* HELLO JS */
+RESPONSEJS;
+
+   echo $res;
+
+}
+
 function wparty_response_jpeg ($res) {
    status_header(200);
    header('Content-Type: image/jpeg');
@@ -384,6 +425,27 @@ function wparty_response_jpeg ($res) {
    $img = wparty_create_jpeg('WPARTY');
 
    imagejpeg($img);
+   imagedestroy($img);
+}
+
+
+function wparty_response_png ($res) {
+   status_header(200);
+   header('Content-Type: image/png');
+
+   $img = wparty_create_jpeg('WPARTY');
+
+   imagepng($img);
+   imagedestroy($img);
+}
+
+function wparty_response_gif ($res) {
+   status_header(200);
+   header('Content-Type: image/gif');
+
+   $img = wparty_create_jpeg('WPARTY');
+
+   imagegif($img);
    imagedestroy($img);
 }
 

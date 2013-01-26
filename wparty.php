@@ -20,9 +20,6 @@ $WParty=array(
    "wparty.dir" => $curdir,
 );
 
-// read the saved options
-$wparty_options=get_option('wparty', array());
-$WParty=array_merge($WParty, $wparty_options);
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]

@@ -1,15 +1,17 @@
 /*
+jQuery(function() {
+  jQuery('.flexslider').flexslider({
+    itemWidth: 640,
+  });
+});
+*/
 // BUGGY ON ANDROID GNOTE2
 jQuery(function() {
   jQuery('.flexslider').flexslider({
     animation: "slide",
     animationLoop: false,
-    itemWidth: 640,
-    itemMargin: 5,
+    itemMargin: 0,
+    controlNav: 'thumbnails'
   });
-});
-*/
-jQuery(function() {
-  jQuery('.flexslider').flexslider();
 });
 

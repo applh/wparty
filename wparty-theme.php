@@ -2,6 +2,7 @@
 
 global $WParty;
 
+
 $wpartydir=$WParty['wparty.dir'];
 
 $WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
@@ -11,6 +12,7 @@ $WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
 $WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
 $WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
 $WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
+
 
 
 $WParty['theme.head']=
@@ -81,6 +83,78 @@ $WParty['body.slider']=
 </div>
 WPARTYSLIDER;
 
+$WParty['theme.footer']=
+<<<WPARTYFOOTER
+&copy;2013 - WParty
+WPARTYFOOTER;
+
+$WParty['sidebar-1.before']=
+<<<WPARTYS1
+<div class="row">
+<div class="span4">
+WPARTYS1;
+
+$WParty['sidebar-1.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+$WParty['sidebar-2.before']=
+<<<WPARTYS1
+<div class="span4">
+WPARTYS1;
+
+$WParty['sidebar-2.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+$WParty['sidebar-3.before']=
+<<<WPARTYS1
+<div class="span4">
+WPARTYS1;
+
+$WParty['sidebar-3.after']=
+<<<WPARTYS1
+</div>
+</div>
+WPARTYS1;
+
+$WParty['sidebar-4.before']=
+<<<WPARTYS1
+<div class="row">
+<div class="span4">
+WPARTYS1;
+
+$WParty['sidebar-4.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+$WParty['sidebar-5.before']=
+<<<WPARTYS1
+<div class="span4">
+WPARTYS1;
+
+$WParty['sidebar-5.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+$WParty['sidebar-6.before']=
+<<<WPARTYS1
+<div class="span4">
+</div>
+WPARTYS1;
+
+$WParty['sidebar-6.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+// READ SAVED OPTIONS
+$wparty_options=get_option('wparty', array());
+$WParty=array_merge($WParty, $wparty_options);
 
 
 if (!function_exists('wparty_filter_header')) :
@@ -137,8 +211,11 @@ endif;
 			
 if (!function_exists('wparty_filter_widget1')) :
 function wparty_filter_widget1 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-1.before'];
        dynamic_sidebar( 'sidebar-1' );
+       echo $WParty['sidebar-1.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -146,8 +223,11 @@ endif;
 
 if (!function_exists('wparty_filter_widget2')) :
 function wparty_filter_widget2 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-2.before'];
        dynamic_sidebar( 'sidebar-2' );
+       echo $WParty['sidebar-2.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -155,8 +235,11 @@ endif;
 
 if (!function_exists('wparty_filter_widget3')) :
 function wparty_filter_widget3 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-3.before'];
        dynamic_sidebar( 'sidebar-3' );
+       echo $WParty['sidebar-3.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -164,8 +247,11 @@ endif;
 
 if (!function_exists('wparty_filter_widget4')) :
 function wparty_filter_widget4 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-4.before'];
        dynamic_sidebar( 'sidebar-4' );
+       echo $WParty['sidebar-4.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -173,8 +259,11 @@ endif;
 
 if (!function_exists('wparty_filter_widget5')) :
 function wparty_filter_widget5 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-5.before'];
        dynamic_sidebar( 'sidebar-5' );
+       echo $WParty['sidebar-5.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -182,8 +271,11 @@ endif;
 
 if (!function_exists('wparty_filter_widget6')) :
 function wparty_filter_widget6 ($res) {
+   global $WParty;
      ob_start();
+       echo $WParty['sidebar-6.before'];
        dynamic_sidebar( 'sidebar-6' );
+       echo $WParty['sidebar-6.after'];
     $res.=ob_get_clean();
     return $res;
 }
@@ -194,8 +286,10 @@ function wparty_filter_footer ($res) {
      ob_start();
      $N="\n";
            echo $N.'</div>';
+           echo $N.'<div class="container">';
            echo $N.'<div class="footer">';
            wp_footer();
+           echo $N.'</div>';
            echo $N.'</div>';
            echo $N.'</body>';   
            echo $N.'</html>';
@@ -220,6 +314,12 @@ function wparty_theme_head () {
 }
 endif;
 
+if (!function_exists('wparty_theme_footer')) :
+function wparty_theme_footer () {
+    global $WParty;
+    echo $WParty['theme.footer'];
+}
+endif;
 
 if ( ! function_exists( 'wparty_theme_setup' ) ):
 /**
@@ -360,6 +460,7 @@ if ($path_ext != '') {
 }
 else {
    add_action( 'wp_head', 'wparty_theme_head' );
+   add_action( 'wp_footer', 'wparty_theme_footer' );
 
    add_filter('wparty_response', 'wparty_filter_header'); 
    add_filter('wparty_response', 'wparty_filter_widget1');
@@ -374,7 +475,7 @@ else {
 
 }
 
-function wparty_create_jpeg ($imgname)
+function wparty_create_jpeg ($imgname, $width=960, $height=320)
 {
     /* Tente d'ouvrir l'image */
     $im = null;
@@ -382,11 +483,11 @@ function wparty_create_jpeg ($imgname)
     /* Traitement en cas d'échec */
     if (!$im) {
         /* Création d'une image vide */
-        $im  = imagecreatetruecolor(640, 320);
+        $im  = imagecreatetruecolor($width, $height);
         $bgc = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255) );
         $tc  = imagecolorallocate($im, 0, 0, 0);
 
-        imagefilledrectangle($im, 0, 0, 640, 320, $bgc);
+        imagefilledrectangle($im, 0, 0, $width, $height, $bgc);
 
         /* On y affiche un message*/
         imagestring($im, 1, 5, 5, $imgname, $tc);

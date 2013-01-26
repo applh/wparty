@@ -26,6 +26,7 @@ $WParty=array(
 // shortcode [part menu="my-menu" name="page-name"]
 
 // http://codex.wordpress.org/Function_Reference/the_widget
+// shortcode [part widget="loop"]
 // shortcode [part widget="news"]
 // shortcode [part widget="tags"]
 // shortcode [part widget="categories"]
@@ -84,6 +85,9 @@ function shortcode_part ($atts) {
 
        if ($widget == 'calendar') {
           the_widget('WP_Widget_Calendar', $instance, $args);
+       }
+       else if ($widget == 'loop') {
+	  wparty_widget_loop('');
        }
        else if ($widget == 'news') {
           the_widget('WP_Widget_Recent_Posts', $instance, $args);
@@ -218,11 +222,66 @@ THEMEFUNCTIONS;
    }
 }
 
+if (!function_exists('wparty_widget_loop')) :
+function wparty_widget_loop ($res) {
+//     ob_start();
+     $N="\n";
+   global $post;
+   $args = array();
+   $myposts = get_posts( $args );
+   foreach( $myposts as $post ) {	
+      setup_postdata($post);
+           echo $N;
+           echo $N.'<div class="entry">';
+           echo $N.'<h3 class="entry-title">';
+           echo '<a class="entry-link" href="';
+           the_permalink();
+           echo '">';
+           the_title();
+           echo '</a>';   
+           echo '</h3>';   
+           echo $N.'<div class="entry-content">';the_content();echo '</div>';   
+           echo $N.'<div class="entry-tags">';the_tags();echo '</div>';   
+           echo $N.'</div>';
+   }
+
+//    $res.=ob_get_clean();
+    return $res;
+}
+endif;
+
+if (!function_exists('wparty_filter_loop')) :
+function wparty_filter_loop ($res) {
+     ob_start();
+     $N="\n";
+     if (have_posts()) {
+        while (have_posts()) { 
+           the_post();
+           echo $N;
+           echo $N.'<div class="entry">';
+           echo $N.'<h3 class="entry-title">';
+           echo '<a class="entry-link" href="';
+           the_permalink();
+           echo '">';
+           the_title();
+           echo '</a>';   
+           echo '</h3>';   
+           echo $N.'<div class="entry-content">';the_content();echo '</div>';   
+           echo $N.'<div class="entry-tags">';the_tags();echo '</div>';   
+           echo $N.'</div>';
+        }
+     }
+    $res.=ob_get_clean();
+    return $res;
+}
+endif;
+			
 function wparty ($part, $attr=null) {
 
    global $WParty;
    $WParty['debug']="<!--$part-->";
    $WParty['part']="$part";
+   $WParty['WP.template']="$part";
 
    $res='';
    if ($part == "functions") {

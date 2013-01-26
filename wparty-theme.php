@@ -183,32 +183,6 @@ bloginfo( 'name' );
 }
 endif;
 
-if (!function_exists('wparty_filter_loop')) :
-function wparty_filter_loop ($res) {
-     ob_start();
-     $N="\n";
-     if (have_posts()) {
-        while (have_posts()) { 
-           the_post();
-           echo $N;
-           echo $N.'<div class="entry">';
-           echo $N.'<h3 class="entry-title">';
-           echo '<a class="entry-link" href="';
-           the_permalink();
-           echo '">';
-           the_title();
-           echo '</a>';   
-           echo '</h3>';   
-           echo $N.'<div class="entry-content">';the_content();echo '</div>';   
-           echo $N.'<div class="entry-tags">';the_tags();echo '</div>';   
-           echo $N.'</div>';
-        }
-     }
-    $res.=ob_get_clean();
-    return $res;
-}
-endif;
-			
 if (!function_exists('wparty_filter_widget1')) :
 function wparty_filter_widget1 ($res) {
    global $WParty;
@@ -459,20 +433,47 @@ if ($path_ext != '') {
    }
 }
 else {
-   add_action( 'wp_head', 'wparty_theme_head' );
-   add_action( 'wp_footer', 'wparty_theme_footer' );
+      add_filter('wparty_response', 'wparty_response_template');
+}
 
-   add_filter('wparty_response', 'wparty_filter_header'); 
-   add_filter('wparty_response', 'wparty_filter_widget1');
-   add_filter('wparty_response', 'wparty_filter_widget2');
-   add_filter('wparty_response', 'wparty_filter_widget3');
-   add_filter('wparty_response', 'wparty_filter_loop');
-   add_filter('wparty_response', 'wparty_filter_widget4');
-   add_filter('wparty_response', 'wparty_filter_widget5');
-   add_filter('wparty_response', 'wparty_filter_widget6');
-   add_filter('wparty_response', 'wparty_filter_footer');
-   add_filter('wparty_response', 'wparty_filter_debug');
+function wparty_response_template ($res) {
+   global $WParty;
 
+   if ($WParty['WP.template'] == "home") {
+      add_action( 'wp_head', 'wparty_theme_head' );
+      add_action( 'wp_footer', 'wparty_theme_footer' );
+
+      add_filter('wparty_template', 'wparty_filter_header'); 
+      add_filter('wparty_template', 'wparty_filter_widget1');
+      add_filter('wparty_template', 'wparty_filter_widget2');
+      add_filter('wparty_template', 'wparty_filter_widget3');
+      add_filter('wparty_template', 'wparty_filter_widget4');
+      add_filter('wparty_template', 'wparty_filter_widget5');
+      add_filter('wparty_template', 'wparty_filter_widget6');
+      add_filter('wparty_template', 'wparty_filter_footer');
+      add_filter('wparty_template', 'wparty_filter_debug');
+
+   }
+   else {
+      add_action( 'wp_head', 'wparty_theme_head' );
+      add_action( 'wp_footer', 'wparty_theme_footer' );
+
+      add_filter('wparty_template', 'wparty_filter_header'); 
+      add_filter('wparty_template', 'wparty_filter_widget1');
+      add_filter('wparty_template', 'wparty_filter_widget2');
+      add_filter('wparty_template', 'wparty_filter_widget3');
+      add_filter('wparty_template', 'wparty_filter_loop');
+      add_filter('wparty_template', 'wparty_filter_widget4');
+      add_filter('wparty_template', 'wparty_filter_widget5');
+      add_filter('wparty_template', 'wparty_filter_widget6');
+      add_filter('wparty_template', 'wparty_filter_footer');
+      add_filter('wparty_template', 'wparty_filter_debug');
+
+   }
+
+   $res=apply_filters('wparty_template', $res);
+
+   if ($res) echo $res;
 }
 
 function wparty_create_jpeg ($imgname, $width=960, $height=320)

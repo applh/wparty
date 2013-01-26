@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.4
+Version: 1.5
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -87,7 +87,7 @@ function shortcode_part ($atts) {
           the_widget('WP_Widget_Calendar', $instance, $args);
        }
        else if ($widget == 'loop') {
-	  wparty_widget_loop('');
+	  wparty_widget_loop('', $instance, $args);
        }
        else if ($widget == 'news') {
           the_widget('WP_Widget_Recent_Posts', $instance, $args);
@@ -223,12 +223,17 @@ THEMEFUNCTIONS;
 }
 
 if (!function_exists('wparty_widget_loop')) :
-function wparty_widget_loop ($res) {
+function wparty_widget_loop ($res, $instance, $args) {
 //     ob_start();
      $N="\n";
+   $defaults = array(
+	                'numberposts' => 5, 
+                        'post_type' => 'post',
+	                'post_status' => 'publish',
+	        );
+   $tab_args = wp_parse_args( $args, $defaults );   
    global $post;
-   $args = array();
-   $myposts = get_posts( $args );
+   $myposts = get_posts( $tab_args );
    foreach( $myposts as $post ) {	
       setup_postdata($post);
            echo $N;

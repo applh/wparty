@@ -27,7 +27,11 @@ Custom Menus can also be included.
 
 // shortcode [part menu="my-menu" name="page-name"]
 
-Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
+Default LOOP can be included same as a widget:
+
+// shortcode [part widget="loop"]
+
+WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 
 // http://codex.wordpress.org/Function_Reference/the_widget
 
@@ -47,10 +51,13 @@ Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc
 
 // shortcode [part widget="menu" instance="nav_menu=toto"]
 
-// shortcode [part theme="My Theme" name="new-theme"]
-
 Content can embed recursive shortcodes.
 
+WParty is also a theme builder:
+
+// shortcode [part theme="My Theme" name="new-theme"]
+
+WParty is designed to work with MultiSites installation.
 
 == Installation ==
 

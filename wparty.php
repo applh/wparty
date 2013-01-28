@@ -25,8 +25,10 @@ $WParty=array(
 // shortcode [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 // shortcode [part menu="my-menu" name="page-name"]
 
+// http://codex.wordpress.org/Template_Tags/get_posts
+// shortcode [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+
 // http://codex.wordpress.org/Function_Reference/the_widget
-// shortcode [part widget="loop"]
 // shortcode [part widget="news"]
 // shortcode [part widget="tags"]
 // shortcode [part widget="categories"]
@@ -35,10 +37,17 @@ $WParty=array(
 // shortcode [part widget="pages"]
 // shortcode [part widget="rss" instance="url=http://applh.com/feed/"]
 // shortcode [part widget="menu" instance="nav_menu=toto"]
+// shortcode [part widget="slider" name="my-slider"]
 
+// WARNING: RECURSIVE CODE CAN BE DANGEROUS
+// shortcode [part widget="sidebar" name="theme-sidebar-name"]
+
+// THEME BUILDER
 // shortcode [part theme="My Theme" name="new-theme"]
 
-function shortcode_part ($atts) {
+function shortcode_part ($atts, $content, $tag) {
+    global $WParty;
+
     $res='';
     
     extract( shortcode_atts( array(
@@ -70,7 +79,7 @@ function shortcode_part ($atts) {
           'name' => $name,
           'post_type' => 'any',
           'post_status' => 'publish,private',
-          'numberposts' => 1
+          'numberposts' => 5,
         );
         $my_posts = get_posts($args);
         if ($my_posts) {
@@ -83,11 +92,19 @@ function shortcode_part ($atts) {
        $widget=strtolower(trim($widget));
        ob_start();
 
-       if ($widget == 'calendar') {
-          the_widget('WP_Widget_Calendar', $instance, $args);
-       }
-       else if ($widget == 'loop') {
+       if ($widget == 'loop') {
 	  wparty_widget_loop('', $instance, $args);
+       }
+       else if ($widget == 'slider') {
+          if (!empty($WParty['body.slider'])) {
+             echo $WParty['body.slider'];
+          }
+       }
+       else if ($widget == 'sidebar') {
+          wparty_widget_sidebar($name);
+       }
+       else if ($widget == 'calendar') {
+          the_widget('WP_Widget_Calendar', $instance, $args);
        }
        else if ($widget == 'news') {
           the_widget('WP_Widget_Recent_Posts', $instance, $args);
@@ -123,8 +140,8 @@ function shortcode_part ($atts) {
           the_widget('WP_Widget_Meta', $instance, $args);
        }
 
-       $html_widget=ob_get_clean();
-       $res.=$html_widget;
+       $html_widget = ob_get_clean();
+       $res .= $html_widget;
     }
 
     if ($res) {
@@ -139,7 +156,7 @@ function shortcode_part ($atts) {
     }
 
     // CUSTOM FILTERS    
-    $res=apply_filters('wparty', $res);
+    //$res=apply_filters('wparty', $res);
 
     return $res;
 }
@@ -149,6 +166,19 @@ add_shortcode( 'part', 'shortcode_part' );
 // Use shortcodes in text widgets.
 add_filter( 'widget_text', 'do_shortcode' );
 
+if (!function_exists('wparty_widget_sidebar')) :
+function wparty_widget_sidebar ($name) {
+   global $WParty;
+       if (!empty($WParty['sidebar.before'])) {
+          echo $WParty['sidebar.before'];
+       }
+       dynamic_sidebar( $name );
+
+       if (!empty($WParty['sidebar.after'])) {
+          echo $WParty['sidebar.after'];
+       }
+}
+endif;
 
 function wparty_create_theme ($title, $name, $reset=true) {
    global $WParty;
@@ -224,6 +254,8 @@ THEMEFUNCTIONS;
 
 if (!function_exists('wparty_widget_loop')) :
 function wparty_widget_loop ($res, $instance, $args) {
+   global $WParty;
+
 //     ob_start();
      $N="\n";
    $defaults = array(
@@ -234,50 +266,70 @@ function wparty_widget_loop ($res, $instance, $args) {
    $tab_args = wp_parse_args( $args, $defaults );   
    global $post;
    $myposts = get_posts( $tab_args );
+
+   $model0=
+<<<MODEL0
+<div class="entry">
+ <h3 class="entry-title"><a class="entry-link" href="<!--PERMALINK-->"><!--TITLE--></a></h3>
+ <div class="entry-content">
+<!--CONTENT-->
+ </div>
+ <hr/>
+ <div class="entry-date"><!--DATE--></div>
+ <div class="entry-tags">// <!--TAGS--> //</div>
+ <div class="entry-cats">// <!--CATS--> //</div>
+</div>
+MODEL0;
+
+   $tags2sep=", ";
+   $tags2before="";
+   $tags2after="";
+
+   $date2format="";
+   $date2before="";
+   $date2after="";
+
+   $cats2sep=", ";
+
+   $loop2model="loop.model$instance";
+
+   if (!empty($WParty["$loop2model"])) $model0=$WParty["$loop2model"];
+   if (!empty($WParty['tags.sep'])) $tags2sep=$WParty['tags.sep'];
+   if (!empty($WParty['tags.before'])) $tags2sep=$WParty['tags.before'];
+   if (!empty($WParty['tags.after'])) $tags2sep=$WParty['tags.after'];
+
+   if (!empty($WParty['date.format'])) $date2format=$WParty['date.format'];
+   if (!empty($WParty['date.before'])) $date2before=$WParty['date.before'];
+   if (!empty($WParty['date.after'])) $date2after=$WParty['date.after'];
+
+   if (!empty($WParty['cats.sep'])) $cats2sep=$WParty['cats.sep'];
+
+   if (count($myposts) > 0) {
+      $model0=do_shortcode($model0);
+   }
+
    foreach( $myposts as $post ) {	
       setup_postdata($post);
-           echo $N;
-           echo $N.'<div class="entry">';
-           echo $N.'<h3 class="entry-title">';
-           echo '<a class="entry-link" href="';
-           the_permalink();
-           echo '">';
-           the_title();
-           echo '</a>';   
-           echo '</h3>';   
-           echo $N.'<div class="entry-content">';the_content();echo '</div>';   
-           echo $N.'<div class="entry-tags">';the_tags();echo '</div>';   
-           echo $N.'</div>';
+           $tags2html=get_the_tag_list($tags2before, $tags2sep, $tags2after);
+           $date2html=the_date($date2format, $date2before, $date2after, false);
+           $cats2html=get_the_category_list($cats2sep);
+
+           $translate=array(
+"<!--TITLE-->" => get_the_title(),
+"<!--PERMALINK-->" => get_permalink(),
+"<!--CONTENT-->" => get_the_content(),
+"<!--TAGS-->" => $tags2html,
+"<!--CATS-->" => $cats2html,
+"<!--DATE-->" => $date2html,
+"<!--WPARTY-MODEL-->" => $loop2model,
+           );
+
+           $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
+           echo $htmlpost;
    }
 
 //    $res.=ob_get_clean();
-    return $res;
-}
-endif;
-
-if (!function_exists('wparty_filter_loop')) :
-function wparty_filter_loop ($res) {
-     ob_start();
-     $N="\n";
-     if (have_posts()) {
-        while (have_posts()) { 
-           the_post();
-           echo $N;
-           echo $N.'<div class="entry">';
-           echo $N.'<h3 class="entry-title">';
-           echo '<a class="entry-link" href="';
-           the_permalink();
-           echo '">';
-           the_title();
-           echo '</a>';   
-           echo '</h3>';   
-           echo $N.'<div class="entry-content">';the_content();echo '</div>';   
-           echo $N.'<div class="entry-tags">';the_tags();echo '</div>';   
-           echo $N.'</div>';
-        }
-     }
-    $res.=ob_get_clean();
-    return $res;
+//    return $res;
 }
 endif;
 			

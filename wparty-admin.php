@@ -12,7 +12,8 @@ $WParty['admin_html']=
 <tr>
 <td>
 <textarea name="wparty_cmd" rows="20" cols="80">
-[wparty var="" val=""]
+Vous pouvez parametrer le theme grace aux shortcodes:
+[wparty var="" val=""][/wparty]
 </textarea>
 </td>
 </tr>
@@ -30,7 +31,7 @@ $WParty['admin_html']=
 WPARTYADMIN;
 
 
-function shortcode_wparty ($atts) {
+function shortcode_wparty ($atts, $content, $tag) {
    global $WParty;
    $res=''; 
    $N="\n";   
@@ -42,11 +43,14 @@ function shortcode_wparty ($atts) {
       $WParty['admin.cmd.response']=$res;
    }
    else if ($var) {
-      $res.=$N."SET $var = $val";
+      if (empty($val) && (!empty($content))) {
+          $val=$content;
+      }
 
       // SET THE VALUE
-      $WParty['var']=$val;
+      $WParty["$var"]=$val;
 
+      $res.=$N."SET $var = $val";
       if (empty($WParty['admin.cmd.response'])) {
          $WParty['admin.cmd.response']=$res;
       }

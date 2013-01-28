@@ -88,6 +88,17 @@ $WParty['theme.footer']=
 &copy;2013 - WParty
 WPARTYFOOTER;
 
+$WParty['loop.before']=
+<<<WPARTYS1
+<div class="wp-loop">
+WPARTYS1;
+
+$WParty['loop.after']=
+<<<WPARTYS1
+</div>
+WPARTYS1;
+
+
 $WParty['sidebar-1.before']=
 <<<WPARTYS1
 <div class="row">
@@ -176,7 +187,6 @@ bloginfo( 'name' );
            wp_head();
            echo $N.'</head>';
            echo $N.'<body>';
-           echo $N.$WParty['body.slider'];
            echo $N.'<div class="container">';
     $res.=ob_get_clean();
     return $res;
@@ -251,6 +261,172 @@ function wparty_filter_widget6 ($res) {
        dynamic_sidebar( 'sidebar-6' );
        echo $WParty['sidebar-6.after'];
     $res.=ob_get_clean();
+    return $res;
+}
+endif;
+
+if (!function_exists('wparty_filter_loop_home')) :
+function wparty_filter_loop_home ($res) {
+   global $WParty;
+
+     $N="\n";
+   $model0=
+<<<MODEL0
+<div class="row">
+[part widget="slider"]
+</div>
+<div class="row">
+ <div class="span6">
+[part widget="sidebar" name="sidebar-2"] 
+ </div>
+ <div class="span6">
+[part widget="sidebar" name="sidebar-3"] 
+ </div>
+</div>
+<div class="row">
+ <div class="span6">
+[part widget="loop"] 
+ </div>
+ <div class="span6">
+[part widget="sidebar" name="sidebar-1"] 
+ </div>
+</div>
+<div class="row">
+ <div class="span4">
+[part widget="sidebar" name="sidebar-4"] 
+ </div>
+ <div class="span4">
+[part widget="sidebar" name="sidebar-5"] 
+ </div>
+ <div class="span4">
+[part widget="sidebar" name="sidebar-6"] 
+ </div>
+</div>
+MODEL0;
+
+   $tags2sep=", ";
+   $tags2before="";
+   $tags2after="";
+
+   $date2format="";
+   $date2before="";
+   $date2after="";
+
+   $cats2sep=", ";
+
+   if (!empty($WParty['WP.template'])) $instance=$WParty['WP.template'];
+   $loop2model="theme.$instance";
+
+   if (!empty($WParty["$loop2model"])) $model0 = $WParty["$loop2model"];
+
+   if (!empty($WParty['tags.sep'])) $tags2sep = $WParty['tags.sep'];
+   if (!empty($WParty['tags.before'])) $tags2before = $WParty['tags.before'];
+   if (!empty($WParty['tags.after'])) $tags2after = $WParty['tags.after'];
+
+   if (!empty($WParty['date.format'])) $date2format = $WParty['date.format'];
+   if (!empty($WParty['date.before'])) $date2before = $WParty['date.before'];
+   if (!empty($WParty['date.after'])) $date2after = $WParty['date.after'];
+
+   if (!empty($WParty['cats.sep'])) $cats2sep=$WParty['cats.sep'];
+
+   ob_start();
+
+     if (have_posts()) {
+       // try to allow shortcodes in models...
+       $model0=do_shortcode($model0);
+
+       echo $WParty['loop.before'];
+
+           $translate=array(
+"<!--WPARTY-MODEL-->" => $loop2model,
+           );
+
+           $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
+           echo $htmlpost;
+       echo $WParty['loop.after'];
+    }
+ 
+    $res.=ob_get_clean();
+
+   return $res;
+}
+endif;
+
+if (!function_exists('wparty_filter_loop')) :
+function wparty_filter_loop ($res) {
+   global $WParty;
+
+     $N="\n";
+   $model0=
+<<<MODEL0
+<div class="entry">
+ <h3 class="entry-title"><a class="entry-link" href="<!--PERMALINK-->"><!--TITLE--></a></h3>
+ <div class="entry-content">
+<!--CONTENT-->
+ </div>
+ <hr/>
+ <div class="entry-date"><!--DATE--></div>
+ <div class="entry-tags">// <!--TAGS--> //</div>
+ <div class="entry-cats">// <!--CATS--> //</div>
+</div>
+MODEL0;
+
+   $tags2sep=", ";
+   $tags2before="";
+   $tags2after="";
+
+   $date2format="";
+   $date2before="";
+   $date2after="";
+
+   $cats2sep=", ";
+
+   if (!empty($WParty['WP.template'])) $instance=$WParty['WP.template'];
+   $loop2model="theme.$instance";
+
+   if (!empty($WParty["$loop2model"])) $model0 = $WParty["$loop2model"];
+
+   if (!empty($WParty['tags.sep'])) $tags2sep = $WParty['tags.sep'];
+   if (!empty($WParty['tags.before'])) $tags2before = $WParty['tags.before'];
+   if (!empty($WParty['tags.after'])) $tags2after = $WParty['tags.after'];
+
+   if (!empty($WParty['date.format'])) $date2format = $WParty['date.format'];
+   if (!empty($WParty['date.before'])) $date2before = $WParty['date.before'];
+   if (!empty($WParty['date.after'])) $date2after = $WParty['date.after'];
+
+   if (!empty($WParty['cats.sep'])) $cats2sep=$WParty['cats.sep'];
+
+   ob_start();
+
+     if (have_posts()) {
+       // try to allow shortcodes in models...
+       $model0=do_shortcode($model0);
+
+       echo $WParty['loop.before'];
+       while (have_posts()) { 
+           the_post();
+           $tags2html=get_the_tag_list($tags2before, $tags2sep, $tags2after);
+           $date2html=the_date($date2format, $date2before, $date2after, false);
+           $cats2html=get_the_category_list($cats2sep);
+
+           $translate=array(
+"<!--TITLE-->" => get_the_title(),
+"<!--PERMALINK-->" => get_permalink(),
+"<!--CONTENT-->" => get_the_content(),
+"<!--TAGS-->" => $tags2html,
+"<!--CATS-->" => $cats2html,
+"<!--DATE-->" => $date2html,
+"<!--WPARTY-MODEL-->" => $loop2model,
+           );
+
+           $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
+           echo $htmlpost;
+       }
+       echo $WParty['loop.after'];
+    }
+ 
+    $res.=ob_get_clean();
+
     return $res;
 }
 endif;
@@ -439,41 +615,31 @@ else {
 function wparty_response_template ($res) {
    global $WParty;
 
-   if ($WParty['WP.template'] == "home") {
+   if ("home" == $WParty['WP.template']) {
       add_action( 'wp_head', 'wparty_theme_head' );
       add_action( 'wp_footer', 'wparty_theme_footer' );
 
       add_filter('wparty_template', 'wparty_filter_header'); 
-      add_filter('wparty_template', 'wparty_filter_widget1');
-      add_filter('wparty_template', 'wparty_filter_widget2');
-      add_filter('wparty_template', 'wparty_filter_widget3');
-      add_filter('wparty_template', 'wparty_filter_widget4');
-      add_filter('wparty_template', 'wparty_filter_widget5');
-      add_filter('wparty_template', 'wparty_filter_widget6');
-      add_filter('wparty_template', 'wparty_filter_footer');
+      add_filter('wparty_template', 'wparty_filter_loop_home');
       add_filter('wparty_template', 'wparty_filter_debug');
-
+      add_filter('wparty_template', 'wparty_filter_footer');
    }
    else {
       add_action( 'wp_head', 'wparty_theme_head' );
       add_action( 'wp_footer', 'wparty_theme_footer' );
 
       add_filter('wparty_template', 'wparty_filter_header'); 
-      add_filter('wparty_template', 'wparty_filter_widget1');
-      add_filter('wparty_template', 'wparty_filter_widget2');
-      add_filter('wparty_template', 'wparty_filter_widget3');
       add_filter('wparty_template', 'wparty_filter_loop');
-      add_filter('wparty_template', 'wparty_filter_widget4');
-      add_filter('wparty_template', 'wparty_filter_widget5');
-      add_filter('wparty_template', 'wparty_filter_widget6');
-      add_filter('wparty_template', 'wparty_filter_footer');
       add_filter('wparty_template', 'wparty_filter_debug');
-
+      add_filter('wparty_template', 'wparty_filter_footer');
    }
 
+   // BUILD THE HTML
    $res=apply_filters('wparty_template', $res);
 
-   if ($res) echo $res;
+   if ($res) { 
+      echo $res; 
+   }
 }
 
 function wparty_create_jpeg ($imgname, $width=960, $height=320)

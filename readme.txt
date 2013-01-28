@@ -3,7 +3,7 @@ Contributors: applh
 Donate link: http://applh.com/
 Tags: pages, content, mix, multi loop, widgets, shortcode
 Requires at least: 3.5
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,9 +27,15 @@ Custom Menus can also be included.
 
 // shortcode [part menu="my-menu" name="page-name"]
 
+
 Default LOOP can be included same as a widget:
 
+// http://codex.wordpress.org/Template_Tags/get_posts
+
 // shortcode [part widget="loop"]
+
+// shortcode [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 
@@ -51,7 +57,14 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 
 // shortcode [part widget="menu" instance="nav_menu=toto"]
 
+// shortcode [part widget="slider" name="my-slider"]
+
+
 Content can embed recursive shortcodes.
+
+// WARNING: RECURSIVE CODE CAN BE DANGEROUS
+
+// shortcode [part widget="sidebar" name="theme-sidebar-name"]
 
 WParty is also a theme builder:
 

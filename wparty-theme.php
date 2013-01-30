@@ -366,8 +366,8 @@ function wparty_filter_loop ($res) {
  </div>
  <hr/>
  <div class="entry-date"><!--DATE--></div>
- <div class="entry-tags">// <!--TAGS--> //</div>
- <div class="entry-cats">// <!--CATS--> //</div>
+ <div class="entry-tags"><!--TAGS--></div>
+ <div class="entry-cats"><!--CATS--></div>
 </div>
 MODEL0;
 
@@ -412,7 +412,7 @@ MODEL0;
            $translate=array(
 "<!--TITLE-->" => get_the_title(),
 "<!--PERMALINK-->" => get_permalink(),
-"<!--CONTENT-->" => get_the_content(),
+"<!--CONTENT-->" => apply_filters('the_content', get_the_content()),
 "<!--TAGS-->" => $tags2html,
 "<!--CATS-->" => $cats2html,
 "<!--DATE-->" => $date2html,

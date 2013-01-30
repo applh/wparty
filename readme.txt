@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: pages, content, mix, multi loop, widgets, shortcode
+Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder
 Requires at least: 3.5
 Tested up to: 3.5.1
 Stable tag: trunk
@@ -102,6 +102,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.5.1 =
+* BUGFIX: Add missing filter
+
+= 1.5 =
+* Add Widgets LOOP, SIDEBARS
+
 = 1.4 =
 * Add Widgets
 
@@ -122,6 +128,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+BUGFIX
+
+= 1.5 =
+More features.
 
 = 1.4 =
 More features.

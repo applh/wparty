@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.5
+Version: 1.5.1
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3

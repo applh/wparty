@@ -14,6 +14,37 @@ $WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
 $WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
 
 
+if (!function_exists('wparty_filter_template')) :
+function wparty_filter_template ($res) {
+   global $WParty;
+   $curfilter=current_filter();
+   $WParty['WP.template0']=$curfilter;
+   return $res;
+}
+endif;
+
+add_filter('index_template', 'wparty_filter_template');
+add_filter('404_template', 'wparty_filter_template');
+
+add_filter('archive_template', 'wparty_filter_template');
+add_filter('paged_template', 'wparty_filter_template');
+add_filter('date_template', 'wparty_filter_template');
+add_filter('search_template', 'wparty_filter_template');
+
+add_filter('author_template', 'wparty_filter_template');
+
+add_filter('category_template', 'wparty_filter_template');
+add_filter('tag_template', 'wparty_filter_template');
+add_filter('taxonomy_template', 'wparty_filter_template');
+
+add_filter('home_template', 'wparty_filter_template');
+add_filter('front_page_template', 'wparty_filter_template');
+
+add_filter('page_template', 'wparty_filter_template');
+add_filter('single_template', 'wparty_filter_template');
+add_filter('attachment_template', 'wparty_filter_template');
+
+add_filter('comments_popup_template', 'wparty_filter_template');
 
 $WParty['theme.head']=
 <<<WPARTYHEAD
@@ -85,7 +116,7 @@ WPARTYSLIDER;
 
 $WParty['theme.footer']=
 <<<WPARTYFOOTER
-&copy;2013 - WParty
+&copy;2013 - WParty - <a href="http://validator.w3.org/check/referer" title="html5 valid">html5</a>
 WPARTYFOOTER;
 
 $WParty['loop.before']=
@@ -165,8 +196,13 @@ WPARTYS1;
 
 // READ SAVED OPTIONS
 $wparty_options=get_option('wparty', array());
-$WParty=array_merge($WParty, $wparty_options);
-
+if (false === $wparty_options) {
+   // Create option in db if needed
+   add_option('wparty', array(), '', 'yes');
+}
+else {
+   $WParty=array_merge($WParty, $wparty_options);
+}
 
 if (!function_exists('wparty_filter_header')) :
 function wparty_filter_header ($res) {
@@ -265,8 +301,8 @@ function wparty_filter_widget6 ($res) {
 }
 endif;
 
-if (!function_exists('wparty_filter_loop_home')) :
-function wparty_filter_loop_home ($res) {
+if (!function_exists('wparty_filter_model_home')) :
+function wparty_filter_model_home ($res) {
    global $WParty;
 
      $N="\n";
@@ -352,8 +388,8 @@ MODEL0;
 }
 endif;
 
-if (!function_exists('wparty_filter_loop')) :
-function wparty_filter_loop ($res) {
+if (!function_exists('wparty_filter_model')) :
+function wparty_filter_model ($res) {
    global $WParty;
 
      $N="\n";
@@ -616,20 +652,28 @@ function wparty_response_template ($res) {
    global $WParty;
 
    if ("home" == $WParty['WP.template']) {
+      // TODO
+      // get the model for the page
+
+      // SET THE BUILDERS
       add_action( 'wp_head', 'wparty_theme_head' );
       add_action( 'wp_footer', 'wparty_theme_footer' );
 
       add_filter('wparty_template', 'wparty_filter_header'); 
-      add_filter('wparty_template', 'wparty_filter_loop_home');
+      add_filter('wparty_template', 'wparty_filter_model_home');
       add_filter('wparty_template', 'wparty_filter_debug');
       add_filter('wparty_template', 'wparty_filter_footer');
    }
    else {
+      // TODO
+      // get the model for the page
+  
+      // SET THE BUILDERS
       add_action( 'wp_head', 'wparty_theme_head' );
       add_action( 'wp_footer', 'wparty_theme_footer' );
 
       add_filter('wparty_template', 'wparty_filter_header'); 
-      add_filter('wparty_template', 'wparty_filter_loop');
+      add_filter('wparty_template', 'wparty_filter_model');
       add_filter('wparty_template', 'wparty_filter_debug');
       add_filter('wparty_template', 'wparty_filter_footer');
    }
@@ -716,4 +760,5 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 

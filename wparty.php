@@ -46,6 +46,7 @@ $WParty=array(
 // shortcode [part name="page-name" start="01/12/13" end="08/12/13"]
 // shortcode [part widget="redirect" instance="/url2/"]
 // shortcode [part if="lang=fr" widget="redirect" instance="/url2/"]
+// shortcode [part meta="extra-name"]
 
 
 function shortcode_part ($atts, $content, $tag) {
@@ -63,6 +64,7 @@ function shortcode_part ($atts, $content, $tag) {
 		                'theme' => '',
 		                'instance' => '',
 		                'args' => '',
+		                'meta' => '',
 		                'start' => '',
 		                'end' => '',
 		                'if' => '',
@@ -108,6 +110,9 @@ function shortcode_part ($atts, $content, $tag) {
                $content=do_shortcode($my_posts[0]->post_content);	
                $res.='<div class="part-content">'.$content.'</div>';
            }
+       }
+       else if ($meta) {
+           $res.=get_post_meta(get_the_ID(), $meta, true);
        }
 
        if ($widget) {

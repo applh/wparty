@@ -81,7 +81,7 @@ function shortcode_part ($atts, $content, $tag) {
           $val=$test[1];
 
           if (!empty($_REQUEST[$var])) {
-            if ($val != $_REQUEST[$var])) $testok = false;
+            if ($val != $_REQUEST[$var]) $testok = false;
           }
        }
     }
@@ -540,7 +540,4 @@ if (is_admin()) {
    global $WParty;
    include($WParty['wparty.dir']."/wparty-admin.php");   
 }
-
-
-
 

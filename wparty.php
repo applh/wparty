@@ -91,6 +91,17 @@ function shortcode_part ($atts, $content, $tag) {
        }
     }
 
+    $now=time();
+    if ($start) {
+       $start2time=strtotime($start, $now);  
+       if ($now < $start2time) $testok=false; 
+    }
+
+    if ($end) {
+       $end2time=strtotime($end, $now);  
+       if ($end2time < $now) $testok=false; 
+    }
+
     if ($testok) {
        if ($menu) {
           $menu=trim($menu);

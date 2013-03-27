@@ -60,6 +60,23 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 // shortcode [part widget="slider" name="my-slider"]
 
 
+* Manage easily Events or Multilang
+
+REDIRECT
+
+// shortcode [part widget="redirect" instance="/url2/"]
+
+CONDITIONS
+
+// shortcode [part name="page-name" start="01-12-2013" end="08-12-2013"]
+// shortcode [part if="lang=fr" widget="redirect" instance="/url2/"]
+
+META
+
+// shortcode [part meta="extra-name"]
+
+
+
 Content can embed recursive shortcodes.
 
 // WARNING: RECURSIVE CODE CAN BE DANGEROUS
@@ -102,6 +119,13 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.6 =
+* Add CONDITIONS to parts (if, start, end)
+Manage easily Events or Multilang
+
+* Add Redirection widget
+* Add Meta part
+
 = 1.5.1 =
 * BUGFIX: Add missing filter
 
@@ -128,6 +152,12 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.6 =
+* Manage easily Events or Multilang
+* Add CONDITIONS to parts (if, start, end)
+* Add Redirection widget
+* Add Meta part
 
 = 1.5.1 =
 BUGFIX

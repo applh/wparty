@@ -69,6 +69,7 @@ REDIRECT
 CONDITIONS
 
 // shortcode [part name="page-name" start="01-12-2013" end="08-12-2013"]
+
 // shortcode [part if="lang=fr" widget="redirect" instance="/url2/"]
 
 META

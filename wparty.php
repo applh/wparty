@@ -42,8 +42,8 @@ $WParty=array(
 // THEME BUILDER
 // shortcode [part theme="My Theme" name="new-theme"]
 
-// TODO:
-// shortcode [part name="page-name" start="01/12/13" end="08/12/13"]
+// DEV:
+// shortcode [part name="page-name" start="01-12-2013" end="08-12-2013"]
 // shortcode [part widget="redirect" instance="/url2/"]
 // shortcode [part if="lang=fr" widget="redirect" instance="/url2/"]
 // shortcode [part meta="extra-name"]

@@ -42,6 +42,12 @@ $WParty=array(
 // THEME BUILDER
 // shortcode [part theme="My Theme" name="new-theme"]
 
+// TODO:
+// shortcode [part name="page-name" start="01/12/13" end="08/12/13"]
+// shortcode [part widget="redirect" instance="/url2/"]
+// shortcode [part if="lang=fr" widget="redirect" instance="/url2/"]
+
+
 function shortcode_part ($atts, $content, $tag) {
     global $WParty;
 
@@ -57,91 +63,115 @@ function shortcode_part ($atts, $content, $tag) {
 		                'theme' => '',
 		                'instance' => '',
 		                'args' => '',
+		                'start' => '',
+		                'end' => '',
+		                'if' => '',
+		                'var' => '',
+		                'val' => '',
 	                    ), 
                         $atts ) );
 
-    if ($menu) {
-       $menu=trim($menu);
-       $menu_html=wp_nav_menu(array('menu' => $menu, 'echo' => false));
-       $res.='<div class="part-menu">'.$menu_html.'</div>';
-    }
+    $testok=true;
+    if ($if) {
+       $test=explode("=", $if); 
+       if (is_array($test)) {
+          $var=$test[0];
+          $val=$test[1];
 
-   if ($theme) {
-       if (current_user_can('edit_themes')) {
-          wparty_create_theme($theme, $name);
-       }
-    }
-    else if ($name) {
-        $args=array(
-          'name' => $name,
-          'post_type' => 'any',
-          'post_status' => 'publish,private',
-          'numberposts' => 5,
-        );
-        $my_posts = get_posts($args);
-        if ($my_posts) {
-            $content=do_shortcode($my_posts[0]->post_content);	
-            $res.='<div class="part-content">'.$content.'</div>';
-        }
-    }
-
-    if ($widget) {
-       $widget=strtolower(trim($widget));
-       ob_start();
-
-       if ($widget == 'loop') {
-	  wparty_widget_loop('', $instance, $args);
-       }
-       else if ($widget == 'slider') {
-          if (!empty($WParty['body.slider'])) {
-             echo $WParty['body.slider'];
+          if (!empty($_REQUEST[$var])) {
+            if ($val != $_REQUEST[$var])) $testok = false;
           }
        }
-       else if ($widget == 'sidebar') {
-          wparty_widget_sidebar($name);
-       }
-       else if ($widget == 'calendar') {
-          the_widget('WP_Widget_Calendar', $instance, $args);
-       }
-       else if ($widget == 'news') {
-          the_widget('WP_Widget_Recent_Posts', $instance, $args);
-       }
-       else if ($widget == 'tags') {
-          the_widget('WP_Widget_Tag_Cloud', $instance, $args);
-       }
-       else if ($widget == 'cats') {
-          the_widget('WP_Widget_Categories', $instance, $args);
-       }
-       else if ($widget == 'text') {
-          the_widget('WP_Widget_Text', $instance, $args);
-       }
-       else if ($widget == 'pages') {
-          the_widget('WP_Widget_Pages', $instance, $args);
-       }
-       else if ($widget == 'menu') {
-          the_widget('WP_Nav_Menu_Widget', $instance, $args);
-       }
-       else if ($widget == 'comments') {
-          the_widget('WP_Widget_Recent_Comments', $instance, $args);
-       }
-       else if ($widget == 'archives') {
-          the_widget('WP_Widget_Archives', $instance, $args);
-       }
-       else if ($widget == 'rss') {
-          the_widget('WP_Widget_RSS', $instance, $args);
-       }
-       else if ($widget == 'search') {
-          the_widget('WP_Widget_Search', $instance, $args);
-       }
-       else if ($widget == 'meta') {
-          the_widget('WP_Widget_Meta', $instance, $args);
-       }
-
-       $html_widget = ob_get_clean();
-       $res .= $html_widget;
     }
 
-    if ($res) {
+    if ($testok) {
+       if ($menu) {
+          $menu=trim($menu);
+          $menu_html=wp_nav_menu(array('menu' => $menu, 'echo' => false));
+          $res.='<div class="part-menu">'.$menu_html.'</div>';
+       }
+
+       if ($theme) {
+          if (current_user_can('edit_themes')) {
+             wparty_create_theme($theme, $name);
+          }
+       }
+       else if ($name) {
+           $args=array(
+             'name' => $name,
+             'post_type' => 'any',
+             'post_status' => 'publish,private',
+             'numberposts' => 5,
+           );
+           $my_posts = get_posts($args);
+           if ($my_posts) {
+               $content=do_shortcode($my_posts[0]->post_content);	
+               $res.='<div class="part-content">'.$content.'</div>';
+           }
+       }
+
+       if ($widget) {
+         $widget=strtolower(trim($widget));
+         ob_start();
+
+         if ($widget == 'loop') {
+       	   wparty_widget_loop('', $instance, $args);
+         }
+         else if ($widget == 'slider') {
+            if (!empty($WParty['body.slider'])) {
+               echo $WParty['body.slider'];
+            }
+         }
+         else if ($widget == 'sidebar') {
+            wparty_widget_sidebar($name);
+         }
+         else if ($widget == 'calendar') {
+            the_widget('WP_Widget_Calendar', $instance, $args);
+         }
+         else if ($widget == 'news') {
+            the_widget('WP_Widget_Recent_Posts', $instance, $args);
+         }
+         else if ($widget == 'tags') {
+            the_widget('WP_Widget_Tag_Cloud', $instance, $args);
+         }
+         else if ($widget == 'cats') {
+            the_widget('WP_Widget_Categories', $instance, $args);
+         }
+         else if ($widget == 'text') {
+            the_widget('WP_Widget_Text', $instance, $args);
+         }
+         else if ($widget == 'pages') {
+            the_widget('WP_Widget_Pages', $instance, $args);
+         }
+         else if ($widget == 'menu') {
+            the_widget('WP_Nav_Menu_Widget', $instance, $args);
+         }
+         else if ($widget == 'comments') {
+            the_widget('WP_Widget_Recent_Comments', $instance, $args);
+         }
+         else if ($widget == 'archives') {
+            the_widget('WP_Widget_Archives', $instance, $args);
+         }
+         else if ($widget == 'rss') {
+            the_widget('WP_Widget_RSS', $instance, $args);
+         }
+         else if ($widget == 'search') {
+            the_widget('WP_Widget_Search', $instance, $args);
+         }
+         else if ($widget == 'meta') {
+            the_widget('WP_Widget_Meta', $instance, $args);
+         }
+         else if ($widget == 'redirect') {
+            wp_redirect($instance);
+         }
+
+         $html_widget = ob_get_clean();
+         $res .= $html_widget;
+      }
+      
+   }
+
+   if ($res) {
        $style=trim($style);
        $class=trim($class);
        $id=trim($id);

@@ -31,6 +31,12 @@ Vous pouvez parametrer le theme grace aux shortcodes:
 WPARTYADMIN;
 
 
+// [wparty var="" val=""]
+// TODO
+// shortcode [wparty action="add" name="new-page" type="page"]
+// shortcode [wparty action="add" name="new-page" parent="parent-page"]...PAGE CONTENT...[/wparty]
+// shortcode [wparty action="add" name="new-page" model="page-template"]...PAGE CONTENT...[/wparty]
+
 function shortcode_wparty ($atts, $content, $tag) {
    global $WParty;
    $res=''; 

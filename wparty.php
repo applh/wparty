@@ -80,9 +80,14 @@ function shortcode_part ($atts, $content, $tag) {
           $var=$test[0];
           $val=$test[1];
 
-          if (!empty($_REQUEST[$var])) {
-            if ($val != $_REQUEST[$var]) $testok = false;
-          }
+          if (!empty($var) && !empty($val)) {
+            if (empty($_REQUEST[$var])) {
+               $testok = false;
+            }
+            else {
+               if ($val != $_REQUEST[$var]) $testok = false;
+            }
+         }
        }
     }
 

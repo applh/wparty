@@ -20,16 +20,16 @@ Mix website contents with WParty
 == Description ==
 
 WParty is a WordPress Plugin to mix website contents
-* pages  
-* articles  
-* widgets  
-* menus  
-* media  
+* Pages
+* Articles
+* Widgets
+* Menus  
+* Media
 
-* Simply use the shortcode [part]  
+* Simply use the shortcode [part]
 * [part name="page-name"]
 
-* Coming soon: theme builder  
+* Coming soon: Theme Builder  
 
 NOTE: The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
@@ -51,25 +51,23 @@ Custom Menus can also be included.
 * [part menu="my-menu" name="page-name"]  
 
 * Default LOOP can be included same as a widget:
-http://codex.wordpress.org/Template_Tags/get_posts
+* Read more... http://codex.wordpress.org/Template_Tags/get_posts
 
 * [part widget="loop"]  
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]  
 
-* CUSTOM LOOP LAYOUT  
-* shortcode example:  
+* CUSTOM LOOP LAYOUT
+* shortcode example:
 `
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
 <a href="PERMALINK"><h4>TITLE</h4></a>
 CONTENT  
-<small>TAGS</small> / <small>CATS</small> 
-<small>DATE</small>
+<small>TAGS</small> / <small>CATS</small> / <small>DATE</small>
 [/part]
 `  
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
-
-// http://codex.wordpress.org/Function_Reference/the_widget
+* Read more... http://codex.wordpress.org/Function_Reference/the_widget
   
 * [part widget="news"]  
 * [part widget="tags"]  
@@ -82,7 +80,7 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * [part widget="slider" name="my-slider"]  
 
 
-* META  
+* META
 * [part meta="extra-name"]
 
 NOTE: Content can embed recursive shortcodes.

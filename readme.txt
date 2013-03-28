@@ -47,7 +47,7 @@ Custom HTML styles attributes can be added (id, class, style).
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/url2/"]  
 
-Custom Menus can also be included.
+* Custom Menus can also be included.
 * [part menu="my-menu" name="page-name"]  
 
 * Default LOOP can be included same as a widget:

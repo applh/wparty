@@ -27,51 +27,45 @@ WParty is a WordPress Plugin to mix website contents
 * media  
 
 * Simply use the shortcode [part]  
-* Coming soon: theme builder  
-
 * [part name="page-name"]
 
-The plugin also activates ALL shortcodes in Text Widgets.
+* Coming soon: theme builder  
+
+NOTE: The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
 
 Custom HTML styles attributes can be added (id, class, style).
 
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
-
 * Manage easily Events or Multi-languages websites
 
-* REDIRECT
-
+* REDIRECT  
 * [part widget="redirect" instance="/url2/"]
 
-* CONDITIONS
-
-* [part name="page-name" start="01-12-2013" end="08-12-2013"]  
+* CONDITIONS  
+* [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/url2/"]  
 
-
 Custom Menus can also be included.
-
 * [part menu="my-menu" name="page-name"]  
 
-
 * Default LOOP can be included same as a widget:
-
-// http://codex.wordpress.org/Template_Tags/get_posts
+http://codex.wordpress.org/Template_Tags/get_posts
 
 * [part widget="loop"]  
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]  
 
-* CUSTOM LOOP LAYOUT
-
+* CUSTOM LOOP LAYOUT  
 * shortcode example:  
+`
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
-`<a href="PERMALINK">TITLE</a>`  
-`CONTENT`  
-`<small>TAGS</small> / <small>CATS</small>`  
-`<small>DATE</small>`  
-`[/part]`  
+<a href="PERMALINK"><h4>TITLE</h4></a>
+CONTENT  
+<small>TAGS</small> / <small>CATS</small> 
+<small>DATE</small>
+[/part]
+`  
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 
@@ -91,7 +85,7 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * META  
 * [part meta="extra-name"]
 
-Content can embed recursive shortcodes.
+NOTE: Content can embed recursive shortcodes.
 
 * SIDEBARS
 * [part widget="sidebar" name="theme-sidebar-name"]  

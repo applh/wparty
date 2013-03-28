@@ -8,15 +8,14 @@ Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-WParty is a WordPress Plugin to mix website contents
+Mix website contents with WParty  
 * pages  
 * articles  
 * widgets  
 * menus  
 * media  
-
-* Simply use the shortcode [part]  
-* Coming soon: theme builder  
+* Simply use shortcode [part]  
+* Soon: Theme Builder  
 
 == Description ==
 
@@ -64,22 +63,20 @@ Custom Menus can also be included.
 * [part widget="loop"]  
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]  
 
-* CUSTOM LOOPLAYOUT
+* CUSTOM LOOP LAYOUT
 
 * shortcode example:  
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
-<a href="PERMALINK">TITLE</a>  
-CONTENT  
-<small>TAGS</small> / <small>CATS</small>  
-<small>DATE</small>  
-[/part]  
-
+`<a href="PERMALINK">TITLE</a>`  
+`CONTENT`  
+`<small>TAGS</small> / <small>CATS</small>`  
+`<small>DATE</small>`  
+`[/part]`  
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 
 // http://codex.wordpress.org/Function_Reference/the_widget
-
-// shortcode 
+  
 * [part widget="news"]  
 * [part widget="tags"]  
 * [part widget="categories"]  
@@ -91,18 +88,16 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * [part widget="slider" name="my-slider"]  
 
 
-* META
-
+* META  
 * [part meta="extra-name"]
 
 Content can embed recursive shortcodes.
 
 * SIDEBARS
+* [part widget="sidebar" name="theme-sidebar-name"]  
 
-* [part widget="sidebar" name="theme-sidebar-name"]
-
-* WParty is also a theme builder:  
-* shortcode [part theme="My Theme" name="new-theme"]
+* WParty is also a theme builder:    
+* [part theme="My Theme" name="new-theme"]
 
 * WParty is designed to work with MultiSites installation.
 

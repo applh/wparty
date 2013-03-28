@@ -9,69 +9,70 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 WParty is a WordPress Plugin to mix website contents
-* pages
-* articles
-* widgets
-* menus
-* media
+* pages  
+* articles  
+* widgets  
+* menus  
+* media  
 
-* Simply use the shortcode [part]
-
-* Coming soon: theme builder
+* Simply use the shortcode [part]  
+* Coming soon: theme builder  
 
 == Description ==
 
-WParty is a WordPress plugin to mix pages / articles / widgets / media / menus content.
+WParty is a WordPress Plugin to mix website contents
+* pages  
+* articles  
+* widgets  
+* menus  
+* media  
 
-// shortcode
-  [part name="page-name"]
+* Simply use the shortcode [part]  
+* Coming soon: theme builder  
+
+* [part name="page-name"]
 
 The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
 
 Custom HTML styles attributes can be added (id, class, style).
 
-// shortcode
- [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
+* [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 
 * Manage easily Events or Multi-languages websites
 
 * REDIRECT
 
-// shortcode
-  [part widget="redirect" instance="/url2/"]
+* [part widget="redirect" instance="/url2/"]
 
 * CONDITIONS
 
-// shortcode
- [part name="page-name" start="01-12-2013" end="08-12-2013"]
- [part if="lang=fr" widget="redirect" instance="/url2/"]
+* [part name="page-name" start="01-12-2013" end="08-12-2013"]  
+* [part if="lang=fr" widget="redirect" instance="/url2/"]  
 
 
 Custom Menus can also be included.
 
-// shortcode
-  [part menu="my-menu" name="page-name"]
+* [part menu="my-menu" name="page-name"]  
 
 
 * Default LOOP can be included same as a widget:
 
 // http://codex.wordpress.org/Template_Tags/get_posts
 
-// shortcode 
-  [part widget="loop"]
-  [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+* [part widget="loop"]  
+* [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]  
 
 * CUSTOM LOOPLAYOUT
 
-// shortcode example:
-  [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]
-  <a href="PERMALINK">TITLE</a>
-  CONTENT
-  <small>TAGS</small> / <small>CATS</small>
-  <small>DATE</small>
-  [/part]
+* shortcode example:  
+[part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
+<a href="PERMALINK">TITLE</a>  
+CONTENT  
+<small>TAGS</small> / <small>CATS</small>  
+<small>DATE</small>  
+[/part]  
 
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
@@ -79,32 +80,29 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 // http://codex.wordpress.org/Function_Reference/the_widget
 
 // shortcode 
-  [part widget="news"]
-  [part widget="tags"]
-  [part widget="categories"]
-  [part widget="archives"]
-  [part widget="calendar"]
-  [part widget="pages"]
-  [part widget="rss" instance="url=http://applh.com/feed/"]
-  [part widget="menu" instance="nav_menu=toto"]
-  [part widget="slider" name="my-slider"]
+* [part widget="news"]  
+* [part widget="tags"]  
+* [part widget="categories"]  
+* [part widget="archives"]  
+* [part widget="calendar"]  
+* [part widget="pages"]  
+* [part widget="rss" instance="url=http://applh.com/feed/"]  
+* [part widget="menu" instance="nav_menu=toto"]  
+* [part widget="slider" name="my-slider"]  
 
 
 * META
 
-// shortcode
-  [part meta="extra-name"]
+* [part meta="extra-name"]
 
 Content can embed recursive shortcodes.
 
 * SIDEBARS
 
-// shortcode
-  [part widget="sidebar" name="theme-sidebar-name"]
+* [part widget="sidebar" name="theme-sidebar-name"]
 
-* WParty is also a theme builder:
-
-// shortcode [part theme="My Theme" name="new-theme"]
+* WParty is also a theme builder:  
+* shortcode [part theme="My Theme" name="new-theme"]
 
 * WParty is designed to work with MultiSites installation.
 
@@ -137,6 +135,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
+= 1.6.1 =
+* Add widget 'list'
+* Add protection against infinite loop (recursion max=10)
 
 = 1.6 =
 * Add CONDITIONS to parts (if, start, end)
@@ -171,6 +173,10 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+* Add widget 'list' for custom loop layout
+* Add protection against infinite loop (recursion max=10)
 
 = 1.6 =
 * Manage easily Events or Multilang

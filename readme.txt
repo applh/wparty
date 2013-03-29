@@ -34,27 +34,30 @@ WParty is a WordPress Plugin to mix website contents
 NOTE: The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
 
+NOTE: The plugin also disables wordpress AUTOP.
+
+
 Custom HTML styles attributes can be added (id, class, style).
 
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 * Manage easily Events or Multi-languages websites
 
-* REDIRECT
+REDIRECT
 * [part widget="redirect" instance="/url2/"]
 
-* CONDITIONS 
+CONDITIONS 
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/url2/"]  
 
 * Custom Menus can also be included.
-* [part menu="my-menu" name="page-name"]  
+* [part menu="my-menu" name="page-name"]
 
 * Default LOOP can be included same as a widget:
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
 
-* [part widget="loop"]  
-* [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]  
+* [part widget="loop"]
+* [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
 
 * CUSTOM LOOP HTML LAYOUT
 `
@@ -121,6 +124,11 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 1.6.2 =
+* DISABLE wordpress autop
+* more customisation on theme builder
+* more recursion in widget LIST
+
 = 1.6.1 =
 * Add widget 'list'
 * Add protection against infinite loop (recursion max=10)
@@ -158,6 +166,11 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+
+= 1.6.2 =
+* DISABLE wordpress autop
+* more customisation on theme builder
+* more recursion in widget LIST
 
 = 1.6.1 =
 * Add widget 'list' for custom loop layout

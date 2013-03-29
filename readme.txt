@@ -26,7 +26,7 @@ WParty is a WordPress Plugin to mix website contents
 * Menus  
 * Media  
 
-* Simply use the shortcode [part]
+= Simply use the shortcode [part] =
 * [part name="page-name"]
 
 * Coming soon: Theme Builder  
@@ -41,12 +41,12 @@ Custom HTML styles attributes can be added (id, class, style).
 
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
-* Manage easily Events or Multi-languages websites
+= Manage easily Events or Multi-languages websites =
 
-REDIRECT
+= REDIRECT =
 * [part widget="redirect" instance="/url2/"]
 
-CONDITIONS 
+= CONDITIONS = 
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/url2/"]  
 
@@ -59,7 +59,7 @@ CONDITIONS
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
 
-* CUSTOM LOOP HTML LAYOUT
+= CUSTOM LOOP HTML LAYOUT =
 `
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
 <a href="PERMALINK"><h4>TITLE</h4></a>
@@ -81,15 +81,15 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * [part widget="menu" instance="nav_menu=toto"]  
 * [part widget="slider" name="my-slider"]  
 
-* META
+= META =
 * [part meta="extra-name"]
 
 NOTE: Content can embed recursive shortcodes.
 
-* SIDEBARS
+= SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  
 
-* WParty is also a theme builder: 
+= WParty is also a theme builder: = 
 * [part theme="My Theme" name="new-theme"]
 
 * WParty is designed to work with MultiSites installation.

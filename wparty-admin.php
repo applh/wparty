@@ -12,8 +12,14 @@ $WParty['admin_html']=
 <tr>
 <td>
 <textarea name="wparty_cmd" rows="20" cols="80">
-Vous pouvez parametrer le theme grace aux shortcodes:
-[wparty var="" val=""][/wparty]
+You can update theme options here:
+
+[wparty var="" val="...CONTENT..."]
+
+[wparty var=""]
+...CONTENT...
+[/wparty]
+
 </textarea>
 </td>
 </tr>
@@ -39,11 +45,13 @@ WPARTYADMIN;
 
 function shortcode_wparty ($atts, $content, $tag) {
    global $WParty;
+   global $WParty_options;
    $res=''; 
    $N="\n";   
    extract(shortcode_atts( array( 'var' => '', 'val' => '', 'reset' => ''), $atts));
 
    if ($reset == 'all') {
+      $WParty_options=array();
       delete_option('wparty');
       $res=$N.'RESET';
       $WParty['admin.cmd.response']=$res;
@@ -55,6 +63,7 @@ function shortcode_wparty ($atts, $content, $tag) {
 
       // SET THE VALUE
       $WParty["$var"]=$val;
+      $WParty_options["$var"]=$val;
 
       $res.=$N."SET $var = $val";
       if (empty($WParty['admin.cmd.response'])) {
@@ -86,13 +95,50 @@ function wparty_admin () {
       
       do_shortcode($cmd);
       // save updates in db
-      update_option('wparty', $WParty);
+      wparty_save_option("", "");
 
       $htmlcmd='<textarea cols="80" rows="20" readonly>'
         .$WParty['admin.cmd.response']
         .'</textarea>';
 
   }
+
+   $data2html='';
+   global $WParty_options;
+   foreach($WParty_options as $ovar => $oval) {
+      if ($ovar != "admin_html") {
+         $data2html.=
+<<<DATA2HTML
+
+[wparty var="$ovar"]
+$oval
+[/wparty]
+
+DATA2HTML;
+      }
+
+   }
+
+   $var2html="";
+   foreach($WParty as $ovar => $oval) {
+      $var2html.=" / $ovar";
+   }
+
+   $option2html=
+<<<OPTION2HTML
+<h3>Options Summary</h3>
+<hr>
+<div>
+$var2html
+</div>
+<hr>
+<textarea cols="80" rows="20" readonly>
+$data2html
+</textarea>
+<hr>
+OPTION2HTML;
+
+   $htmlcmd.=$option2html;
 
    $trans=array(
       "<!--WPARTY-MSG-->" => $htmlcmd,

@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.6.1
+Version: 1.6.2
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -13,7 +13,7 @@ $curdir=dirname(__FILE__);
 
 global $WParty;
 $WParty=array(
-   "version" => "1.6.1",
+   "version" => "1.6.2",
    "wparty.dir" => $curdir,
 );
 
@@ -22,6 +22,23 @@ global $WPartyMaxRecursive;
 $WPartyRecursive=0;
 $WPartyMaxRecursive=10;
 
+
+function wparty_save_option ($var, $val) {
+   global $WParty_options;
+   // READ SAVED OPTIONS
+   if (empty($WParty_options)) {
+      $WParty_options=get_option('wparty', array());
+   }
+   if (false === $WParty_options) {
+      // Create option in db if needed
+      add_option('wparty', array(), '', 'yes');
+   }
+   if (!empty($var)) {
+      $WParty_options["$var"]=$val;
+   }
+   // save updates in db
+   update_option('wparty', $WParty_options);
+}
 
 // shortcode [part name="page-name"]
 // shortcode [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
@@ -98,15 +115,15 @@ function shortcode_part ($atts, $content, $tag) {
     if ($if) {
        $test=explode("=", $if); 
        if (is_array($test)) {
-          $var=$test[0];
-          $val=$test[1];
+          $varif=$test[0];
+          $valif=$test[1];
 
-          if (!empty($var) && !empty($val)) {
-            if (empty($_REQUEST[$var])) {
+          if (!empty($varif) && !empty($valif)) {
+            if (empty($_REQUEST[$varif])) {
                $testok = false;
             }
             else {
-               if ($val != $_REQUEST[$var]) $testok = false;
+               if ($valif != $_REQUEST[$varif]) $testok = false;
             }
          }
        }
@@ -129,29 +146,7 @@ function shortcode_part ($atts, $content, $tag) {
           $menu_html=wp_nav_menu(array('menu' => $menu, 'echo' => false));
           $res.='<div class="part-menu">'.$menu_html.'</div>';
        }
-
-       if ($theme) {
-          if (current_user_can('edit_themes')) {
-             wparty_create_theme($theme, $name);
-          }
-       }
-       else if ($name) {
-           $args=array(
-             'name' => $name,
-             'post_type' => 'any',
-             'post_status' => 'publish,private',
-             'numberposts' => 5,
-           );
-           $my_posts = get_posts($args);
-           if ($my_posts) {
-               $content=do_shortcode($my_posts[0]->post_content);	
-               $res.='<div class="part-content">'.$content.'</div>';
-           }
-       }
-       else if ($meta) {
-           $res.=get_post_meta(get_the_ID(), $meta, true);
-       }
-
+ 
        if ($widget) {
          $widget=strtolower(trim($widget));
          ob_start();
@@ -213,7 +208,41 @@ function shortcode_part ($atts, $content, $tag) {
          $html_widget = ob_get_clean();
          $res .= $html_widget;
       }
-      
+      else if ($var) {
+          if (empty($val) && (!empty($content))) {
+            $val=$content;
+          }
+          // SET THE VALUE
+          $WParty["$var"]=$val;
+
+          if ($theme == "save") {
+            if (current_user_can('edit_themes')) {
+               wparty_save_option($var, $val);
+            }
+          }
+       }
+       else if ($theme) {
+          if (current_user_can('edit_themes')) {
+             wparty_create_theme($theme, $name);
+          }
+       }
+       else if ($name) {
+           $args=array(
+             'name' => $name,
+             'post_type' => 'any',
+             'post_status' => 'publish,private',
+             'numberposts' => 5,
+           );
+           $my_posts = get_posts($args);
+           if ($my_posts) {
+               $content=do_shortcode($my_posts[0]->post_content);	
+               $res.='<div class="part-content">'.$content.'</div>';
+           }
+       }
+       else if ($meta) {
+           $res.=get_post_meta(get_the_ID(), $meta, true);
+       }
+       
    }
 
    if ($res) {
@@ -237,6 +266,9 @@ add_shortcode( 'part', 'shortcode_part' );
 
 // Use shortcodes in text widgets.
 add_filter( 'widget_text', 'do_shortcode' );
+// REMOVE AUTO <p> as shortcodes can have emmpty lines
+remove_filter( 'the_content', 'wpautop' );
+remove_filter( 'the_excerpt', 'wpautop' );
 
 if (!function_exists('wparty_widget_sidebar')) :
 function wparty_widget_sidebar ($name) {
@@ -484,14 +516,14 @@ function wparty_widget_loop ($res, $instance, $args) {
    $model0=
 <<<MODEL0
 <div class="entry">
- <h3 class="entry-title"><a class="entry-link" href="<!--PERMALINK-->"><!--TITLE--></a></h3>
+ <h3 class="entry-title"><a class="entry-link" href="PERMALINK">TITLE</a></h3>
  <div class="entry-content">
-<!--CONTENT-->
+CONTENT
  </div>
  <hr/>
- <div class="entry-date"><!--DATE--></div>
- <div class="entry-tags"><!--TAGS--></div>
- <div class="entry-cats"><!--CATS--></div>
+ <div class="entry-date">DATE</div>
+ <div class="entry-tags">TAGS</div>
+ <div class="entry-cats">CATS</div>
 </div>
 MODEL0;
 
@@ -529,13 +561,13 @@ MODEL0;
            $cats2html=get_the_category_list($cats2sep);
 
            $translate=array(
-"<!--TITLE-->" => get_the_title(),
-"<!--PERMALINK-->" => get_permalink(),
-"<!--CONTENT-->" => apply_filters('the_content', get_the_content()),
-"<!--TAGS-->" => $tags2html,
-"<!--CATS-->" => $cats2html,
-"<!--DATE-->" => $date2html,
-"<!--WPARTY-MODEL-->" => $loop2model,
+"TITLE" => get_the_title(),
+"PERMALINK" => get_permalink(),
+"CONTENT" => apply_filters('the_content', get_the_content()),
+"TAGS" => $tags2html,
+"CATS" => $cats2html,
+"DATE" => $date2html,
+"WPARTY-MODEL" => $loop2model,
            );
 
            $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
@@ -603,10 +635,6 @@ MODEL0;
 
    if (!empty($WParty['cats.sep'])) $cats2sep=$WParty['cats.sep'];
 
-   if (count($myposts) > 0) {
-      $model0=do_shortcode($model0);
-   }
-
    foreach( $myposts as $post ) {	
       setup_postdata($post);
 
@@ -614,7 +642,10 @@ MODEL0;
       //$date2html=get_the_date($date2format, $date2before, $date2after, false);
       $date2html=$date2before.get_the_date($date2format).$date2after;
       $cats2html=get_the_category_list($cats2sep);
+      $author2html=get_the_author();
 
+      $thumb2html=get_the_post_thumbnail();
+      
       $translate=array(
 "TITLE" => get_the_title(),
 "PERMALINK" => get_permalink(),
@@ -622,10 +653,13 @@ MODEL0;
 "TAGS" => $tags2html,
 "CATS" => $cats2html,
 "DATE" => $date2html,
+"IMAGE" => $thumb2html,
+"AUTHOR" => $author2html,
 "WPARTY-MODEL" => $loop2model,
       );
 
-      $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
+      $model1=do_shortcode($model0);
+      $htmlpost=str_replace(array_keys($translate), array_values($translate), $model1);
       echo $htmlpost;
    }
 

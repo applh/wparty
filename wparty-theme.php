@@ -60,11 +60,6 @@ $WParty['theme.head']=
 {$WParty['css.flexslider']}
 </style>
 <style type="text/css">
-body {
-width:100%;
-padding:0px;
-}
-
 .wrapper1 {
 background-color:#222222;
 }
@@ -195,13 +190,14 @@ $WParty['sidebar-6.after']=
 WPARTYS1;
 
 // READ SAVED OPTIONS
-$wparty_options=get_option('wparty', array());
-if (false === $wparty_options) {
+global $WParty_options;
+$WParty_options=get_option('wparty', array());
+if (false === $WParty_options) {
    // Create option in db if needed
    add_option('wparty', array(), '', 'yes');
 }
 else {
-   $WParty=array_merge($WParty, $wparty_options);
+   $WParty=array_merge($WParty, $WParty_options);
 }
 
 if (!function_exists('wparty_filter_header')) :
@@ -351,6 +347,7 @@ MODEL0;
    $cats2sep=", ";
 
    if (!empty($WParty['WP.template'])) $instance=$WParty['WP.template'];
+
    $loop2model="theme.$instance";
 
    if (!empty($WParty["$loop2model"])) $model0 = $WParty["$loop2model"];
@@ -374,7 +371,7 @@ MODEL0;
        echo $WParty['loop.before'];
 
            $translate=array(
-"<!--WPARTY-MODEL-->" => $loop2model,
+"WPARTY-MODEL" => $loop2model,
            );
 
            $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
@@ -396,14 +393,15 @@ function wparty_filter_model ($res) {
    $model0=
 <<<MODEL0
 <div class="entry">
- <h3 class="entry-title"><a class="entry-link" href="<!--PERMALINK-->"><!--TITLE--></a></h3>
+ <h3 class="entry-title"><a class="entry-link" href="PERMALINK">TITLE</a></h3>
  <div class="entry-content">
-<!--CONTENT-->
+CONTENT
  </div>
  <hr/>
- <div class="entry-date"><!--DATE--></div>
- <div class="entry-tags"><!--TAGS--></div>
- <div class="entry-cats"><!--CATS--></div>
+ <div class="entry-date">DATE</div>
+ <div class="entry-tags">TAGS</div>
+ <div class="entry-cats">CATS</div>
+ <div class="entry-cats">WPARTY-MODEL</div>
 </div>
 MODEL0;
 
@@ -434,28 +432,33 @@ MODEL0;
 
    ob_start();
 
-     if (have_posts()) {
-       // try to allow shortcodes in models...
-       $model0=do_shortcode($model0);
+   if (have_posts()) {
 
        echo $WParty['loop.before'];
        while (have_posts()) { 
            the_post();
+
            $tags2html=get_the_tag_list($tags2before, $tags2sep, $tags2after);
            $date2html=the_date($date2format, $date2before, $date2after, false);
            $cats2html=get_the_category_list($cats2sep);
 
            $translate=array(
-"<!--TITLE-->" => get_the_title(),
-"<!--PERMALINK-->" => get_permalink(),
-"<!--CONTENT-->" => apply_filters('the_content', get_the_content()),
-"<!--TAGS-->" => $tags2html,
-"<!--CATS-->" => $cats2html,
-"<!--DATE-->" => $date2html,
-"<!--WPARTY-MODEL-->" => $loop2model,
+"TITLE" => get_the_title(),
+"PERMALINK" => get_permalink(),
+"CONTENT" => apply_filters('the_content', get_the_content()),
+"TAGS" => $tags2html,
+"CATS" => $cats2html,
+"DATE" => $date2html,
+"WPARTY-MODEL" => $loop2model,
            );
 
-           $htmlpost=str_replace(array_keys($translate), array_values($translate), $model0);
+           if (!empty($WParty["$loop2model"])) {
+              $model0 = $WParty["$loop2model"];
+              // try to allow shortcodes in models...
+           }
+           $model1=do_shortcode($model0);
+
+           $htmlpost=str_replace(array_keys($translate), array_values($translate), $model1);
            echo $htmlpost;
        }
        echo $WParty['loop.after'];

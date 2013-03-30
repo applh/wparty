@@ -31,35 +31,36 @@ WParty is a WordPress Plugin to mix website contents
 
 * Coming soon: Theme Builder  
 
-NOTE: The plugin also activates ALL shortcodes in Text Widgets.
-It makes easier to write HTML content in WordPress Editor, using Pages, and then embed the content in Text Widgets.
+= NOTE = 
+The plugin also activates ALL shortcodes in Text Widgets.  
+It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
-NOTE: The plugin also disables wordpress AUTOP.
+= NOTE = 
+The plugin also disables WordPress AUTO_P.
 
-
-Custom HTML styles attributes can be added (id, class, style).
-
+Custom HTML styles attributes can be added (id, class, style).  
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
-= Manage easily Events or Multi-languages websites =
+= Manage easily Events or Multi-languages websites... =
+Conditions can be combined with widgets.  
 
-= REDIRECT =
-* [part widget="redirect" instance="/url2/"]
+= Redirect =
+* [part widget="redirect" instance="/page-new-url/"]
 
-= CONDITIONS = 
+= Conditions = 
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
-* [part if="lang=fr" widget="redirect" instance="/url2/"]  
+* [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
 * Custom Menus can also be included.
 * [part menu="my-menu" name="page-name"]
 
-* Default LOOP can be included same as a widget:
+* Default LOOP can be included same as a widget:  
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
 
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
 
-= CUSTOM LOOP HTML LAYOUT =
+= CUSTOM LOOP AND HTML LAYOUT =
 `
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
 <a href="PERMALINK"><h4>TITLE</h4></a>
@@ -67,6 +68,12 @@ CONTENT
 <small>TAGS</small> / <small>CATS</small> / <small>DATE</small>
 [/part]
 `  
+
+= META =
+* [part meta="meta-name"]
+
+= NOTE =
+Content can embed recursive shortcodes (max=10).
 
 WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
@@ -80,11 +87,6 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * [part widget="rss" instance="url=http://applh.com/feed/"]  
 * [part widget="menu" instance="nav_menu=toto"]  
 * [part widget="slider" name="my-slider"]  
-
-= META =
-* [part meta="extra-name"]
-
-NOTE: Content can embed recursive shortcodes.
 
 = SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  
@@ -106,13 +108,17 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= What is a PART ? =
 
-An answer to that question.
+PAges, ARTicles...  
+This plugin allows to mix contents with ShortCode.  
+...PART ;-p
 
-= What about foo bar? =
+= Can we program with ShortCodes ? =
 
-Answer to foo bar dilemma.
+WParty add a shortcode to expose some WP API.
+Webmasters can create some simple 'program' with shortcodes.
+'Pages' can be seen as 'functions'.
 
 == Screenshots ==
 
@@ -125,7 +131,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 == Changelog ==
 
 = 1.6.2 =
-* DISABLE wordpress autop
+* DISABLE WordPress autop
 * more customisation on theme builder
 * more recursion in widget LIST
 
@@ -168,7 +174,7 @@ Manage easily Events or Multilang
 == Upgrade Notice ==
 
 = 1.6.2 =
-* DISABLE wordpress autop
+* DISABLE WordPress autop
 * more customisation on theme builder
 * more recursion in widget LIST
 

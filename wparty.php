@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.6.2
+Version: 1.6.3
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -13,7 +13,7 @@ $curdir=dirname(__FILE__);
 
 global $WParty;
 $WParty=array(
-   "version" => "1.6.2",
+   "version" => "1.6.3",
    "wparty.dir" => $curdir,
 );
 
@@ -90,9 +90,9 @@ function shortcode_part ($atts, $content, $tag) {
 
    global $WParty;
 
-    $res='';
+   $res='';
     
-    extract( shortcode_atts( array(
+   extract( shortcode_atts( array(
 		                'name' => '',
 		                'id' => '',
 		                'class' => '',
@@ -123,7 +123,12 @@ function shortcode_part ($atts, $content, $tag) {
                $testok = false;
             }
             else {
-               if ($valif != $_REQUEST[$varif]) $testok = false;
+               if ($valif != $_REQUEST[$varif]) {
+                  $testok = false;
+               }
+               else {
+                  $res.=trim($content);
+               }
             }
          }
        }
@@ -154,7 +159,10 @@ function shortcode_part ($atts, $content, $tag) {
          if ($widget == 'list') {
        	   wparty_widget_list('', $instance, $args, $content);
          }
-         else if ($widget == 'loop') {
+         else if ($widget == 'contact') {
+       	   wparty_widget_contact('', $instance, $args, $content);
+         }
+          else if ($widget == 'loop') {
        	   wparty_widget_loop('', $instance, $args);
          }
          else if ($widget == 'slider') {
@@ -254,12 +262,15 @@ function shortcode_part ($atts, $content, $tag) {
        if ($class) $class=" $class";
 
        $res='<div '.$html_id.'class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
-    }
+   }
 
-    // CUSTOM FILTERS    
-    //$res=apply_filters('wparty', $res);
+   // CUSTOM FILTERS    
+   //$res=apply_filters('wparty', $res);
 
-    return $res;
+   // INFINITE LOOP PROTECTION
+   $WPartyRecursive--;
+
+   return $res;
 }
  
 add_shortcode( 'part', 'shortcode_part' );
@@ -578,6 +589,119 @@ MODEL0;
 //    return $res;
 }
 endif;
+
+if (!function_exists('wparty_widget_contact')) :
+function wparty_widget_contact ($res, $instance, $args, $content='') {
+   global $WParty;
+   $N="\n";
+
+   $defaults = array(
+"name" => "",
+"mailto" => "",
+"email" => "",
+"subject" => "",
+"message" => "Hello,\n",
+"send" => "SEND",
+"target" => get_permalink(),
+"response" => "<h3>Message Sent. Thanks for your interest.</h3>",
+"error" => "[PROBLEM]... Please try again later...",
+"rows" => "10",
+   );
+   $tab_args = wp_parse_args( $args, $defaults );   
+
+   $model0=
+<<<MODEL0
+ <div class="form-content">
+<form method="post" action="TARGET">
+<div><label>Your Name</label></div>
+<div><input type="text" name="contact-name" value="NAME"></div>
+<div><label>Your Email</label></div>
+<div><input type="text" name="contact-email" value="EMAIL"></div>
+<div><label>Subject</label></div>
+<div><input type="text" name="contact-subject" value="SUBJECT"></div>
+<div><label>Message</label></div>
+<div><textarea name="contact-message" rows="ROWS">
+MESSAGE
+</textarea></div>
+<div><input type="hidden" name="contact-h1" value="MD5KEY"></div>
+<div><input type="submit" name="contact-submit" value="SEND"></div>
+<div>RESPONSE</div>
+</form>
+ </div>
+MODEL0;
+
+   if (!empty($content)) {
+      $model0=$content;
+   }
+
+   $tab_args['md5key']=md5($tab_args['target']);
+
+   $translate=array(
+"NAME" => $tab_args["name"],
+"EMAIL" => $tab_args["email"],
+"SUBJECT" => $tab_args["subject"],
+"MESSAGE" => $tab_args["message"],
+"TARGET" => $tab_args["target"],
+"SEND" => $tab_args["send"],
+"RESPONSE" => '',
+"MD5KEY" => $tab_args["md5key"],
+"ROWS" => $tab_args["rows"],
+   );
+
+   if (!empty($_REQUEST['contact-h1']) && ($_REQUEST['contact-h1'] == $tab_args['md5key'])) {
+      $translate['NAME'] = stripslashes($_REQUEST['contact-name']);
+      $translate['EMAIL'] = stripslashes($_REQUEST['contact-email']);
+      $translate['SUBJECT'] = stripslashes($_REQUEST['contact-subject']);
+      $translate['MESSAGE'] = stripslashes($_REQUEST['contact-message']);
+
+      $translate['RESPONSE'] = "PLEASE TRY AGAIN LATER...";
+
+      $mail2headers=array();
+      $mail2from=$translate['EMAIL'];
+      if (!empty($mail2from)) {
+         $mail2headers[] = "From: '{$translate['NAME']}' <{$mail2from}>";
+      }
+
+      $mail2subject=$translate['SUBJECT'];
+      $mail2message=$translate['MESSAGE'];
+
+      $mailto=$tab_args['mailto'];
+      if (empty($mailto)) {
+         $mailto=get_the_author_meta('user_email');
+      }
+      if (empty($mailto)) {
+         $mailto=get_option('admin_email');
+      }
+      if (!empty($mailto)) {
+         if (empty($mail2subject)) {
+            $mail2subject='['.get_option('blogname').']';
+         }
+         $mail2message.="\n-----\n";
+         $mail2message.='ip: '.$_SERVER['REMOTE_ADDR'];
+         $mail2message.="\n";
+         $mail2message.='date: '.date("d/m/y H:i:s");
+         $mail2message.="\n-----\n";
+
+         $mail2ok=wp_mail( $mailto, $mail2subject, $mail2message, $mail2headers );
+
+         if ($mail2ok) {
+            $translate['RESPONSE']=$tab_args['response'];
+         }
+         else {
+            $translate['RESPONSE']=$tab_args['error'];
+         }
+      }
+
+      
+   }
+   
+      $model1=do_shortcode($model0);
+      $htmlpost=str_replace(array_keys($translate), array_values($translate), $model1);
+      echo $htmlpost;
+ 
+}
+endif;
+
 
 if (!function_exists('wparty_widget_list')) :
 function wparty_widget_list ($res, $instance, $args, $content='') {

@@ -13,7 +13,7 @@ Mix website contents with WParty
 * articles  
 * widgets  
 * menus  
-* media  
+* contact form  
 * Simply use shortcode [part]  
 * Soon: Theme Builder  
 
@@ -23,6 +23,7 @@ WParty is a WordPress Plugin to mix website contents
 * Pages  
 * Articles  
 * Widgets  
+* Contact Form  
 * Menus  
 * Media  
 
@@ -59,6 +60,33 @@ Conditions can be combined with widgets.
 
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+
+= Contact Form =
+`
+[part widget="contact"]
+`
+* Or build your custom contact form 
+`
+[part widget="contact"]
+ <div class="form-content">
+<form method="post" action="TARGET">
+<div><label>Your Name</label></div>
+<div><input type="text" name="contact-name" value="NAME"></div>
+<div><label>Your Email</label></div>
+<div><input type="text" name="contact-email" value="EMAIL"></div>
+<div><label>Subject</label></div>
+<div><input type="text" name="contact-subject" value="SUBJECT"></div>
+<div><label>Message</label></div>
+<div><textarea name="contact-message" rows="ROWS">
+MESSAGE
+</textarea></div>
+<div><input type="hidden" name="contact-h1" value="MD5KEY"></div>
+<div><input type="submit" name="contact-submit" value="SEND"></div>
+<div>RESPONSE</div>
+</form>
+ </div>
+[/part]
+`  
 
 = CUSTOM LOOP AND HTML LAYOUT =
 `
@@ -129,6 +157,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.6.3 =
+* add contact form widget
+* Add custom layout 
 
 = 1.6.2 =
 * DISABLE WordPress autop
@@ -172,6 +203,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.6.3 =
+* add contact form widget
+* Add custom layout 
 
 = 1.6.2 =
 * DISABLE WordPress autop

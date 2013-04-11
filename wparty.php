@@ -600,7 +600,7 @@ function wparty_widget_contact ($res, $instance, $args, $content='') {
 "mailto" => "",
 "email" => "",
 "subject" => "",
-"message" => "Hello,\n",
+"message" => "",
 "send" => "SEND",
 "target" => get_permalink(),
 "response" => "<h3>Message Sent. Thanks for your interest.</h3>",
@@ -657,9 +657,11 @@ MODEL0;
       $translate['RESPONSE'] = "PLEASE TRY AGAIN LATER...";
 
       $mail2headers=array();
-      $mail2from=$translate['EMAIL'];
+      $mail2from=sanitize_email($translate['EMAIL']);
+      $mail2fromname=sanitize_title($translate['NAME']);
+
       if (!empty($mail2from)) {
-         $mail2headers[] = "From: '{$translate['NAME']}' <{$mail2from}>";
+         $mail2headers[] = "From: $mail2fromname <$mail2from>";
       }
 
       $mail2subject=$translate['SUBJECT'];
@@ -677,6 +679,10 @@ MODEL0;
             $mail2subject='['.get_option('blogname').']';
          }
          $mail2message.="\n-----\n";
+         $mail2message.='from: '.$translate['NAME'];
+         $mail2message.="\n";
+         $mail2message.='mail: '.$translate['EMAIL'];
+         $mail2message.="\n";
          $mail2message.='ip: '.$_SERVER['REMOTE_ADDR'];
          $mail2message.="\n";
          $mail2message.='date: '.date("d/m/y H:i:s");

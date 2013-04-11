@@ -114,13 +114,14 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 * [part widget="pages"]  
 * [part widget="rss" instance="url=http://applh.com/feed/"]  
 * [part widget="menu" instance="nav_menu=toto"]  
-* [part widget="slider" name="my-slider"]  
 
 = SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  
 
 = WParty is also a theme builder: = 
 * [part theme="My Theme" name="new-theme"]
+
+* [part widget="slider" name="my-slider"]  
 
 * WParty is designed to work with MultiSites installation.
 

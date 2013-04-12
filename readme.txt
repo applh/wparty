@@ -3,7 +3,7 @@ Contributors: applh
 Donate link: http://applh.com/
 Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout
 Requires at least: 3.5
-Tested up to: 3.5.1
+Tested up to: 3.6.b1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -66,6 +66,7 @@ Conditions can be combined with widgets.
 [part widget="contact"]
 `
 * Or build your custom contact form 
+* Translate your contact form as needed 
 `
 [part widget="contact"]
  <div class="form-content">
@@ -80,9 +81,15 @@ Conditions can be combined with widgets.
 <div><textarea name="contact-message" rows="ROWS">
 MESSAGE
 </textarea></div>
-<div><input type="hidden" name="contact-h1" value="MD5KEY"></div>
-<div><input type="submit" name="contact-submit" value="SEND"></div>
-<div>RESPONSE</div>
+
+<div><input type="submit" name="contact0-submit" value="SEND"></div>
+
+<div class="response">
+<div class="response-ok" style="STYLE-OK"><h3>Message Sent. Thanks for your interest.</h3></div>
+<div class="response-error" style="STYLE-KO">[PROBLEM]... Please try again later...</div>
+<div class="response-missing" style="STYLE-MISSING">[MISSING]... Please fill missing information...</div>
+</div>
+
 </form>
  </div>
 [/part]
@@ -103,7 +110,7 @@ CONTENT
 = NOTE =
 Content can embed recursive shortcodes (max=10).
 
-WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
+WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
   
 * [part widget="news"]  
@@ -158,6 +165,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7 =
+* widget contact more customizable
+* code separated in several files
+
 = 1.6.3 =
 * add contact form widget
 * Add custom layout 
@@ -204,6 +215,10 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7 =
+* widget contact more customizable
+* code separated in several files
+
 = 1.6.3 =
 * add contact form widget
 * Add custom layout 

@@ -132,7 +132,7 @@ MODEL0;
       }
 
       $mail2subject=$tab_args['prefix'].$translate['SUBJECT'];
-      $mail2message=$translate['MESSAGE'];
+      $mail2message='';
 
       $mailto=$tab_args['mailto'];
       if (empty($mailto)) {
@@ -159,9 +159,11 @@ MODEL0;
          foreach($_REQUEST as $rvar => $rval) {
             if (FALSE !== strpos($rvar, "contact-")) {
                $curvar=str_replace("contact-", "", $rvar);
-               $mail2message.="\n$[$curvar]\n$rval\n";
+               $rval1=trim(stripslashes($rval));
+               $mail2message.="\n[$curvar]\n$rval1\n";
             }
          }
+         $mail2message.="\n-----\n";
 
          $mail2ok=wp_mail( $mailto, $mail2subject, $mail2message, $mail2headers );
 

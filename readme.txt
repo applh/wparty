@@ -48,7 +48,7 @@ Conditions can be combined with widgets.
 = Redirect =
 * [part widget="redirect" instance="/page-new-url/"]
 
-= Conditions = 
+= Conditions =
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
@@ -60,6 +60,20 @@ Conditions can be combined with widgets.
 
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+
+= CUSTOM LOOP AND HTML LAYOUT =
+* The widget "list" accepts a custom HTML model
+`
+[part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
+<a href="PERMALINK"><h4>TITLE</h4></a>
+CONTENT  
+<small>TAGS</small> / <small>CATS</small> / <small>DATE</small>
+[/part]
+`  
+
+= META =
+* [part meta="meta-name"]
+
 
 = Contact Form =
 `
@@ -94,18 +108,6 @@ MESSAGE
  </div>
 [/part]
 `  
-
-= CUSTOM LOOP AND HTML LAYOUT =
-`
-[part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
-<a href="PERMALINK"><h4>TITLE</h4></a>
-CONTENT  
-<small>TAGS</small> / <small>CATS</small> / <small>DATE</small>
-[/part]
-`  
-
-= META =
-* [part meta="meta-name"]
 
 = NOTE =
 Content can embed recursive shortcodes (max=10).

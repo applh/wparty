@@ -40,15 +40,16 @@ MESSAGE
 
 <div><input type="submit" name="contact0-submit" value="SEND"></div>
 
-<div><input type="hidden" name="contact0-key" value="MD5KEY"></div>
-<div><input type="hidden" name="contact0-mandatory" value=""></div>
-FORMEXTRA
-</form>
 <div class="response">
 <div class="response-ok" style="STYLE-OK"><h3>Message Sent. Thanks for your interest.</h3></div>
 <div class="response-error" style="STYLE-KO">[PROBLEM]... Please try again later...</div>
 <div class="response-missing" style="STYLE-MISSING">[MISSING]... Please fill missing information...</div>
 </div>
+
+<div><input type="hidden" name="contact0-key" value="MD5KEY"></div>
+<div><input type="hidden" name="contact0-mandatory" value=""></div>
+FORMEXTRA
+</form>
  </div>
 MODEL0;
 

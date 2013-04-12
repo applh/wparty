@@ -82,7 +82,7 @@ MODEL0;
    $check2missing = 0;
 
    foreach($check2mandatory as $curcheck) {
-      if (!empty($_REQUEST["contact-$curcheck"])) {
+      if (isset($_REQUEST["contact-$curcheck"])) {
          $form2cur=stripslashes(trim($_REQUEST["contact-$curcheck"]));
          if (!empty($form2cur)) {
             $check2count++;
@@ -90,9 +90,6 @@ MODEL0;
          else {
             $check2missing++;
          }
-      }
-      else {
-         $check2missing++;
       }
    }
 
@@ -189,6 +186,7 @@ MODEL0;
  
 }
 endif;
+
 
 
 

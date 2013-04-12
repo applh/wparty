@@ -75,19 +75,49 @@ MODEL0;
 "ROWS" => $tab_args["rows"],
    );
 
-   $check2ok = true;
+   $check2ok=false;
+
+   $check2mandatory=array("email", "message");
+   $check2count = 0;
+   $check2missing = 0;
+
+   foreach($check2mandatory as $curcheck) {
+      if (!empty($_REQUEST["contact-$curcheck"])) {
+         $form2cur=stripslashes(trim($_REQUEST["contact-$curcheck"]));
+         if (!empty($form2cur)) {
+            $check2count++;
+         }
+         else {
+            $check2missing++;
+         }
+      }
+      else {
+         $check2missing++;
+      }
+   }
+
+   if ($check2count == count($check2mandatory)) {
+      $check2ok=true;
+   }
+
+   if ($check2missing > 0) {
+      $translate['STYLE-MISSING']='display:block;';
+   }
+   
    // optional key protection
    if (!empty($_REQUEST['contact0-key']) && ($_REQUEST['contact0-key'] != $tab_args['md5key'])) {
       $check2ok=false;
    }
 
-   if ($check2ok) {
-      $translate['NAME'] = stripslashes($_REQUEST['contact-name']);
-      $translate['EMAIL'] = stripslashes($_REQUEST['contact-email']);
-      $translate['SUBJECT'] = stripslashes($_REQUEST['contact-subject']);
-      $translate['MESSAGE'] = stripslashes($_REQUEST['contact-message']);
+   if ($check2ok || $check2missing) {
+      $translate['NAME'] = trim(stripslashes($_REQUEST['contact-name']));
+      $translate['EMAIL'] = trim(stripslashes($_REQUEST['contact-email']));
+      $translate['SUBJECT'] = trim(stripslashes($_REQUEST['contact-subject']));
+      $translate['MESSAGE'] = trim(stripslashes($_REQUEST['contact-message']));
+   }
 
-      $translate['RESPONSE'] = "PLEASE TRY AGAIN LATER...";
+   if ($check2ok) {
+      $translate['RESPONSE'] = "";
 
       $mail2headers=array();
 
@@ -157,6 +187,7 @@ MODEL0;
  
 }
 endif;
+
 
 
 

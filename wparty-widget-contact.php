@@ -129,7 +129,7 @@ MODEL0;
       }
 
       $mail2subject=$tab_args['prefix'].$translate['SUBJECT'];
-      $mail2message='';
+      $mail2message=$tab_args['target'];
 
       $mailto=$tab_args['mailto'];
       if (empty($mailto)) {

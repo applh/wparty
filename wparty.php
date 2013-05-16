@@ -129,6 +129,10 @@ function shortcode_part ($atts, $content, $tag) {
             include("$curdir/wparty-widget-contact.php");
        	    wparty_widget_contact('', $instance, $args, $content);
          }
+         else if ($widget == 'media') {
+            include("$curdir/wparty-widget-media.php");
+       	    wparty_widget_media('', $instance, $args, $content);
+         }
          else if ($widget == 'loop') {
             include("$curdir/wparty-widget-loop.php");
        	    wparty_widget_loop('', $instance, $args);
@@ -180,6 +184,10 @@ function shortcode_part ($atts, $content, $tag) {
          }
          else if ($widget == 'redirect') {
             wp_redirect($instance);
+         }
+         else if ($widget == 'lorem') {
+            include("$curdir/wparty-widget-lorem.php");
+       	    wparty_widget_lorem('', $instance, $args, $content);
          }
 
          $html_widget = ob_get_clean();
@@ -286,4 +294,5 @@ if (is_admin()) {
    global $WParty;
    include($WParty['wparty.dir']."/wparty-admin.php");   
 }
+
 

@@ -1,5 +1,21 @@
 <?php
 
+if (!function_exists('wparty_http_headers')):
+function wparty_http_headers ($tab_headers) {
+   $headers = [];
+   
+   foreach ($tab_headers as $i => $h) {
+      $h = explode(':', $h, 2);
+           
+      if (isset($h[1])) {
+         $headers[$h[0]] = trim($h[1]);
+      }
+   }
+       
+   return $headers;
+}
+endif;
+
 if (!function_exists('wparty_widget_media')) :
 function wparty_widget_media ($res, $instance, $args, $content='') {
    global $WParty;
@@ -26,20 +42,41 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
 
          if ("http" == substr($content, 0, 4)) {
             $media2cache=md5($content);
-            if (!file_exists("$up2target2dir/$media2cache")) {
+
+            if (!file_exists("$up2target2dir/$media2cache-head.txt")) {
                $media2data=file_get_contents($content);
                $media2header=$http_response_header;
+               $header2tab=wparty_http_headers($media2header);
+               $media2type=strtolower($header2tab['Content-Type']);
+               $media2ext="";
+               if ($media2type == "image/jpeg") {
+                  $media2ext=".jpg";
+               }
+               elseif ($media2type == "image/png") {
+                  $media2ext=".png";
+               }
+               elseif ($media2type == "image/gif") {
+                  $media2ext=".gif";
+               }
+
                if (!empty($media2data)) {
-                  file_put_contents("$up2target2dir/$media2cache", $media2data);
-                  file_put_contents("$up2target2dir/$media2cache.txt", implode("\n", $media2header));
+                  file_put_contents("$up2target2dir/$media2cache$media2ext", $media2data);
+                  file_put_contents("$up2target2dir/$media2cache-head.txt", "WParty-Ext: $media2ext\n".implode("\n", $media2header));
 
                   chmod("$up2target2dir/$media2cache", 0666); // FIXME
                   chmod("$up2target2dir/$media2cache.txt", 0666); // FIXME
                }
+               $media2url="$up2base2url/wparty/$media2cache$media2ext";
+
             }
+            else {
+               $media2header=file("$up2target2dir/$media2cache-head.txt");
+               $header2tab=wparty_http_headers($media2header);
+               $media2ext=strtolower($header2tab['WParty-Ext']);
+               
+               $media2url="$up2base2url/wparty/$media2cache$media2ext";
 
-            $media2url="$up2base2url/wparty/$media2cache";
-
+            }
          }
       }
    } 

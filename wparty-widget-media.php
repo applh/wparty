@@ -65,8 +65,9 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
 
                   chmod("$up2target2dir/$media2cache", 0666); // FIXME
                   chmod("$up2target2dir/$media2cache.txt", 0666); // FIXME
+
+	          $media2url="$up2base2url/wparty/$media2cache$media2ext";
                }
-               $media2url="$up2base2url/wparty/$media2cache$media2ext";
 
             }
             else {
@@ -87,10 +88,11 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
 
    $res2 = '';
 
-   $res.= "$res0 $res1 $res2";
+   $res.= "$res0$res1$res2";
 
    echo $res;
 }
 
 endif;
+
 

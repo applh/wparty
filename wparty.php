@@ -73,6 +73,8 @@ function shortcode_part ($atts, $content, $tag) {
 		                'if' => '',
 		                'var' => '',
 		                'val' => '',
+		                'min' => '',
+		                'max' => '',
 	                    ), 
                         $atts ) );
 
@@ -186,6 +188,7 @@ function shortcode_part ($atts, $content, $tag) {
             wp_redirect($instance);
          }
          else if ($widget == 'lorem') {
+            $WParty['part.max']=$max;
             include("$curdir/wparty-widget-lorem.php");
        	    wparty_widget_lorem('', $instance, $args, $content);
          }

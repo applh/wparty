@@ -2,13 +2,14 @@
 
 if (!function_exists('wparty_http_headers')):
 function wparty_http_headers ($tab_headers) {
-   $headers = [];
-   
-   foreach ($tab_headers as $i => $h) {
-      $h = explode(':', $h, 2);
+   $headers = array();
+   if (is_array($tab_headers)) {
+      foreach ($tab_headers as $i => $h) {
+         $h = explode(':', $h, 2);
            
-      if (isset($h[1])) {
-         $headers[$h[0]] = trim($h[1]);
+         if (isset($h[1])) {
+            $headers[$h[0]] = trim($h[1]);
+         }
       }
    }
        
@@ -105,5 +106,6 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
 }
 
 endif;
+
 
 

@@ -14,6 +14,7 @@ Mix website contents with WParty
 * widgets  
 * menus  
 * contact form  
+* ...
 * Simply use shortcode [part]  
 * Soon: Theme Builder  
 
@@ -37,7 +38,7 @@ The plugin also activates ALL shortcodes in Text Widgets.
 It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
 = NOTE = 
-The plugin also disables WordPress AUTO_P.
+The plugin also disables WordPress auto (P)(/P).
 
 Custom HTML styles attributes can be added (id, class, style).  
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
@@ -112,7 +113,7 @@ MESSAGE
 = NOTE =
 Content can embed recursive shortcodes (max=10).
 
-WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
+* WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
   
 * [part widget="news"]  
@@ -127,12 +128,30 @@ WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, 
 = SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  
 
-= WParty is also a theme builder: = 
-* [part theme="My Theme" name="new-theme"]
+= LOREM IPSUM =
+* Fill with text "Lorem Ipsum..."
+* [part widget="lorem"]
+* [part widget="lorem" max="200"]
 
+= MEDIA =
+* UNDER DEVELOPMENT
+* Creates a local cache copy of original image
+* Cache folder is /uploads/wparty/
+* [part widget="media"]http://somesite.com/image.jpg[/part]
+* [part widget="media" width="100"]http://somesite.com/image.png[/part]
+* [part widget="media" width="100" height="200"]http://somesite.com/image.gif[/part]
+
+= SLIDER =
+* UNDER DEVELOPMENT
 * [part widget="slider" name="my-slider"]  
 
+= THEME BUILDER =
+* UNDER DEVELOPMENT
+* WParty is also a theme builder
+* [part theme="My Theme" name="new-theme"]
+
 * WParty is designed to work with MultiSites installation.
+
 
 == Installation ==
 
@@ -167,6 +186,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.2 =
+* widget lorem
+* widget media [DEV]
+
 = 1.7 =
 * widget contact more customizable
 * code separated in several files
@@ -217,6 +240,10 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.2 =
+* widget lorem
+* widget media [DEV]
+
 = 1.7 =
 * widget contact more customizable
 * code separated in several files

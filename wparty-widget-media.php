@@ -82,9 +82,20 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
       }
    } 
 
+   $width=$WParty['part.width'];
+   $height=$WParty['part.height'];
+
+   $style="";
+   if ($width || $height) {
+      $style.='style="';
+      if ($width) $style.="width:${width}px;";
+      if ($height) $style.="height:${height}px;";
+      $style.='" ';
+   }
+
    $res0 = "";
 
-   $res1 = '<img src="'.$media2url.'" />';
+   $res1 = '<img src="'.$media2url.'" '."$style/>";
 
    $res2 = '';
 

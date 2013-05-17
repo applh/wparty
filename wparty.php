@@ -75,6 +75,9 @@ function shortcode_part ($atts, $content, $tag) {
 		                'val' => '',
 		                'min' => '',
 		                'max' => '',
+		                'width' => '',
+		                'height' => '',
+		                'type' => '',
 	                    ), 
                         $atts ) );
 
@@ -132,6 +135,8 @@ function shortcode_part ($atts, $content, $tag) {
        	    wparty_widget_contact('', $instance, $args, $content);
          }
          else if ($widget == 'media') {
+            $WParty['part.width']=$width;
+            $WParty['part.height']=$height;
             include("$curdir/wparty-widget-media.php");
        	    wparty_widget_media('', $instance, $args, $content);
          }

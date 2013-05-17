@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty will provide a shortcode [part name="page-name"] to mix pages/articles/media/widgets/menus content
-Version: 1.7.2
+Version: 1.7.3
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
@@ -127,21 +127,21 @@ function shortcode_part ($atts, $content, $tag) {
          ob_start();
 
          if ($widget == 'list') {
-            include("$curdir/wparty-widget-list.php");
+            include_once("$curdir/wparty-widget-list.php");
        	    wparty_widget_list('', $instance, $args, $content);
          }
          else if ($widget == 'contact') {
-            include("$curdir/wparty-widget-contact.php");
+            include_once("$curdir/wparty-widget-contact.php");
        	    wparty_widget_contact('', $instance, $args, $content);
          }
          else if ($widget == 'media') {
             $WParty['part.width']=$width;
             $WParty['part.height']=$height;
-            include("$curdir/wparty-widget-media.php");
+            include_once("$curdir/wparty-widget-media.php");
        	    wparty_widget_media('', $instance, $args, $content);
          }
          else if ($widget == 'loop') {
-            include("$curdir/wparty-widget-loop.php");
+            include_once("$curdir/wparty-widget-loop.php");
        	    wparty_widget_loop('', $instance, $args);
          }
          else if ($widget == 'slider') {
@@ -150,7 +150,7 @@ function shortcode_part ($atts, $content, $tag) {
             }
          }
          else if ($widget == 'sidebar') {
-            include("$curdir/wparty-widget-sidebar.php");
+            include_once("$curdir/wparty-widget-sidebar.php");
             wparty_widget_sidebar($name);
          }
          else if ($widget == 'calendar') {
@@ -194,7 +194,7 @@ function shortcode_part ($atts, $content, $tag) {
          }
          else if ($widget == 'lorem') {
             $WParty['part.max']=$max;
-            include("$curdir/wparty-widget-lorem.php");
+            include_once("$curdir/wparty-widget-lorem.php");
        	    wparty_widget_lorem('', $instance, $args, $content);
          }
 
@@ -216,7 +216,7 @@ function shortcode_part ($atts, $content, $tag) {
        }
        else if ($theme) {
           if (current_user_can('edit_themes')) {
-             include("$curdir/wparty-theme-install.php");
+             include_once("$curdir/wparty-theme-install.php");
              if (function_exists('wparty_create_theme')) {
                 wparty_create_theme($theme, $name);
              }
@@ -293,14 +293,14 @@ function wparty ($part, $attr=null) {
 // but allow to deactivate/replace completely theme code 
 function wparty_filter_functions ($res) {
    global $WParty;
-   include($WParty['wparty.dir']."/wparty-theme.php");
+   include_once($WParty['wparty.dir']."/wparty-theme.php");
    return $res;
 }
 add_filter('wparty_functions', 'wparty_filter_functions');
 
 if (is_admin()) {
    global $WParty;
-   include($WParty['wparty.dir']."/wparty-admin.php");   
+   include_once($WParty['wparty.dir']."/wparty-admin.php");   
 }
 
 

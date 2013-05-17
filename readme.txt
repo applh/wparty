@@ -186,7 +186,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
-= 1.7.2 =
+= 1.7.3 =
 * widget lorem
 * widget media [DEV]
 
@@ -240,7 +240,7 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
-= 1.7.2 =
+= 1.7.3 =
 * widget lorem
 * widget media [DEV]
 

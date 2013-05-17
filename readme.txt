@@ -13,9 +13,8 @@ Mix website contents with WParty
 * articles  
 * widgets  
 * menus  
-* contact form  
-* ...
-* Simply use shortcode [part]  
+* contact form...  
+* Simple Shortcode [part]  
 * Soon: Theme Builder  
 
 == Description ==

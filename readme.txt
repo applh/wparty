@@ -19,7 +19,7 @@ Mix website contents with WParty
 
 == Description ==
 
-WParty is a WordPress Plugin to mix website contents  
+WParty is a WordPress Plugin to mix your website contents  
 * Pages  
 * Articles  
 * Widgets  
@@ -27,41 +27,34 @@ WParty is a WordPress Plugin to mix website contents
 * Menus  
 * Media  
 
-= Simply use the shortcode [part] =
-* [part name="page-name"]
-
 * Coming soon: Theme Builder  
 
-= NOTE = 
-The plugin also activates ALL shortcodes in Text Widgets.  
-It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
+= PAGES =
+* Do you want to include the content from another page ?
+* Simply use the shortcode [part]
+* [part name="page-name"]
 
-= NOTE = 
-The plugin also disables WordPress auto (P)(/P).
-
-Custom HTML styles attributes can be added (id, class, style).  
+* Custom HTML styles attributes can be added (id, class, style).  
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
-= Manage easily Events or Multi-languages websites... =
-Conditions can be combined with widgets.  
+= Note = 
+* The plugin also activates ALL shortcodes in Text Widgets.  
+* It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
-= Redirect =
+= Note = 
+The plugin also disables WordPress auto (P)(/P).
+
+* Manage easily Events or Multi-languages websites...
+* Conditions can be combined with widgets.  
+
+= REDIRECT =
 * [part widget="redirect" instance="/page-new-url/"]
 
-= Conditions =
+= CONDITIONS =
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
-* Custom Menus can also be included.
-* [part menu="my-menu" name="page-name"]
-
-* Default LOOP can be included same as a widget:  
-* Read more... http://codex.wordpress.org/Template_Tags/get_posts
-
-* [part widget="loop"]
-* [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
-
-= CUSTOM LOOP AND HTML LAYOUT =
+= LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT =
 * The widget "list" accepts a custom HTML model
 `
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
@@ -72,13 +65,20 @@ CONTENT
 `  
 
 = META =
+* Do you want to display post meta inside the post content ?
 * [part meta="meta-name"]
 
+= LOOP =
+* Default LOOP can be included same as a widget:  
+* Read more... http://codex.wordpress.org/Template_Tags/get_posts
 
-= Contact Form =
-`
-[part widget="contact"]
-`
+* [part widget="loop"]
+* [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
+
+
+= CONTACT FORM =
+* Do you want to add a contact form ?
+* [part widget="contact"]
 * Or build your custom contact form 
 * Translate your contact form as needed 
 `
@@ -109,9 +109,10 @@ MESSAGE
 [/part]
 `  
 
-= NOTE =
-Content can embed recursive shortcodes (max=10).
+= Note =
+* Content can embed recursive shortcodes (max=10).
 
+= WORDPRESS WIDGETS =
 * WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
   
@@ -132,6 +133,11 @@ Content can embed recursive shortcodes (max=10).
 * [part widget="lorem"]
 * [part widget="lorem" max="200"]
 
+= PAGE TEMPLATE =
+* Need to customize your active theme with a new Page Template ?
+* [part dev="add-template" file="my-template" text="Template Name"]
+* creates a file my-template.php with needed code to show as a Page Template
+
 = MEDIA =
 * UNDER DEVELOPMENT
 * Creates a local cache copy of original image
@@ -149,6 +155,7 @@ Content can embed recursive shortcodes (max=10).
 * WParty is also a theme builder
 * [part theme="My Theme" name="new-theme"]
 
+= Note =
 * WParty is designed to work with MultiSites installation.
 
 
@@ -160,15 +167,15 @@ e.g.
 
 1. Upload `/wparty/` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Place shortcode `[part name="page-name"]` in your pages content
+3. Add shortcode `[part name="page-name"]` in your pages content
 
 == Frequently Asked Questions ==
 
 = What is a PART ? =
 
-PAges, ARTicles...  
-This plugin allows to mix contents with ShortCode.  
-...PART ;-p
+* PAges, ARTicles...  
+* This plugin allows to mix contents with ShortCode.  
+* ...PART ;-p
 
 = Can we program with ShortCodes ? =
 
@@ -185,6 +192,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.5 =
+* shortcode to add page template to active theme
+
 = 1.7.4 =
 * widget lorem
 * widget media [DEV]
@@ -239,6 +249,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.5 =
+* shortcode to add page template to active theme
+
 = 1.7.4 =
 * widget lorem
 * widget media [DEV]

@@ -12,6 +12,7 @@ function wparty_dev_add_template () {
 
    $template2content=
 <<<TEMPLATE2CONTENT
+<?php
 /*
  * Template Name: $text
  */
@@ -21,8 +22,18 @@ function wparty_dev_add_template () {
 
 get_header();
 
-// PUT YOUR CONTENT HERE
-echo "\n<h1>$text</h1>\n";
+if (have_posts()) :
+   while (have_posts()) : 
+      the_post();
+
+      // PUT YOUR CONTENT HERE
+      echo "\n<h3>$text</h3>\n";
+      the_content();
+
+
+   endwhile;
+endif;
+
 
 get_footer();
 
@@ -31,7 +42,7 @@ TEMPLATE2CONTENT;
    // don't overwrite existing files
    if (FALSE === realpath($templatefile)) {
       file_put_contents($templatefile, $template2content);
-      chmod($templatefile, FS_CHMOD_FILE); // FIXME
+      chmod($templatefile, 0666); // FIXME
    }
 
 

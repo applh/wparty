@@ -5,10 +5,24 @@ function wparty_dev_add_template () {
 
    $themeroot=get_theme_root();
    $themedir=get_template_directory();
+
+   // file name protection
    $templatebname=trim(basename($WParty['part.file']));
+   $templatebname=strtolower($templatebname);
+   $templatebname=remove_accents($templatebname);
+   $templatebname=sanitize_title_with_dashes($templatebname);
+
+   if (empty($templatebname)) {
+      $templatebname=uniqid('wparty-');
+   }
 
    $templatefile="$themedir/$templatebname.php";
+
    $text=trim($WParty["part.text"]);
+
+   if (empty($text)) {
+      $text=$templatebname;
+   }
 
    $template2content=
 <<<TEMPLATE2CONTENT

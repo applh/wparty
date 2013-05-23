@@ -19,14 +19,14 @@ WParty adds shortcodes
 
 
 === Plugin Name ===
-Contributors: applh
-Donate link: http://applh.com/
-Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout
-Requires at least: 3.5
-Tested up to: 3.6.b1
-Stable tag: trunk
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+* Contributors: applh
+* Donate link: http://applh.com/
+* Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout
+* Requires at least: 3.5
+* Tested up to: 3.6.b1
+* Stable tag: trunk
+* License: GPLv3
+* License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Mix website contents with WParty  
 * pages  

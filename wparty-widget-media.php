@@ -30,13 +30,16 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
       $content = "/media.png";
    }
    else {
+      $fmod=$WParty['FS_CHMOD_FILE'];
+      $dmod=$WParty['FS_CHMOD_DIR'];
+
       $up2dir = wp_upload_dir();
       $up2base2dir=$up2dir['basedir'];
       $up2base2url=$up2dir['baseurl'];
       $up2target2dir="$up2base2dir/wparty";
       if (!file_exists($up2target2dir)) {
          mkdir($up2target2dir);
-         chmod($up2target2dir, 0777); // FIXME
+         chmod($up2target2dir, $dmod); // FIXME
       }
 
       if (is_dir($up2target2dir)) {
@@ -64,8 +67,8 @@ function wparty_widget_media ($res, $instance, $args, $content='') {
                   file_put_contents("$up2target2dir/$media2cache$media2ext", $media2data);
                   file_put_contents("$up2target2dir/$media2cache-head.txt", "WParty-Ext: $media2ext\n".implode("\n", $media2header));
 
-                  chmod("$up2target2dir/$media2cache", 0666); // FIXME
-                  chmod("$up2target2dir/$media2cache.txt", 0666); // FIXME
+                  chmod("$up2target2dir/$media2cache", $fmod); // FIXME
+                  chmod("$up2target2dir/$media2cache.txt", $fmod); // FIXME
 
 	          $media2url="$up2base2url/wparty/$media2cache$media2ext";
                }

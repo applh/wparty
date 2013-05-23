@@ -15,6 +15,8 @@ global $WParty;
 $WParty=array(
    "version" => "1.7",
    "wparty.dir" => $curdir,
+   "FS_CHMOD_FILE" => 0666,
+   "FS_CHMOD_DIR" => 0777,
 );
 
 global $WPartyRecursive;
@@ -242,12 +244,14 @@ function shortcode_part ($atts, $content, $tag) {
            $res.=get_post_meta(get_the_ID(), $meta, true);
        }
        else if ($dev) {
-          if ($dev == "add-template") {
-            $WParty['part.file']=trim(basename($file));
-            $WParty['part.text']=$text;
-            include_once("$curdir/wparty-dev-add-template.php");
-            wparty_dev_add_template();
-          }
+            if (current_user_can('edit_themes')) {
+               if ($dev == "add-template") {
+                  $WParty['part.file']=$file;
+                  $WParty['part.text']=$text;
+                  include_once("$curdir/wparty-dev-add-template.php");
+                  wparty_dev_add_template();
+               }
+            }
        }
        
    }

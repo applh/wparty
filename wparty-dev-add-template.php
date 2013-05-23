@@ -58,7 +58,8 @@ TEMPLATE2CONTENT;
    // don't overwrite existing files
    if (FALSE === realpath($templatefile)) {
       file_put_contents($templatefile, $template2content);
-      chmod($templatefile, 0666); // FIXME
+      $fmod=$WParty['FS_CHMOD_FILE'];
+      chmod($templatefile, $fmod); // FIXME
    }
 
 

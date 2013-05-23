@@ -20,6 +20,14 @@ function wparty_create_screenshot ($img2file, $img2name, $width=600, $height=450
 }
 
 
+function wparty_create_file ($filename, $content) {
+   global $WParty;
+
+   file_put_contents($filename, $content);
+
+   $fmod=$WParty['FS_CHMOD_FILE'];
+   chmod($filename, $fmod);
+}
 
 function wparty_create_theme ($title, $name, $reset=true) {
    global $WParty;
@@ -191,21 +199,21 @@ STYLEINDEX;
 THEMEFUNCTIONS;
 
 
-      file_put_contents("$wpartyroot/index.php", $theme_index);
-      file_put_contents("$wpartyroot/style.css", $theme_style);
-      file_put_contents("$wpartyroot/functions.php", $theme_functions);
-      file_put_contents("$wpartyroot/home.php", $theme_home);
-      file_put_contents("$wpartyroot/page.php", $theme_page);
-      file_put_contents("$wpartyroot/404.php", $theme_404);
-      file_put_contents("$wpartyroot/page-template1.php", $theme_page_template1);
-      file_put_contents("$wpartyroot/page-template2.php", $theme_page_template2);
-      file_put_contents("$wpartyroot/page-template3.php", $theme_page_template3);
-      file_put_contents("$wpartyroot/page-template4.php", $theme_page_template4);
-      file_put_contents("$wpartyroot/page-template5.php", $theme_page_template5);
-      file_put_contents("$wpartyroot/page-template6.php", $theme_page_template6);
-      file_put_contents("$wpartyroot/page-template7.php", $theme_page_template7);
-      file_put_contents("$wpartyroot/page-template8.php", $theme_page_template8);
-      file_put_contents("$wpartyroot/page-template9.php", $theme_page_template9);
+      wparty_create_file("$wpartyroot/index.php", $theme_index);
+      wparty_create_file("$wpartyroot/style.css", $theme_style);
+      wparty_create_file("$wpartyroot/functions.php", $theme_functions);
+      wparty_create_file("$wpartyroot/home.php", $theme_home);
+      wparty_create_file("$wpartyroot/page.php", $theme_page);
+      wparty_create_file("$wpartyroot/404.php", $theme_404);
+      wparty_create_file("$wpartyroot/page-template1.php", $theme_page_template1);
+      wparty_create_file("$wpartyroot/page-template2.php", $theme_page_template2);
+      wparty_create_file("$wpartyroot/page-template3.php", $theme_page_template3);
+      wparty_create_file("$wpartyroot/page-template4.php", $theme_page_template4);
+      wparty_create_file("$wpartyroot/page-template5.php", $theme_page_template5);
+      wparty_create_file("$wpartyroot/page-template6.php", $theme_page_template6);
+      wparty_create_file("$wpartyroot/page-template7.php", $theme_page_template7);
+      wparty_create_file("$wpartyroot/page-template8.php", $theme_page_template8);
+      wparty_create_file("$wpartyroot/page-template9.php", $theme_page_template9);
 
       wparty_create_screenshot("$wpartyroot/screenshot.png", $title);
 

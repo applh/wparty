@@ -6,14 +6,15 @@ function wparty_dev_add_template () {
    $themeroot=get_theme_root();
    $themedir=get_template_directory();
 
-   // file name protection
    $templatebname=trim(basename($WParty['part.file']));
-   $templatebname=strtolower($templatebname);
-   $templatebname=remove_accents($templatebname);
-   $templatebname=sanitize_title_with_dashes($templatebname);
-
+   // file name protection
    if (empty($templatebname)) {
-      $templatebname=uniqid('wparty-');
+      $templatebname='wparty-'.date("ymd-His");
+   }
+   else {
+      $templatebname=remove_accents($templatebname);
+      $templatebname=sanitize_title_with_dashes($templatebname);
+      $templatebname=strtolower($templatebname);
    }
 
    $templatefile="$themedir/$templatebname.php";
@@ -42,8 +43,9 @@ if (have_posts()) :
 
       // PUT YOUR CONTENT HERE
       echo "\n<h3>$text</h3>\n";
+      echo '<div class="entry-content">';
       the_content();
-
+      echo '</div>';
 
    endwhile;
 endif;

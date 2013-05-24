@@ -4,7 +4,7 @@ if (!function_exists('wparty_widget_map')) :
 function wparty_widget_map () {
    global $WParty;
    
-   $src2url=urlencode(trim($WParty['part.map']));
+   $src2url=trim($WParty['part.map']);
    if (!empty($src2url)) {
       $width=$WParty['part.width'];
       $height=$WParty['part.height'];

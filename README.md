@@ -156,12 +156,13 @@ MESSAGE
 = PDF =
 * Embed a PDF viewer in your website
 * See... https://docs.google.com/viewer 
-* [part widget="pdf" width="640" height="640"]
+* [part widget="pdf" width="640" height="640"]http://your.website.com/file.pdf[/part]
 
 = MAP =
 * Embed a Google Map in your website
 * See... https://maps.google.com/ 
-* [part widget="map" width="640" height="640"]
+* [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
+* (note: don't use the short URL) 
 
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?

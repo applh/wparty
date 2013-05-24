@@ -34,7 +34,7 @@ WParty is a WordPress Plugin to mix your website contents
 * Simply use the shortcode [part]
 * [part name="page-name"]
 
-* Custom HTML styles attributes can be added (id, class, style).  
+* Custom HTML styles attributes can be added (id, class, style).
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 = Note = 
@@ -44,14 +44,21 @@ WParty is a WordPress Plugin to mix your website contents
 = Note = 
 The plugin also disables WordPress auto (P)(/P).
 
+= REDIRECT =
+* Simple page redirection
+* [part widget="redirect" instance="/page-new-url/"]
+
+= SHORTCODE PROGRAMMING =
 * Manage easily Events or Multi-languages websites...
 * Conditions can be combined with widgets.  
 
-= REDIRECT =
-* [part widget="redirect" instance="/page-new-url/"]
-
-= CONDITIONS =
+= DATE CONDITIONS =
+* display shortcode content between 01/03/2013 and 25/03/2013 ?
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
+
+= REQUEST CONDITIONS =
+* display shortcode content if URL has GET specific parameter...
+* http://mysite.com/my-page/?lang=fr 
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
 = LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT =

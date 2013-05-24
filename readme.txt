@@ -133,6 +133,17 @@ MESSAGE
 * [part widget="lorem"]
 * [part widget="lorem" max="200"]
 
+= PDF =
+* Embed a PDF viewer in your website
+* See... https://docs.google.com/viewer 
+* [part widget="pdf" width="640" height="640"]http://your.website.com/file.pdf[/part]
+
+= MAP =
+* Embed a Google Map in your website
+* See... https://maps.google.com/ 
+* [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
+* (note: don't use the short URL) 
+
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]
@@ -192,6 +203,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.6 =
+* new widgets: pdf, map
+
 = 1.7.5 =
 * shortcode to add page template to active theme
 
@@ -249,6 +263,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.6 =
+* new widgets: pdf, map
+
 = 1.7.5 =
 * shortcode to add page template to active theme
 

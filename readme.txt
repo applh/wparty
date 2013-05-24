@@ -142,7 +142,7 @@ MESSAGE
 * Embed a Google Map in your website
 * See... https://maps.google.com/ 
 * [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
-* (note: don't use the short URL) 
+* (note: don't use the short URL http://goo.gl/maps/...) 
 
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?

@@ -15,7 +15,7 @@ Mix website contents with WParty
 * menus  
 * contact form...  
 * Simple Shortcode [part]  
-* Soon: Theme Builder  
+* DEV: Theme Builder  
 
 == Description ==
 
@@ -27,7 +27,7 @@ WParty is a WordPress Plugin to mix your website contents
 * Menus  
 * Media  
 
-* Coming soon: Theme Builder  
+* DEV: Theme Builder  
 
 = PAGES =
 * Do you want to include the content from another page ?
@@ -69,12 +69,10 @@ CONTENT
 * [part meta="meta-name"]
 
 = LOOP =
-* Default LOOP can be included same as a widget:  
+* Default LOOP can be included same as a widget:
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
-
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
-
 
 = CONTACT FORM =
 * Do you want to add a contact form ?
@@ -148,6 +146,17 @@ MESSAGE
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]
 * creates a file my-template.php with needed code to show as a Page Template
+* (note: edit-theme role capability is required)
+
+= THEME BUILDER =
+* Need to create a new Theme ?
+* WParty is also a theme builder
+* [part theme="My Theme" name="new-theme"]
+* creates the folder /themes/new-theme/ and WP theme files inside to show as "My Theme" in Appearance Menu
+* (note: edit-theme role capability is required)
+
+= Note =
+* WParty is designed to work with MultiSites installation.
 
 = MEDIA =
 * UNDER DEVELOPMENT
@@ -160,15 +169,6 @@ MESSAGE
 = SLIDER =
 * UNDER DEVELOPMENT
 * [part widget="slider" name="my-slider"]  
-
-= THEME BUILDER =
-* UNDER DEVELOPMENT
-* WParty is also a theme builder
-* [part theme="My Theme" name="new-theme"]
-
-= Note =
-* WParty is designed to work with MultiSites installation.
-
 
 == Installation ==
 

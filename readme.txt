@@ -118,17 +118,16 @@ MESSAGE
 * Content can embed recursive shortcodes (max=10).
 
 = WORDPRESS WIDGETS =
-* WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
+* WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
-  
-* [part widget="news"]  
-* [part widget="tags"]  
-* [part widget="categories"]  
-* [part widget="archives"]  
-* [part widget="calendar"]  
-* [part widget="pages"]  
-* [part widget="rss" instance="url=http://applh.com/feed/"]  
-* [part widget="menu" instance="nav_menu=toto"]  
+* [part widget="news"]
+* [part widget="tags"]
+* [part widget="categories"]
+* [part widget="archives"]
+* [part widget="calendar"]
+* [part widget="pages"]
+* [part widget="rss" instance="url=http://applh.com/feed/"]
+* [part widget="menu" instance="nav_menu=my-menu"]
 
 = SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  

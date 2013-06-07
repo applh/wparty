@@ -150,7 +150,8 @@ MESSAGE
 
 = MARKDOWN =
 * Prefer writing with MarkDown Syntax ?
-* See... http://daringfireball.net/projects/markdown/syntax
+* See... http://daringfireball.net/projects/markdown/syntax  
+
 `
 [part widget="mark"]
 # This is an H1

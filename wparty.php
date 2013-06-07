@@ -145,6 +145,11 @@ function shortcode_part ($atts, $content, $tag) {
             include_once("$curdir/wparty-widget-media.php");
        	    wparty_widget_media('', $instance, $args, $content);
          }
+         else if ($widget == 'mark') {
+            $WParty['part.mark']=$content;            
+            include_once("$curdir/wparty-widget-mark.php");
+       	    wparty_widget_mark();
+        }
          else if ($widget == 'loop') {
             include_once("$curdir/wparty-widget-loop.php");
        	    wparty_widget_loop('', $instance, $args);

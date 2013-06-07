@@ -148,6 +148,44 @@ MESSAGE
 * [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
 * (note: don't use the short URL http://goo.gl/maps/...) 
 
+= MARKDOWN =
+* Prefer writing with MarkDown Syntax ?
+* See... http://daringfireball.net/projects/markdown/syntax
+`
+[part widget="mark"]
+# This is an H1
+
+## This is an H2
+
+###### This is an H6
+
+1.  Bird
+2.  McHale
+3.  Parish
+
+*   Red
+*   Green
+*   Blue
+
+This is [an example](http://example.com/ "Title") inline link.
+
+[This link](http://example.net/) has no title attribute.
+
+![Alt text](/path/to/img.jpg)
+
+![Alt text](/path/to/img.jpg "Optional title")
+
+*single asterisks*
+
+_single underscores_
+
+**double asterisks**
+
+__double underscores__
+
+[/part]
+
+
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]

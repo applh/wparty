@@ -10,6 +10,7 @@ function wparty_widget_mark () {
    $content=trim($WParty['part.mark']);
 
    $mark2html = Michelf\Markdown::defaultTransform($content);
+   //$mark2html = Michelf\_MarkdownExtra_TmpImpl::defaultTransform($content);
 
    echo $mark2html;
  

@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout
+Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown
 Requires at least: 3.5
 Tested up to: 3.6.b1
 Stable tag: trunk
@@ -247,6 +247,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.7 =
+* new widget: [part widget="mark"]markdown syntax[/part]
+
 = 1.7.6 =
 * new widgets: pdf, map
 
@@ -307,6 +310,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.7 =
+* new widget: [part widget="mark"]markdown syntax[/part]
+
 = 1.7.6 =
 * new widgets: pdf, map
 

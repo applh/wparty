@@ -207,7 +207,20 @@ function shortcode_part ($atts, $content, $tag) {
          else if ($widget == 'redirect') {
             wp_redirect($instance);
          }
-         else if ($widget == 'csv') {
+         else if ($widget == 'csv2') {
+            $csv2src=trim($content);
+            if ($csv2src) {
+               $WParty['part.src']=$csv2src;
+               $WParty['part.csv']='';
+               $WParty['part.cut']=$cut;
+               $WParty['part.quote']=$quote;
+               $WParty['part.esc']=$esc;
+               include_once("$curdir/wparty-widget-csv.php");
+       	       wparty_widget_csv2();
+            }
+          }
+          else if ($widget == 'csv') {
+            $WParty['part.src']='';
             $WParty['part.csv']=$content;
             $WParty['part.cut']=$cut;
             $WParty['part.quote']=$quote;
@@ -350,5 +363,7 @@ if (is_admin()) {
    global $WParty;
    include_once($WParty['wparty.dir']."/wparty-admin.php");   
 }
+
+
 
 

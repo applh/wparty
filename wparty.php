@@ -3,11 +3,13 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty adds a shortcode [part name="page-name"] to easily mix content: pages/articles/media/widgets/menus. Read more... http://applh.com/wordpress/plugins/wparty/
-Version: 1.7.7
+Version: 1.7.8
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3
 */
+
+if (!function_exists('add_shortcode')) die();
 
 $curdir=dirname(__FILE__);
 
@@ -83,6 +85,9 @@ function shortcode_part ($atts, $content, $tag) {
 		                'dev' => '',
 		                'file' => '',
 		                'text' => '',
+		                'cut' => '',
+		                'quote' => '',
+		                'esc' => '',
 	                    ), 
                         $atts ) );
 
@@ -201,6 +206,14 @@ function shortcode_part ($atts, $content, $tag) {
          }
          else if ($widget == 'redirect') {
             wp_redirect($instance);
+         }
+         else if ($widget == 'csv') {
+            $WParty['part.csv']=$content;
+            $WParty['part.cut']=$cut;
+            $WParty['part.quote']=$quote;
+            $WParty['part.esc']=$esc;
+            include_once("$curdir/wparty-widget-csv.php");
+       	    wparty_widget_csv();
          }
          else if ($widget == 'lorem') {
             $WParty['part.max']=$max;

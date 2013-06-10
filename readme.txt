@@ -3,7 +3,7 @@ Contributors: applh
 Donate link: http://applh.com/
 Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown
 Requires at least: 3.5
-Tested up to: 3.6.b1
+Tested up to: 3.6.b3
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -151,6 +151,7 @@ MESSAGE
 = MARKDOWN =
 * Prefer writing with MarkDown Syntax ?
 * See... http://daringfireball.net/projects/markdown/syntax 
+* Requirements: PHP5.3+
 `
 [part widget="mark"]
 # This is an H1
@@ -185,6 +186,29 @@ __double underscores__
 
 [/part]
 `
+
+= CSV =
+* Need to include some CSV data in a Table?
+* Requirements: PHP5.3+
+* note: empty lines are ignored
+`
+[part widget="csv"]
+cell11,cell12,cell13
+cell21,cell22,cell23
+
+cell31,cell32,cell33
+
+[/part]
+
+[part widget="csv" cut="|"]
+cell11|cell12|cell13
+cell21|cell22|cell23
+
+cell31|cell32|cell33
+
+[/part]
+`
+
 
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?
@@ -247,11 +271,14 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.8 =
+* new widget "csv": [part widget="csv"]col1,col2,col3[/part]
+
 = 1.7.7 =
-* new widget: [part widget="mark"]markdown syntax[/part]
+* new widget "mark": [part widget="mark"]markdown syntax[/part]
 
 = 1.7.6 =
-* new widgets: pdf, map
+* new widgets "pdf", "map"
 
 = 1.7.5 =
 * shortcode to add page template to active theme
@@ -310,11 +337,14 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.8 =
+* new widget "csv": [part widget="csv"]col1,col2,col3[/part]
+
 = 1.7.7 =
-* new widget: [part widget="mark"]markdown syntax[/part]
+* new widget "mark": [part widget="mark"]markdown syntax[/part]
 
 = 1.7.6 =
-* new widgets: pdf, map
+* new widgets "pdf", "map"
 
 = 1.7.5 =
 * shortcode to add page template to active theme
@@ -372,4 +402,5 @@ Improve content management for your website.
 == Happy New Year ==
 
 Best wishes for 2013. ;-)
+
 

@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown
+Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs
 Requires at least: 3.5
 Tested up to: 3.6.b3
 Stable tag: trunk

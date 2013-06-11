@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs
+Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
 Requires at least: 3.5
 Tested up to: 3.6.b3
 Stable tag: trunk
@@ -42,7 +42,9 @@ WParty is a WordPress Plugin to mix your website contents
 * It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
 = Note = 
-The plugin also disables WordPress auto (P)(/P).
+* The plugin also disables WordPress auto (P)(/P).
+* The shortcode [part name="page-name"] can access to all public and private pages/articles (warning to multi-users site)
+* This choice allows to keep parts as private content
 
 = REDIRECT =
 * Simple page redirection
@@ -188,7 +190,7 @@ __double underscores__
 `
 
 = CSV =
-* Need to include some CSV data in a Table?
+* Need to include some CSV data as a Table?
 * Requirements: PHP5.3+
 * note: empty lines are ignored
 `
@@ -209,6 +211,22 @@ cell31|cell32|cell33
 [/part]
 `
 
+= WEBHOOKS: MARK2 and CSV2 =
+* Need to fetch data from an URL ?
+* eg: Google SpreadSheet
+* Include some CSV external data as a Table
+* Include some Markdown external code
+* Requirements: PHP5.3+
+
+`
+[part widget="mark2"]
+https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGQ5Z1g5cjE1YzRUS3NxRmZ4RGJYRGc&output=txt
+[/part]
+
+[part widget="csv2"]
+https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19IUGZlWVE&single=true&gid=0&output=csv
+[/part]
+`
 
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?
@@ -271,6 +289,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.9 =
+* new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
+
 = 1.7.8 =
 * new widget "csv": [part widget="csv"]col1,col2,col3[/part]
 
@@ -337,6 +358,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.9 =
+* new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
+
 = 1.7.8 =
 * new widget "csv": [part widget="csv"]col1,col2,col3[/part]
 

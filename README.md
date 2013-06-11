@@ -5,28 +5,15 @@ Download the Plugin on WordPress.org
 
 * http://wordpress.org/extend/plugins/wparty/
 
-WParty is a WordPress plugin to easily mix pages/articles/media/widgets/menus content
-
-WParty adds shortcodes 
-* [part name="page-name"]
-* [part widget="news"]
-* [part widget="tags"]
-* [part widget="calendar"]
-* ...
-
-[DEV]
-* Theme Builder
-
-
 === Plugin Name ===
-* Contributors: applh
-* Donate link: http://applh.com/
-* Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout
-* Requires at least: 3.5
-* Tested up to: 3.6.b1
-* Stable tag: trunk
-* License: GPLv3
-* License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Contributors: applh
+Donate link: http://applh.com/
+Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
+Requires at least: 3.5
+Tested up to: 3.6.b3
+Stable tag: trunk
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Mix website contents with WParty  
 * pages  
@@ -35,7 +22,7 @@ Mix website contents with WParty
 * menus  
 * contact form...  
 * Simple Shortcode [part]  
-* Soon: Theme Builder  
+* DEV: Theme Builder  
 
 == Description ==
 
@@ -47,14 +34,14 @@ WParty is a WordPress Plugin to mix your website contents
 * Menus  
 * Media  
 
-* Coming soon: Theme Builder  
+* DEV: Theme Builder  
 
 = PAGES =
 * Do you want to include the content from another page ?
 * Simply use the shortcode [part]
 * [part name="page-name"]
 
-* Custom HTML styles attributes can be added (id, class, style).  
+* Custom HTML styles attributes can be added (id, class, style).
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 = Note = 
@@ -62,16 +49,25 @@ WParty is a WordPress Plugin to mix your website contents
 * It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
 = Note = 
-The plugin also disables WordPress auto (P)(/P).
+* The plugin also disables WordPress auto (P)(/P).
+* The shortcode [part name="page-name"] can access to all public and private pages/articles (warning to multi-users site)
+* This choice allows to keep parts as private content
 
+= REDIRECT =
+* Simple page redirection
+* [part widget="redirect" instance="/page-new-url/"]
+
+= SHORTCODE PROGRAMMING =
 * Manage easily Events or Multi-languages websites...
 * Conditions can be combined with widgets.  
 
-= REDIRECT =
-* [part widget="redirect" instance="/page-new-url/"]
-
-= CONDITIONS =
+= DATE CONDITIONS =
+* display shortcode content between 01/03/2013 and 25/03/2013 ?
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
+
+= REQUEST CONDITIONS =
+* display shortcode content if URL has GET specific parameter...
+* http://mysite.com/my-page/?lang=fr 
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
 = LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT =
@@ -89,12 +85,10 @@ CONTENT
 * [part meta="meta-name"]
 
 = LOOP =
-* Default LOOP can be included same as a widget:  
+* Default LOOP can be included same as a widget:
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
-
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
-
 
 = CONTACT FORM =
 * Do you want to add a contact form ?
@@ -133,17 +127,16 @@ MESSAGE
 * Content can embed recursive shortcodes (max=10).
 
 = WORDPRESS WIDGETS =
-* WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).  
+* WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
-  
-* [part widget="news"]  
-* [part widget="tags"]  
-* [part widget="categories"]  
-* [part widget="archives"]  
-* [part widget="calendar"]  
-* [part widget="pages"]  
-* [part widget="rss" instance="url=http://applh.com/feed/"]  
-* [part widget="menu" instance="nav_menu=toto"]  
+* [part widget="news"]
+* [part widget="tags"]
+* [part widget="categories"]
+* [part widget="archives"]
+* [part widget="calendar"]
+* [part widget="pages"]
+* [part widget="rss" instance="url=http://applh.com/feed/"]
+* [part widget="menu" instance="nav_menu=my-menu"]
 
 = SIDEBARS =
 * [part widget="sidebar" name="theme-sidebar-name"]  
@@ -162,12 +155,101 @@ MESSAGE
 * Embed a Google Map in your website
 * See... https://maps.google.com/ 
 * [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
-* (note: don't use the short URL) 
+* (note: don't use the short URL http://goo.gl/maps/...) 
+
+= MARKDOWN =
+* Prefer writing with MarkDown Syntax ?
+* See... http://daringfireball.net/projects/markdown/syntax 
+* Requirements: PHP5.3+
+`
+[part widget="mark"]
+# This is an H1
+
+## This is an H2
+
+###### This is an H6
+
+1.  Bird
+2.  McHale
+3.  Parish
+
+*   Red
+*   Green
+*   Blue
+
+This is [an example](http://example.com/ "Title") inline link.
+
+[This link](http://example.net/) has no title attribute.
+
+![Alt text](/path/to/img.jpg)
+
+![Alt text](/path/to/img.jpg "Optional title")
+
+*single asterisks*
+
+_single underscores_
+
+**double asterisks**
+
+__double underscores__
+
+[/part]
+`
+
+= CSV =
+* Need to include some CSV data as a Table?
+* Requirements: PHP5.3+
+* note: empty lines are ignored
+`
+[part widget="csv"]
+cell11,cell12,cell13
+cell21,cell22,cell23
+
+cell31,cell32,cell33
+
+[/part]
+
+[part widget="csv" cut="|"]
+cell11|cell12|cell13
+cell21|cell22|cell23
+
+cell31|cell32|cell33
+
+[/part]
+`
+
+= WEBHOOKS: MARK2 and CSV2 =
+* Need to fetch data from an URL ?
+* eg: Google SpreadSheet
+* Include some CSV external data as a Table
+* Include some Markdown external code
+* Requirements: PHP5.3+
+
+`
+[part widget="mark2"]
+https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGQ5Z1g5cjE1YzRUS3NxRmZ4RGJYRGc&output=txt
+[/part]
+
+[part widget="csv2"]
+https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19IUGZlWVE&single=true&gid=0&output=csv
+[/part]
+`
 
 = PAGE TEMPLATE =
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]
 * creates a file my-template.php with needed code to show as a Page Template
+* (note: edit-theme role capability is required)
+
+= THEME BUILDER =
+* Need to create a new Theme ?
+* WParty is also a theme builder
+* [part theme="My Theme" name="new-theme"]
+* creates the folder /themes/new-theme/ and WP theme files inside to show as "My Theme" in Appearance Menu
+* (note: edit-theme role capability is required)
+
+= Note =
+* WParty is designed to work with MultiSites installation.
 
 = MEDIA =
 * UNDER DEVELOPMENT
@@ -180,15 +262,6 @@ MESSAGE
 = SLIDER =
 * UNDER DEVELOPMENT
 * [part widget="slider" name="my-slider"]  
-
-= THEME BUILDER =
-* UNDER DEVELOPMENT
-* WParty is also a theme builder
-* [part theme="My Theme" name="new-theme"]
-
-= Note =
-* WParty is designed to work with MultiSites installation.
-
 
 == Installation ==
 
@@ -223,8 +296,17 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.7.9 =
+* new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
+
+= 1.7.8 =
+* new widget "csv": [part widget="csv"]col1,col2,col3[/part]
+
+= 1.7.7 =
+* new widget "mark": [part widget="mark"]markdown syntax[/part]
+
 = 1.7.6 =
-* new widgets: pdf, map
+* new widgets "pdf", "map"
 
 = 1.7.5 =
 * shortcode to add page template to active theme
@@ -283,8 +365,17 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.7.9 =
+* new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
+
+= 1.7.8 =
+* new widget "csv": [part widget="csv"]col1,col2,col3[/part]
+
+= 1.7.7 =
+* new widget "mark": [part widget="mark"]markdown syntax[/part]
+
 = 1.7.6 =
-* new widgets: pdf, map
+* new widgets "pdf", "map"
 
 = 1.7.5 =
 * shortcode to add page template to active theme
@@ -340,6 +431,8 @@ Simply include [part page="page-name"] to get your HTML content in text widget.
 Improve content management for your website.
 
 == Happy New Year ==
+
+Best wishes for 2013. ;-)
 
 
 

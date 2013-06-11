@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: applh
 Donate link: http://applh.com/
-Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
+Tags: widget, post, sidebar, content, mix, multi loop, shortcode, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
 Requires at least: 3.5
 Tested up to: 3.6.b3
 Stable tag: trunk
@@ -292,50 +292,32 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 = 1.7.9 =
 * new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
 
-= 1.7.8 =
+= 1.7.x =
 * new widget "csv": [part widget="csv"]col1,col2,col3[/part]
-
-= 1.7.7 =
 * new widget "mark": [part widget="mark"]markdown syntax[/part]
-
-= 1.7.6 =
 * new widgets "pdf", "map"
-
-= 1.7.5 =
 * shortcode to add page template to active theme
-
-= 1.7.4 =
 * widget lorem
 * widget media [DEV]
-
-= 1.7 =
 * widget contact more customizable
 * code separated in several files
 
-= 1.6.3 =
+= 1.6.x =
 * add contact form widget
 * Add custom layout 
-
-= 1.6.2 =
 * DISABLE WordPress autop
 * more customisation on theme builder
 * more recursion in widget LIST
-
-= 1.6.1 =
 * Add widget 'list'
 * Add protection against infinite loop (recursion max=10)
-
-= 1.6 =
 * Add CONDITIONS to parts (if, start, end)
 Manage easily Events or Multilang
 
 * Add Redirection widget
 * Add Meta part
 
-= 1.5.1 =
+= 1.5.x =
 * BUGFIX: Add missing filter
-
-= 1.5 =
 * Add Widgets LOOP, SIDEBARS
 
 = 1.4 =

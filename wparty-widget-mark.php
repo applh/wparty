@@ -17,4 +17,27 @@ function wparty_widget_mark () {
 }
 endif;
 
+if (!function_exists('wparty_widget_mark2')) :
+function wparty_widget_mark2 () {
+   global $WParty;
+
+   $data2src=trim($WParty['part.src']);
+   if ($data2src) {
+      $url2tab=parse_url($data2src);
+      $protocol=$url2tab['scheme'];
+      if (($protocol == "http") || ($protocol == "https")) {
+         // FIXME
+         $from=array("&#038;");
+         $to=array("&");
+         $data2src=str_replace($from, $to, $data2src);
+
+         $WParty['part.mark']=file_get_contents($data2src);
+         wparty_widget_mark();
+      }
+   }
+ }
+
+endif;
+
+
 

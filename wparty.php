@@ -154,7 +154,16 @@ function shortcode_part ($atts, $content, $tag) {
             $WParty['part.mark']=$content;            
             include_once("$curdir/wparty-widget-mark.php");
        	    wparty_widget_mark();
-        }
+         }
+         else if ($widget == 'mark2') {
+            $data2src=trim($content);
+            if ($data2src) {
+               $WParty['part.mark']='';            
+               $WParty['part.src']=$data2src;            
+               include_once("$curdir/wparty-widget-mark.php");
+       	       wparty_widget_mark2();
+            }
+         }
          else if ($widget == 'loop') {
             include_once("$curdir/wparty-widget-loop.php");
        	    wparty_widget_loop('', $instance, $args);
@@ -207,27 +216,6 @@ function shortcode_part ($atts, $content, $tag) {
          else if ($widget == 'redirect') {
             wp_redirect($instance);
          }
-         else if ($widget == 'csv2') {
-            $csv2src=trim($content);
-            if ($csv2src) {
-               $WParty['part.src']=$csv2src;
-               $WParty['part.csv']='';
-               $WParty['part.cut']=$cut;
-               $WParty['part.quote']=$quote;
-               $WParty['part.esc']=$esc;
-               include_once("$curdir/wparty-widget-csv.php");
-       	       wparty_widget_csv2();
-            }
-          }
-          else if ($widget == 'csv') {
-            $WParty['part.src']='';
-            $WParty['part.csv']=$content;
-            $WParty['part.cut']=$cut;
-            $WParty['part.quote']=$quote;
-            $WParty['part.esc']=$esc;
-            include_once("$curdir/wparty-widget-csv.php");
-       	    wparty_widget_csv();
-         }
          else if ($widget == 'lorem') {
             $WParty['part.max']=$max;
             include_once("$curdir/wparty-widget-lorem.php");
@@ -248,6 +236,27 @@ function shortcode_part ($atts, $content, $tag) {
        	    wparty_widget_map();
          }
 
+         else if ($widget == 'csv') {
+            $WParty['part.src']='';
+            $WParty['part.csv']=$content;
+            $WParty['part.cut']=$cut;
+            $WParty['part.quote']=$quote;
+            $WParty['part.esc']=$esc;
+            include_once("$curdir/wparty-widget-csv.php");
+       	    wparty_widget_csv();
+         }
+         else if ($widget == 'csv2') {
+            $csv2src=trim($content);
+            if ($csv2src) {
+               $WParty['part.src']=$csv2src;
+               $WParty['part.csv']='';
+               $WParty['part.cut']=$cut;
+               $WParty['part.quote']=$quote;
+               $WParty['part.esc']=$esc;
+               include_once("$curdir/wparty-widget-csv.php");
+       	       wparty_widget_csv2();
+            }
+         }
 
          $html_widget = ob_get_clean();
          $res .= $html_widget;
@@ -260,9 +269,9 @@ function shortcode_part ($atts, $content, $tag) {
           $WParty["$var"]=$val;
 
           if ($theme == "save") {
-            if (current_user_can('edit_themes')) {
-               wparty_save_option($var, $val);
-            }
+             if (current_user_can('edit_themes')) {
+                wparty_save_option($var, $val);
+             }
           }
        }
        else if ($theme) {

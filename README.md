@@ -8,7 +8,7 @@ Download the Plugin on WordPress.org
 * http://wordpress.org/extend/plugins/wparty/
 
 Plugin Name
-====
+=
 
 Contributors: applh
 Donate link: http://applh.com/
@@ -121,7 +121,8 @@ CONTACT FORM
 * Do you want to add a contact form ?
 * [part widget="contact"]
 * Or build your custom contact form 
-* Translate your contact form as needed 
+* Translate your contact form as needed
+
 ```
 [part widget="contact"]
  <div class="form-content">

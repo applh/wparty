@@ -8,6 +8,7 @@ Download the Plugin on WordPress.org
 * http://wordpress.org/extend/plugins/wparty/
 
 === Plugin Name ===
+
 Contributors: applh
 Donate link: http://applh.com/
 Tags: widget, pages, post, sidebar, content, mix, multi loop, shortcode, posts, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
@@ -39,6 +40,7 @@ WParty is a WordPress Plugin to mix your website contents
 * DEV: Theme Builder  
 
 = PAGES =
+
 * Do you want to include the content from another page ?
 * Simply use the shortcode [part]
 * [part name="page-name"]
@@ -47,32 +49,39 @@ WParty is a WordPress Plugin to mix your website contents
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 = Note = 
+
 * The plugin also activates ALL shortcodes in Text Widgets.  
 * It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
 = Note = 
+
 * The plugin also disables WordPress auto (P)(/P).
 * The shortcode [part name="page-name"] can access to all public and private pages/articles (warning to multi-users site)
 * This choice allows to keep parts as private content
 
 = REDIRECT =
+
 * Simple page redirection
 * [part widget="redirect" instance="/page-new-url/"]
 
 = SHORTCODE PROGRAMMING =
+
 * Manage easily Events or Multi-languages websites...
 * Conditions can be combined with widgets.  
 
 = DATE CONDITIONS =
+
 * display shortcode content between 01/03/2013 and 25/03/2013 ?
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 
 = REQUEST CONDITIONS =
+
 * display shortcode content if URL has GET specific parameter...
 * http://mysite.com/my-page/?lang=fr 
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
 = LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT =
+
 * The widget "list" accepts a custom HTML model
 `
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
@@ -83,16 +92,19 @@ CONTENT
 `  
 
 = META =
+
 * Do you want to display post meta inside the post content ?
 * [part meta="meta-name"]
 
 = LOOP =
+
 * Default LOOP can be included same as a widget:
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
 * [part widget="loop"]
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
 
 = CONTACT FORM =
+
 * Do you want to add a contact form ?
 * [part widget="contact"]
 * Or build your custom contact form 
@@ -126,9 +138,11 @@ MESSAGE
 `  
 
 = Note =
+
 * Content can embed recursive shortcodes (max=10).
 
 = WORDPRESS WIDGETS =
+
 * WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
 * [part widget="news"]
@@ -141,25 +155,30 @@ MESSAGE
 * [part widget="menu" instance="nav_menu=my-menu"]
 
 = SIDEBARS =
+
 * [part widget="sidebar" name="theme-sidebar-name"]  
 
 = LOREM IPSUM =
+
 * Fill with text "Lorem Ipsum..."
 * [part widget="lorem"]
 * [part widget="lorem" max="200"]
 
 = PDF =
+
 * Embed a PDF viewer in your website
 * See... https://docs.google.com/viewer 
 * [part widget="pdf" width="640" height="640"]http://your.website.com/file.pdf[/part]
 
 = MAP =
+
 * Embed a Google Map in your website
 * See... https://maps.google.com/ 
 * [part widget="map" width="640" height="640"]http://maps.google.fr/maps?q=paris[/part]
 * (note: don't use the short URL http://goo.gl/maps/...) 
 
 = MARKDOWN =
+
 * Prefer writing with MarkDown Syntax ?
 * See... http://daringfireball.net/projects/markdown/syntax 
 * Requirements: PHP5.3+
@@ -199,6 +218,7 @@ __double underscores__
 `
 
 = CSV =
+
 * Need to include some CSV data as a Table?
 * Requirements: PHP5.3+
 * note: empty lines are ignored
@@ -221,6 +241,7 @@ cell31|cell32|cell33
 `
 
 = WEBHOOKS: MARK2 and CSV2 =
+
 * Need to fetch data from an URL ?
 * eg: Google SpreadSheet
 * Include some CSV external data as a Table
@@ -238,12 +259,14 @@ https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19
 `
 
 = PAGE TEMPLATE =
+
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]
 * creates a file my-template.php with needed code to show as a Page Template
 * (note: edit-theme role capability is required)
 
 = THEME BUILDER =
+
 * Need to create a new Theme ?
 * WParty is also a theme builder
 * [part theme="My Theme" name="new-theme"]
@@ -251,9 +274,11 @@ https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19
 * (note: edit-theme role capability is required)
 
 = Note =
+
 * WParty is designed to work with MultiSites installation.
 
 = MEDIA =
+
 * UNDER DEVELOPMENT
 * Creates a local cache copy of original image
 * Cache folder is /uploads/wparty/
@@ -262,6 +287,7 @@ https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19
 * [part widget="media" width="100" height="200"]http://somesite.com/image.gif[/part]
 
 = SLIDER =
+
 * UNDER DEVELOPMENT
 * [part widget="slider" name="my-slider"]  
 
@@ -298,53 +324,38 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+
 = 1.7.9 =
+
 * new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
 
-= 1.7.8 =
+= 1.7.x =
+
 * new widget "csv": [part widget="csv"]col1,col2,col3[/part]
-
-= 1.7.7 =
 * new widget "mark": [part widget="mark"]markdown syntax[/part]
-
-= 1.7.6 =
 * new widgets "pdf", "map"
-
-= 1.7.5 =
 * shortcode to add page template to active theme
-
-= 1.7.4 =
 * widget lorem
 * widget media [DEV]
-
-= 1.7 =
 * widget contact more customizable
 * code separated in several files
 
-= 1.6.3 =
+= 1.6.x =
 * add contact form widget
 * Add custom layout 
-
-= 1.6.2 =
 * DISABLE WordPress autop
 * more customisation on theme builder
 * more recursion in widget LIST
-
-= 1.6.1 =
 * Add widget 'list'
 * Add protection against infinite loop (recursion max=10)
-
-= 1.6 =
 * Add CONDITIONS to parts (if, start, end)
 Manage easily Events or Multilang
 
 * Add Redirection widget
 * Add Meta part
 
-= 1.5.1 =
+= 1.5.x =
 * BUGFIX: Add missing filter
-
-= 1.5 =
 * Add Widgets LOOP, SIDEBARS
 
 = 1.4 =
@@ -367,70 +378,89 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+
 = 1.7.9 =
+
 * new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
 
 = 1.7.8 =
+
 * new widget "csv": [part widget="csv"]col1,col2,col3[/part]
 
 = 1.7.7 =
+
 * new widget "mark": [part widget="mark"]markdown syntax[/part]
 
 = 1.7.6 =
+
 * new widgets "pdf", "map"
 
 = 1.7.5 =
+
 * shortcode to add page template to active theme
 
 = 1.7.4 =
+
 * widget lorem
 * widget media [DEV]
 
 = 1.7 =
+
 * widget contact more customizable
 * code separated in several files
 
 = 1.6.3 =
+
 * add contact form widget
 * Add custom layout 
 
 = 1.6.2 =
+
 * DISABLE WordPress autop
 * more customisation on theme builder
 * more recursion in widget LIST
 
 = 1.6.1 =
+
 * Add widget 'list' for custom loop layout
 * Add protection against infinite loop (recursion max=10)
 
 = 1.6 =
+
 * Manage easily Events or Multilang
 * Add CONDITIONS to parts (if, start, end)
 * Add Redirection widget
 * Add Meta part
 
 = 1.5.1 =
-BUGFIX
+
+* BUGFIX
 
 = 1.5 =
-More features.
+
+* More features.
 
 = 1.4 =
-More features.
+
+* More features.
 
 = 1.3 =
-More features. Bugs Correction.
+
+* More features. Bugs Correction.
 
 = 1.2 =
-More features
+
+* More features
 
 = 1.1 =
-The plugin activates shortcodes in Text Widget.
-Easier writing of HTML with WP Editor!
-Simply include [part page="page-name"] to get your HTML content in text widget.
+
+* The plugin activates shortcodes in Text Widget.
+* Easier writing of HTML with WP Editor!
+* Simply include [part page="page-name"] to get your HTML content in text widget.
 
 = 1.0 =
-Improve content management for your website.
+
+* Improve content management for your website.
 
 == Happy New Year ==
 

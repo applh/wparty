@@ -93,6 +93,7 @@ LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT
 ====
 
 * The widget "list" accepts a custom HTML model
+
 ```
 [part widget="list" args="numberposts=5&tag=my-tag1,my-tag2"]  
 <a href="PERMALINK"><h4>TITLE</h4></a>

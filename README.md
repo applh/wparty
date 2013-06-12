@@ -203,7 +203,8 @@ MARKDOWN
 * See... http://daringfireball.net/projects/markdown/syntax 
 * Requirements: PHP5.3+
 
-```
+```markdown
+
 [part widget="mark"]
 # This is an H1
 
@@ -236,6 +237,7 @@ _single underscores_
 __double underscores__
 
 [/part]
+
 ```
 
 CSV

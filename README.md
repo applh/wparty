@@ -1,4 +1,4 @@
-[![WParty banner](http://s-plugins.wordpress.org/wparty/assets/banner-772x250.png)](http://wordpress.org/extend/plugins/wparty/)
+[![WParty banner](http://applh.com/media/uploads/2013/06/banner2-772x250.png)](http://wordpress.org/extend/plugins/wparty/)
 
 WParty
 ======

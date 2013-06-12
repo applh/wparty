@@ -8,7 +8,7 @@ Download the Plugin on WordPress.org
 * http://wordpress.org/extend/plugins/wparty/
 
 Plugin Name
-=
+------
 
 Contributors: applh
 Donate link: http://applh.com/
@@ -29,7 +29,7 @@ Mix website contents with WParty
 * DEV: Theme Builder  
 
 Description
-====
+------
 
 WParty is a WordPress Plugin to mix your website contents  
 * Pages  
@@ -42,7 +42,7 @@ WParty is a WordPress Plugin to mix your website contents
 * DEV: Theme Builder  
 
 PAGES
-====
+------
 
 * Do you want to include the content from another page ?
 * Simply use the shortcode [part]
@@ -52,45 +52,45 @@ PAGES
 * [part name="page-name" id="my-id" class="my-class" style="background-color:#123456;"]
 
 Note
-====
+------
 
 * The plugin also activates ALL shortcodes in Text Widgets.  
 * It makes easier to write HTML content in WordPress Editor, using Pages Rich Editor, and then embed the content in Text Widgets.
 
 Note 
-====
+------
 
 * The plugin also disables WordPress auto (P)(/P).
 * The shortcode [part name="page-name"] can access to all public and private pages/articles (warning to multi-users site)
 * This choice allows to keep parts as private content
 
 REDIRECT
-====
+------
 
 * Simple page redirection
 * [part widget="redirect" instance="/page-new-url/"]
 
 SHORTCODE PROGRAMMING
-====
+------
 
 * Manage easily Events or Multi-languages websites...
 * Conditions can be combined with widgets.  
 
 DATE CONDITIONS
-====
+------
 
 * display shortcode content between 01/03/2013 and 25/03/2013 ?
 * [part name="page-name" start="01-03-2013" end="25-03-2013"]  
 
 REQUEST CONDITIONS
-====
+------
 
 * display shortcode content if URL has GET specific parameter...
 * http://mysite.com/my-page/?lang=fr 
 * [part if="lang=fr" widget="redirect" instance="/page-lang-fr/"]  
 
 LIST WIDGET: CUSTOM LOOP AND HTML LAYOUT
-====
+------
 
 * The widget "list" accepts a custom HTML model
 
@@ -103,13 +103,13 @@ CONTENT
 ```  
 
 META
-====
+------
 
 * Do you want to display post meta inside the post content ?
 * [part meta="meta-name"]
 
 LOOP
-====
+------
 
 * Default LOOP can be included same as a widget:
 * Read more... http://codex.wordpress.org/Template_Tags/get_posts
@@ -117,7 +117,7 @@ LOOP
 * [part widget="loop" args="numberposts=5&tag=my-tag1,my-tag2"]
 
 CONTACT FORM
-====
+------
 
 * Do you want to add a contact form ?
 * [part widget="contact"]
@@ -153,12 +153,12 @@ MESSAGE
 ```  
 
 Note
-====
+------
 
 * Content can embed recursive shortcodes (max=10).
 
 WORDPRESS WIDGETS
-====
+------
 
 * WP Widgets can be added inside Pages/Posts. (Calendar, Recent_Posts, Tags, RSS, etc...).
 * Read more... http://codex.wordpress.org/Function_Reference/the_widget
@@ -172,26 +172,26 @@ WORDPRESS WIDGETS
 * [part widget="menu" instance="nav_menu=my-menu"]
 
 SIDEBARS
-====
+------
 
 * [part widget="sidebar" name="theme-sidebar-name"]  
 
 LOREM IPSUM
-====
+------
 
 * Fill with text "Lorem Ipsum..."
 * [part widget="lorem"]
 * [part widget="lorem" max="200"]
 
 PDF
-====
+------
 
 * Embed a PDF viewer in your website
 * See... https://docs.google.com/viewer 
 * [part widget="pdf" width="640" height="640"]http://your.website.com/file.pdf[/part]
 
 MAP
-====
+------
 
 * Embed a Google Map in your website
 * See... https://maps.google.com/ 
@@ -199,7 +199,7 @@ MAP
 * (note: don't use the short URL http://goo.gl/maps/...) 
 
 MARKDOWN
-====
+------
 
 * Prefer writing with MarkDown Syntax ?
 * See... http://daringfireball.net/projects/markdown/syntax 
@@ -243,7 +243,7 @@ __double underscores__
 ```
 
 CSV
-====
+------
 
 * Need to include some CSV data as a Table?
 * Requirements: PHP5.3+
@@ -268,7 +268,7 @@ cell31|cell32|cell33
 ```
 
 WEBHOOKS: MARK2 and CSV2
-====
+------
 
 * Need to fetch data from an URL ?
 * eg: Google SpreadSheet
@@ -287,7 +287,7 @@ https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19
 ```
 
 PAGE TEMPLATE
-====
+------
 
 * Need to customize your active theme with a new Page Template ?
 * [part dev="add-template" file="my-template" text="Template Name"]
@@ -295,7 +295,7 @@ PAGE TEMPLATE
 * (note: edit-theme role capability is required)
 
 THEME BUILDER
-====
+------
 
 * Need to create a new Theme ?
 * WParty is also a theme builder
@@ -304,12 +304,12 @@ THEME BUILDER
 * (note: edit-theme role capability is required)
 
 Note
-====
+------
 
 * WParty is designed to work with MultiSites installation.
 
 MEDIA
-====
+------
 
 * UNDER DEVELOPMENT
 * Creates a local cache copy of original image
@@ -319,13 +319,13 @@ MEDIA
 * [part widget="media" width="100" height="200"]http://somesite.com/image.gif[/part]
 
 SLIDER
-====
+------
 
 * UNDER DEVELOPMENT
 * [part widget="slider" name="my-slider"]  
 
 Installation
-====
+------
 
 This section describes how to install the plugin and get it working.
 
@@ -336,24 +336,24 @@ e.g.
 3. Add shortcode `[part name="page-name"]` in your pages content
 
 Frequently Asked Questions
-====
+------
 
 What is a PART ?
-===
+------
 
 * PAges, ARTicles...  
 * This plugin allows to mix contents with ShortCode.  
 * ...PART ;-p
 
 Can we program with ShortCodes ?
-===
+------
 
 WParty add a shortcode to expose some WP API.
 Webmasters can create some simple 'program' with shortcodes.
 'Pages' can be seen as 'functions'.
 
 Screenshots
-====
+------
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
 the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets 
@@ -362,7 +362,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 Changelog
-====
+------
 
 = 1.7.9 =
 
@@ -417,7 +417,7 @@ Manage easily Events or Multilang
 * Initial version
 
 Upgrade Notice
-=====
+------
 
 = 1.7.9 =
 

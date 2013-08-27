@@ -190,7 +190,7 @@ bloginfo( 'name' );
    $wparty_head_bs3=
 <<<BS3HEAD
     <!-- Bootstrap core CSS -->
-    <link href="$wparty2url/bootstrap.css" rel="stylesheet">
+    <link href="$wparty2url/css/bootstrap.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -199,7 +199,7 @@ bloginfo( 'name' );
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="$wparty2url/carousel.css" rel="stylesheet">
+    <link href="$wparty2url/css/carousel.css" rel="stylesheet">
 BS3HEAD;
 
 	   echo $wparty_head_bs3;
@@ -963,6 +963,7 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 
 
 

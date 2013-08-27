@@ -199,7 +199,7 @@ bloginfo( 'name' );
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="$wparty2url/css/carousel.css" rel="stylesheet">
+    <link href="$wparty2url/carousel.css" rel="stylesheet">
 BS3HEAD;
 
 	   echo $wparty_head_bs3;

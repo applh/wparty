@@ -2,16 +2,17 @@
 
 global $WParty;
 
+$wpartydir=$WParty['wparty.dir2'];
 
-$wpartydir=$WParty['wparty.dir'];
+$WParty['wparty.lib.url']=str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
 
-$WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
-$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.css");
-$WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
+//$WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
+//$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.css");
+//$WParty['css.flexslider']=file_get_contents("$wpartydir/flexslider.css");
 
-$WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
-$WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
-$WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
+//$WParty['js.jquery']=file_get_contents("$wpartydir/jquery.js");
+//$WParty['js.flexslider']=file_get_contents("$wpartydir/flexslider.js");
+//$WParty['js.wparty']=file_get_contents("$wpartydir/wparty.js");
 
 
 if (!function_exists('wparty_filter_template')) :
@@ -48,39 +49,6 @@ add_filter('comments_popup_template', 'wparty_filter_template');
 
 $WParty['theme.head']=
 <<<WPARTYHEAD
-<style type="text/css">
-</style>
-<style type="text/css">
-{$WParty['css.bootstrap']}
-</style>
-<style type="text/css">
-{$WParty['css.bootstrap.responsive']}
-</style>
-<style type="text/css">
-{$WParty['css.flexslider']}
-</style>
-<style type="text/css">
-.wrapper1 {
-background-color:#222222;
-}
-.slider {
-width:100%;
-padding:0px;
-position:relative;
-}
-.slider .flexslider {
-border:none;
-}
-</style>
-<script type="text/javascript">
-{$WParty['js.jquery']}
-</script>
-<script type="text/javascript">
-{$WParty['js.flexslider']}
-</script>
-<script type="text/javascript">
-{$WParty['js.wparty']}
-</script>
 WPARTYHEAD;
 
 $WParty['body.slider']=
@@ -205,25 +173,53 @@ function wparty_filter_header ($res) {
      global $WParty;
      ob_start();
      $N="\n";
-           echo $N.'<!DOCTYPE html>';
+           echo '<!DOCTYPE html>';
            echo $N.'<html lang="'; bloginfo( 'language' ) ;echo '">';
            echo $N.'<head>';
            echo $N.'<meta charset="'; bloginfo( 'charset' );echo '" />';
            echo $N.'<meta name="viewport" content="width=device-width, initial-scale=1.0" />';
+
+
            echo $N.'<title>';
 wp_title( '|', true, 'right' );
 // Add the blog name.
 bloginfo( 'name' );
            echo '</title>'.$N;
 
-           wp_head();
+   $wparty2url=$WParty['wparty.lib.url'];
+   $wparty_head_bs3=
+<<<BS3HEAD
+    <!-- Bootstrap core CSS -->
+    <link href="$wparty2url/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="$wparty2url/html5shiv.js"></script>
+      <script src="$wparty2url/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="$wparty2url/carousel.css" rel="stylesheet">
+BS3HEAD;
+
+	   echo $wparty_head_bs3;
+
+	   wparty_head();
+
            echo $N.'</head>';
            echo $N.'<body>';
-           echo $N.'<div class="container">';
+           //echo $N.'<div class="container">';
     $res.=ob_get_clean();
     return $res;
 }
 endif;
+
+if (!function_exists('wparty_head')) :
+function wparty_head () {
+   global $WParty;
+}
+endif;
+add_filter('wparty_head', 'wparty_head');
 
 if (!function_exists('wparty_filter_widget1')) :
 function wparty_filter_widget1 ($res) {
@@ -388,6 +384,197 @@ endif;
 if (!function_exists('wparty_filter_model')) :
 function wparty_filter_model ($res) {
    global $WParty;
+   ob_start();
+
+   $wparty2url=$WParty['wparty.lib.url'];
+   $wparty_bs3_body=
+<<<BS3CONTENT
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-large btn-primary" href="#">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Second slide" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Another example headline.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Third slide" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Heading</h2>
+          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140" alt="Generic placeholder image">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="$wparty2url/jquery.js"></script>
+    <script src="$wparty2url/bootstrap.min.js"></script>
+    <script src="$wparty2url/holder.js"></script>
+BS3CONTENT;
+   
+   echo $wparty_bs3_body;
+   $res.=ob_get_clean();
+
+   return $res;
+
+}
+endif;
+
+if (!function_exists('wparty_filter_model')) :
+function wparty_filter_model ($res) {
+   global $WParty;
 
      $N="\n";
    $model0=
@@ -469,6 +656,19 @@ MODEL0;
     return $res;
 }
 endif;
+
+if (!function_exists('wparty_filter_footer')) :
+function wparty_filter_footer ($res) {
+     ob_start();
+     $N="\n";
+           //echo $N.'</div>';
+           echo $N.'</body>';   
+           echo $N.'</html>';
+    $res.=ob_get_clean();
+    return $res;
+}
+endif;
+
 
 if (!function_exists('wparty_filter_footer')) :
 function wparty_filter_footer ($res) {
@@ -763,5 +963,6 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 
 

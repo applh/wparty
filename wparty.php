@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WParty
+Plugin Name: WParty DEV
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 Description: WParty adds a shortcode [part name="page-name"] to easily mix content: pages/articles/media/widgets/menus. Read more... http://applh.com/wordpress/plugins/wparty/
 Version: 1.7.9
@@ -11,12 +11,13 @@ License: GPLv3
 
 if (!function_exists('add_shortcode')) die();
 
-$curdir=dirname(__FILE__);
+$curdir=__DIR__;
 
 global $WParty;
 $WParty=array(
-   "version" => "1.7",
+   "version" => "1.8",
    "wparty.dir" => $curdir,
+   "wparty.dir2" => __DIR__,
    "FS_CHMOD_FILE" => 0666,
    "FS_CHMOD_DIR" => 0777,
 );
@@ -363,7 +364,7 @@ function wparty ($part, $attr=null) {
 // but allow to deactivate/replace completely theme code 
 function wparty_filter_functions ($res) {
    global $WParty;
-   include_once($WParty['wparty.dir']."/wparty-theme.php");
+   include_once($WParty['wparty.dir2']."/wparty-theme.php");
    return $res;
 }
 add_filter('wparty_functions', 'wparty_filter_functions');
@@ -372,6 +373,7 @@ if (is_admin()) {
    global $WParty;
    include_once($WParty['wparty.dir']."/wparty-admin.php");   
 }
+
 
 
 

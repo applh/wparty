@@ -283,14 +283,6 @@ function shortcode_part ($atts, $content, $tag) {
              }
           }
        }
-       else if ($theme) {
-          if (current_user_can('edit_themes')) {
-             include_once("$curdir/wparty-theme-install.php");
-             if (function_exists('wparty_create_theme')) {
-                wparty_create_theme($theme, $name);
-             }
-          }
-       }
        else if ($name) {
            $args=array(
              'name' => $name,

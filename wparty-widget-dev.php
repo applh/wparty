@@ -22,6 +22,7 @@ function wparty_dev_shortcode ($atts, $content, $tag) {
    extract( 
       shortcode_atts( 
          array(
+	    'action'  => '',
 	    'name'  => '',
             'title' => '',
          ), 
@@ -31,7 +32,9 @@ function wparty_dev_shortcode ($atts, $content, $tag) {
 
    switch ($tag) {
       case 'theme':
-         wparty_dev_create_theme($title, $name);
+         if ($action == "create") {
+            wparty_dev_create_theme($title, $name);
+         }
          break;
       default:
          break;

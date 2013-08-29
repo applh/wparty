@@ -258,6 +258,14 @@ function shortcode_part ($atts, $content, $tag) {
        	       wparty_widget_csv2();
             }
          }
+         else if ($widget == 'dev') {
+            $dev2code=trim($content);
+            if ($dev2code) {
+               $WParty['part.code']=$dev2code;
+               include_once("$curdir/wparty-widget-dev.php");
+       	       wparty_widget_dev();
+            }
+         }
 
          $html_widget = ob_get_clean();
          $res .= $html_widget;

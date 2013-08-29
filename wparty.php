@@ -89,6 +89,9 @@ function shortcode_part ($atts, $content, $tag) {
 		                'cut' => '',
 		                'quote' => '',
 		                'esc' => '',
+		                'start2html' => '<div class="part-content">',
+		                'end2html' => '</div>',
+		                'wrap2html' => '1',
 	                    ), 
                         $atts ) );
 
@@ -293,7 +296,7 @@ function shortcode_part ($atts, $content, $tag) {
            $my_posts = get_posts($args);
            if ($my_posts) {
                $content=do_shortcode($my_posts[0]->post_content);	
-               $res.='<div class="part-content">'.$content.'</div>';
+               $res.="$start2html$content$end2html";
            }
        }
        else if ($meta) {
@@ -320,7 +323,9 @@ function shortcode_part ($atts, $content, $tag) {
        if ($id) $html_id='id="'.$id.'" ';
        if ($class) $class=" $class";
 
-       $res='<div '.$html_id.'class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
+       if ($wrap2html) {
+         $res='<div '.$html_id.'class="part'.$class.'" style="'.$style.'">'.$res.'</div>';
+       }
    }
 
    // CUSTOM FILTERS    

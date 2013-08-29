@@ -1,9 +1,12 @@
 <?php
 /*
-Plugin Name: WParty DEV
+Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
-Description: WParty adds a shortcode [part name="page-name"] to easily mix content: pages/articles/media/widgets/menus. Read more... http://applh.com/wordpress/plugins/wparty/
-Version: 1.7.9
+
+Version: 1.8.0
+
+Description: WParty adds a shortcode [part name="page-name"] to easily mix content: pages/articles/media/widgets/menus. Read more... http://wordpress.org/plugins/wparty/
+
 Author: Applh
 Author URI: http://Applh.com
 License: GPLv3

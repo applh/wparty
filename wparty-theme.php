@@ -4,7 +4,7 @@ global $WParty;
 
 $wpartydir=$WParty['wparty.dir2'];
 
-$WParty['wparty.lib.url']=str_replace($_SERVER['DOCUMENT_ROOT'], '', __DIR__);
+$WParty['wparty.lib.url']=plugins_url().'/'.basename(__DIR__);
 
 //$WParty['css.bootstrap']=file_get_contents("$wpartydir/bootstrap.css");
 //$WParty['css.bootstrap.responsive']=file_get_contents("$wpartydir/bootstrap-responsive.css");
@@ -963,6 +963,7 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 
 
 

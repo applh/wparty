@@ -381,6 +381,31 @@ MODEL0;
 }
 endif;
 
+if (!function_exists('wparty_content_model')) :
+function wparty_content_model ($res) {
+
+   if (empty($res)) {
+      $model2bootstrap=
+<<<MODEL2BOOTSTRAP
+[part name="main-menu" start2html='' end2html='' wrap2html='0']
+[part name="carousel" start2html='' end2html='' wrap2html='0']
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+[part name="features" start2html='' end2html='' wrap2html='0']
+[part name="featurettes" start2html='' end2html='' wrap2html='0']
+[part name="footer" start2html='' end2html='' wrap2html='0']
+    </div><!-- /.container -->
+[part name="footer-javascript" start2html='' end2html='' wrap2html='0']
+MODEL2BOOTSTRAP;
+
+      $res=$model2bootstrap;
+   }
+
+   return $res;
+
+}
+endif;
+
 if (!function_exists('wparty_filter_model')) :
 function wparty_filter_model ($res) {
    global $WParty;
@@ -423,6 +448,8 @@ MODEL0;
        echo $WParty['loop.before'];
        while (have_posts()) { 
            the_post();
+
+	   add_filter('the_content', 'wparty_content_model');
 
            $tags2html=get_the_tag_list($tags2before, $tags2sep, $tags2after);
            $date2html=the_date($date2format, $date2before, $date2after, false);
@@ -662,7 +689,7 @@ function wparty_response_template ($res) {
       add_action( 'wp_footer', 'wparty_theme_footer' );
 
       add_filter('wparty_template', 'wparty_filter_header'); 
-      add_filter('wparty_template', 'wparty_filter_model_home');
+      add_filter('wparty_template', 'wparty_filter_model');
       add_filter('wparty_template', 'wparty_filter_debug');
       add_filter('wparty_template', 'wparty_filter_footer');
    }
@@ -762,6 +789,7 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 
 
 

@@ -748,9 +748,24 @@ function wparty_create_image ()
    if ($height < 0) $height=0;
    else if ($height > 3000) $height=3000;
 
-   $im = null;
+   $im = false;
+   $im2src = false;
 
-   if (!$im) {
+   $img2search=trim(basename($imgname));
+   $a2upload=wp_upload_dir();
+   $search=$a2upload['basedir'].'/*/*/'.$img2search;
+   $a2img=glob($search, GLOB_NOSORT);
+   foreach($a2img as $test) {
+      $im2src=imagecreatefromstring(file_get_contents($test));
+   }
+
+   if ($im2src !== false) {
+      $im = imagecreatetruecolor($width, $height);
+      imagecopyresampled($im, $im2src, 0, 0, 0, 0, $width, $height, imagesx($im2src), imagesy($im2src));
+      imagedestroy($im2src);
+   }
+
+   if ($im === false) {
       $im  = imagecreatetruecolor($width, $height);
       $bgc = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255) );
       $tc  = imagecolorallocate($im, 0, 0, 0);

@@ -736,6 +736,34 @@ function wparty_create_jpeg ($imgname, $width=960, $height=320)
     return $im;
 }
 
+function wparty_create_image ()
+{
+   
+   $uri=trim($_SERVER['REQUEST_URI']);
+   list($width, $height, $imgname)=sscanf($uri, "/image/%dx%d/%s");
+
+   if ($width < 0) $width=0;
+   else if ($width > 3000) $width=3000;
+
+   if ($height < 0) $height=0;
+   else if ($height > 3000) $height=3000;
+
+   $im = null;
+
+   if (!$im) {
+      $im  = imagecreatetruecolor($width, $height);
+      $bgc = imagecolorallocate($im, mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255) );
+      $tc  = imagecolorallocate($im, 0, 0, 0);
+
+      imagefilledrectangle($im, 0, 0, $width, $height, $bgc);
+
+      //imagestring($im, 1, 5, 5, $imgname, $tc);
+   }
+
+   return $im;
+}
+
+
 function wparty_response_css ($res) {
    status_header(200);
    header('Content-Type: text/css');
@@ -763,7 +791,7 @@ function wparty_response_jpeg ($res) {
    status_header(200);
    header('Content-Type: image/jpeg');
 
-   $img = wparty_create_jpeg('WPARTY');
+   $img = wparty_create_image();
 
    imagejpeg($img);
    imagedestroy($img);
@@ -774,7 +802,7 @@ function wparty_response_png ($res) {
    status_header(200);
    header('Content-Type: image/png');
 
-   $img = wparty_create_jpeg('WPARTY');
+   $img = wparty_create_image();
 
    imagepng($img);
    imagedestroy($img);
@@ -784,7 +812,7 @@ function wparty_response_gif ($res) {
    status_header(200);
    header('Content-Type: image/gif');
 
-   $img = wparty_create_jpeg('WPARTY');
+   $img = wparty_create_image();
 
    imagegif($img);
    imagedestroy($img);

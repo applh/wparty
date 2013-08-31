@@ -760,9 +760,38 @@ function wparty_create_image ()
    }
 
    if ($im2src !== false) {
-      $im = imagecreatetruecolor($width, $height);
-      imagecopyresampled($im, $im2src, 0, 0, 0, 0, $width, $height, imagesx($im2src), imagesy($im2src));
-      imagedestroy($im2src);
+      $w0=imagesx($im2src);
+      $h0=imagesy($im2src);
+
+      if (($w0 >0) && ($h0 >0) && ($width >0) && ($height >0)) {
+         $im = imagecreatetruecolor($width, $height);
+
+         if (($w0 < $width) && ($h0 < $height)) {
+            $x=floor(.5*($width-$w0));
+            $y=floor(.5*($height-$h0));
+            $grey=mt_rand(0, 255);
+            $bgc = imagecolorallocate($im, $grey, $grey, $grey );
+            imagefilledrectangle($im, 0, 0, $width, $height, $bgc);
+
+            imagecopyresampled($im, $im2src, $x, $y, 0, 0, $w0, $h0, $w0, $h0);
+         }
+         else {
+            $wr=$w0 / $width;
+            $hr=$h0 / $height;
+
+            $ratio=$wr;
+            if ($wr > $hr) $ratio=$hr;
+
+            $w1=round($width * $ratio);
+            $h1=round($height * $ratio);
+
+            $x1=floor(.5*($w0-$w1));
+            $y1=floor(.5*($h0-$h1));
+            
+            imagecopyresampled($im, $im2src, 0, 0, $x1, $y1, $width, $height, $w1, $h1);
+         }
+         imagedestroy($im2src);
+      }
    }
 
    if ($im === false) {
@@ -832,6 +861,7 @@ function wparty_response_gif ($res) {
    imagegif($img);
    imagedestroy($img);
 }
+
 
 
 

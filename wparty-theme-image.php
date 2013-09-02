@@ -77,7 +77,7 @@ endif;
 if (!function_exists('wparty_create_image_v2')) :
 function wparty_create_image_v2 ($uri)
 {
-   list($bl, $br, $bt, $bb, $width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%dx%dx%d/%dx%d/%s");
+   list($bl, $bt, $br, $bb, $width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%dx%dx%d/%dx%d/%s");
 
    if ($width < 0) $width=0;
    else if ($width > 3000) $width=3000;

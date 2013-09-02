@@ -1,25 +1,9 @@
 <?php
 
-if (!function_exists('wparty_create_image')) :
-function wparty_create_image ()
-{
-   $uri=trim($_SERVER['REQUEST_URI']);
-   $a2action=explode("/", $uri);
-   $action0=$a2action[0];
-   if ($action0 == "imagebox") {
-      return wparty_create_image_v2();
-   }
-   else {
-      return wparty_create_image_v1();
-   }
-}
-endif;
-
 if (!function_exists('wparty_create_image_v1')) :
-function wparty_create_image_v1 ()
+function wparty_create_image_v1 ($uri)
 {
    
-   $uri=trim($_SERVER['REQUEST_URI']);
    list($width, $height, $imgname)=sscanf($uri, "/image/%dx%d/%s");
 
    if ($width < 0) $width=0;
@@ -91,10 +75,9 @@ endif;
 
 
 if (!function_exists('wparty_create_image_v2')) :
-function wparty_create_image_v2 ()
-{  
-   $uri=trim($_SERVER['REQUEST_URI']);
-   list($width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%d/%s");
+function wparty_create_image_v2 ($uri)
+{
+   list($bl, $br, $bt, $bb, $width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%dx%dx%d/%dx%d/%s");
 
    if ($width < 0) $width=0;
    else if ($width > 3000) $width=3000;
@@ -114,8 +97,8 @@ function wparty_create_image_v2 ()
    }
 
    if ($im2src !== false) {
-      $w0=imagesx($im2src);
-      $h0=imagesy($im2src);
+      $w0=imagesx($im2src) -$bl -$br;
+      $h0=imagesy($im2src) -$bt -$bb;
 
       if (($w0 >0) && ($h0 >0) && ($width >0) && ($height >0)) {
          $im = imagecreatetruecolor($width, $height);
@@ -127,7 +110,7 @@ function wparty_create_image_v2 ()
             $bgc = imagecolorallocate($im, $grey, $grey, $grey );
             imagefilledrectangle($im, 0, 0, $width, $height, $bgc);
 
-            imagecopyresampled($im, $im2src, $x, $y, 0, 0, $w0, $h0, $w0, $h0);
+            imagecopyresampled($im, $im2src, $x, $y, $bl, $br, $w0, $h0, $w0, $h0);
          }
          else {
             $wr=$w0 / $width;
@@ -139,8 +122,8 @@ function wparty_create_image_v2 ()
             $w1=round($width * $ratio);
             $h1=round($height * $ratio);
 
-            $x1=floor(.5*($w0-$w1));
-            $y1=floor(.5*($h0-$h1));
+            $x1=floor(.5*($w0-$w1)) + $bl;
+            $y1=floor(.5*($h0-$h1)) + $bt;
             
             imagecopyresampled($im, $im2src, 0, 0, $x1, $y1, $width, $height, $w1, $h1);
          }
@@ -160,7 +143,22 @@ function wparty_create_image_v2 ()
 
    return $im;
 }
-
 endif;
+
+if (!function_exists('wparty_create_image')) :
+function wparty_create_image ()
+{
+   $uri=trim($_SERVER['REQUEST_URI']);
+   $a2action=explode("/", $uri);
+   $action0=$a2action[1];
+   if ($action0 == "imagebox") {
+      return wparty_create_image_v2($uri);
+   }
+   else {
+      return wparty_create_image_v1($uri);
+   }
+}
+endif;
+
 
 

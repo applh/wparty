@@ -760,37 +760,43 @@ RESPONSEJS;
 }
 
 function wparty_response_jpeg ($res) {
-   status_header(200);
-   header('Content-Type: image/jpeg');
 
    include_once(__DIR__.'/wparty-theme-image.php');
    $img = wparty_create_image();
 
-   imagejpeg($img);
-   imagedestroy($img);
+   if ($img !== false) {
+      status_header(200);
+      header('Content-Type: image/jpeg');
+      imagejpeg($img);
+      imagedestroy($img);
+   }
 }
 
 
 function wparty_response_png ($res) {
-   status_header(200);
-   header('Content-Type: image/png');
 
    include_once(__DIR__.'/wparty-theme-image.php');
    $img = wparty_create_image();
 
-   imagepng($img);
-   imagedestroy($img);
+   if ($img !== false) {
+      status_header(200);
+      header('Content-Type: image/png');
+      imagepng($img);
+      imagedestroy($img);
+   }
 }
 
 function wparty_response_gif ($res) {
-   status_header(200);
-   header('Content-Type: image/gif');
 
    include_once(__DIR__.'/wparty-theme-image.php');
    $img = wparty_create_image();
 
-   imagegif($img);
-   imagedestroy($img);
+   if ($img !== false) {
+      status_header(200);
+      header('Content-Type: image/gif');
+      imagegif($img);
+      imagedestroy($img);
+   }
 }
 
 

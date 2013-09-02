@@ -79,6 +79,10 @@ function wparty_create_image_v2 ($uri)
 {
    list($bl, $bt, $br, $bb, $width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%dx%dx%d/%dx%d/%s");
 
+   $bl=intval($bl);
+   $bt=intval($bt);
+   $br=intval($br);
+   $bb=intval($bb);
    if ($width < 0) $width=0;
    else if ($width > 3000) $width=3000;
 

@@ -2,14 +2,15 @@
 
 if (!function_exists('wparty_create_image')) :
 function wparty_create_image ()
+{
    $uri=trim($_SERVER['REQUEST_URI']);
    $a2action=explode("/", $uri);
    $action0=$a2action[0];
-   if ($action0 == "image") {
-      wparty_create_image_v1();
+   if ($action0 == "imagebox") {
+      return wparty_create_image_v2();
    }
-   else if ($action == "imagebox") {
-      wparty_create_image_v2();
+   else {
+      return wparty_create_image_v1();
    }
 }
 endif;
@@ -91,39 +92,9 @@ endif;
 
 if (!function_exists('wparty_create_image_v2')) :
 function wparty_create_image_v2 ()
-{
-   
+{  
    $uri=trim($_SERVER['REQUEST_URI']);
-
-   list($border, $width, $height, $imgname)=sscanf($uri, "/imagebox/%s/%dx%d/%s");
-   $a2border=explode(",", $border);
-   $bl=0;
-   $bt=0;
-   $br=0;
-   $bb=0;
-   switch (count($a2border)) {
-      case 1:
-         $bl=$br=$bt=$bb=$a2border[0];
-         break;
-      case 2:
-         $bl=$br=$a2border[0];
-         $bt=$bb=$a2border[1];
-         break;
-      case 3:
-         $bl=$a2border[0];
-         $bt=$bb=$a2border[1];
-         $br=$a2border[2];
-         break;
-      case 3:
-         $bl=$a2border[0];
-         $bt=$a2border[1];
-         $br=$a2border[2];
-         $bb=$a2border[3];
-         break;
-      default:
-         break;
-
-   }
+   list($width, $height, $imgname)=sscanf($uri, "/imagebox/%dx%d/%s");
 
    if ($width < 0) $width=0;
    else if ($width > 3000) $width=3000;
@@ -143,8 +114,8 @@ function wparty_create_image_v2 ()
    }
 
    if ($im2src !== false) {
-      $w0=imagesx($im2src) -$bl -$br;
-      $h0=imagesy($im2src) -$bt -$bb;
+      $w0=imagesx($im2src);
+      $h0=imagesy($im2src);
 
       if (($w0 >0) && ($h0 >0) && ($width >0) && ($height >0)) {
          $im = imagecreatetruecolor($width, $height);
@@ -156,7 +127,7 @@ function wparty_create_image_v2 ()
             $bgc = imagecolorallocate($im, $grey, $grey, $grey );
             imagefilledrectangle($im, 0, 0, $width, $height, $bgc);
 
-            imagecopyresampled($im, $im2src, $x, $y, $bl, $br, $w0, $h0, $w0, $h0);
+            imagecopyresampled($im, $im2src, $x, $y, 0, 0, $w0, $h0, $w0, $h0);
          }
          else {
             $wr=$w0 / $width;
@@ -171,7 +142,7 @@ function wparty_create_image_v2 ()
             $x1=floor(.5*($w0-$w1));
             $y1=floor(.5*($h0-$h1));
             
-            imagecopyresampled($im, $im2src, $bl, $br, $x1, $y1, $width, $height, $w1, $h1);
+            imagecopyresampled($im, $im2src, 0, 0, $x1, $y1, $width, $height, $w1, $h1);
          }
          imagedestroy($im2src);
       }
@@ -191,4 +162,5 @@ function wparty_create_image_v2 ()
 }
 
 endif;
+
 

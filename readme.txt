@@ -3,7 +3,7 @@ Contributors: applh
 Donate link: http://applh.com/
 Tags: widget, post, sidebar, content, mix, multi loop, shortcode, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
 Requires at least: 3.5
-Tested up to: 3.6
+Tested up to: 3.7.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

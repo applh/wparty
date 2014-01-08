@@ -3,7 +3,7 @@ Contributors: applh
 Donate link: http://applh.com/
 Tags: widget, post, sidebar, content, mix, multi loop, shortcode, page, theme, builder, custom, layout, markdown, csv, speadsheet, google, docs, webhook
 Requires at least: 3.5
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -289,6 +289,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 1.8 =
+* Bug correction
+
 = 1.7.9 =
 * new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
 
@@ -340,6 +343,9 @@ Manage easily Events or Multilang
 * Initial version
 
 == Upgrade Notice ==
+= 1.8 =
+* Bug correction
+
 = 1.7.9 =
 * new webhook widgets "csv2" "mark2": [part widget="csv2"]http://url-to-text-data[/part]
 

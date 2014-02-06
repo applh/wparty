@@ -118,14 +118,19 @@ MODEL0;
 
       $mail2headers=array();
 
-      if ($tab_args['mailfrom'] == "auto") {
+      if ($tab_args['mailfrom'] == "") {
          // set from: to visitor email
          $mail2from=sanitize_email($translate['EMAIL']);
          $mail2fromname=sanitize_title($translate['NAME']);
+      }
+      else {
+         // set from: to args mailfrom
+         $mail2from=sanitize_email($tab_args['mailfrom']);
+         $mail2fromname=sanitize_title($translate['NAME']);
+      }
 
-         if (!empty($mail2from)) {
-            $mail2headers[] = "From: $mail2fromname <$mail2from>";
-         }
+      if (!empty($mail2from)) {
+         $mail2headers[] = "From: $mail2fromname <$mail2from>";
       }
 
       $mail2subject=$tab_args['prefix'].$translate['SUBJECT'];

@@ -363,6 +363,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 Changelog
 ------
+= 2.0.0 =
+* code factor with folders
 
 = 1.7.9 =
 
@@ -418,6 +420,9 @@ Manage easily Events or Multilang
 
 Upgrade Notice
 ------
+
+= 2.0.0 =
+* code factor with folders
 
 = 1.7.9 =
 

@@ -3,7 +3,7 @@
 Plugin Name: WParty
 Plugin URI: http://applh.com/wordpress/plugins/wparty/
 
-Version: 1.8.1
+Version: 2.0.0
 
 Description: WParty adds a shortcode [part name="page-name"] to easily mix content: pages/articles/media/widgets/menus. Read more... http://wordpress.org/plugins/wparty/
 
@@ -18,7 +18,7 @@ $curdir=__DIR__;
 
 global $WParty;
 $WParty=array(
-   "version" => "1.8",
+   "version" => "2.0",
    "wparty.dir" => $curdir,
    "wparty.dir2" => __DIR__,
    "FS_CHMOD_FILE" => 0666,
@@ -144,22 +144,22 @@ function shortcode_part ($atts, $content, $tag) {
          ob_start();
 
          if ($widget == 'list') {
-            include_once("$curdir/wparty-widget-list.php");
+            include_once("$curdir/widgets/list.php");
        	    wparty_widget_list('', $instance, $args, $content);
          }
          else if ($widget == 'contact') {
-            include_once("$curdir/wparty-widget-contact.php");
+            include_once("$curdir/widgets/contact.php");
        	    wparty_widget_contact('', $instance, $args, $content);
          }
          else if ($widget == 'media') {
             $WParty['part.width']=$width;
             $WParty['part.height']=$height;
-            include_once("$curdir/wparty-widget-media.php");
+            include_once("$curdir/widgets/media.php");
        	    wparty_widget_media('', $instance, $args, $content);
          }
          else if ($widget == 'mark') {
             $WParty['part.mark']=$content;            
-            include_once("$curdir/wparty-widget-mark.php");
+            include_once("$curdir/widgets/mark.php");
        	    wparty_widget_mark();
          }
          else if ($widget == 'mark2') {
@@ -167,12 +167,12 @@ function shortcode_part ($atts, $content, $tag) {
             if ($data2src) {
                $WParty['part.mark']='';            
                $WParty['part.src']=$data2src;            
-               include_once("$curdir/wparty-widget-mark.php");
+               include_once("$curdir/widgets/mark.php");
        	       wparty_widget_mark2();
             }
          }
          else if ($widget == 'loop') {
-            include_once("$curdir/wparty-widget-loop.php");
+            include_once("$curdir/widgets/loop.php");
        	    wparty_widget_loop('', $instance, $args);
          }
          else if ($widget == 'slider') {
@@ -181,7 +181,7 @@ function shortcode_part ($atts, $content, $tag) {
             }
          }
          else if ($widget == 'sidebar') {
-            include_once("$curdir/wparty-widget-sidebar.php");
+            include_once("$curdir/widgets/sidebar.php");
             wparty_widget_sidebar($name);
          }
          else if ($widget == 'calendar') {
@@ -225,21 +225,21 @@ function shortcode_part ($atts, $content, $tag) {
          }
          else if ($widget == 'lorem') {
             $WParty['part.max']=$max;
-            include_once("$curdir/wparty-widget-lorem.php");
+            include_once("$curdir/widgets/lorem.php");
        	    wparty_widget_lorem('', $instance, $args, $content);
          }
          else if ($widget == 'pdf') {
             $WParty['part.pdf']=$content;
             $WParty['part.width']=$width;
             $WParty['part.height']=$height;
-            include_once("$curdir/wparty-widget-pdf.php");
+            include_once("$curdir/widgets/pdf.php");
        	    wparty_widget_pdf();
          }
          else if ($widget == 'map') {
             $WParty['part.map']=$content;
             $WParty['part.width']=$width;
             $WParty['part.height']=$height;
-            include_once("$curdir/wparty-widget-map.php");
+            include_once("$curdir/widgets/map.php");
        	    wparty_widget_map();
          }
 
@@ -249,7 +249,7 @@ function shortcode_part ($atts, $content, $tag) {
             $WParty['part.cut']=$cut;
             $WParty['part.quote']=$quote;
             $WParty['part.esc']=$esc;
-            include_once("$curdir/wparty-widget-csv.php");
+            include_once("$curdir/widgets/csv.php");
        	    wparty_widget_csv();
          }
          else if ($widget == 'csv2') {
@@ -260,7 +260,7 @@ function shortcode_part ($atts, $content, $tag) {
                $WParty['part.cut']=$cut;
                $WParty['part.quote']=$quote;
                $WParty['part.esc']=$esc;
-               include_once("$curdir/wparty-widget-csv.php");
+               include_once("$curdir/widgets/csv.php");
        	       wparty_widget_csv2();
             }
          }
@@ -268,7 +268,7 @@ function shortcode_part ($atts, $content, $tag) {
             $dev2code=trim($content);
             if ($dev2code) {
                $WParty['part.code']=$dev2code;
-               include_once("$curdir/wparty-widget-dev.php");
+               include_once("$curdir/widgets/dev.php");
        	       wparty_widget_dev();
             }
          }
@@ -379,7 +379,7 @@ add_filter('wparty_functions', 'wparty_filter_functions');
 
 if (is_admin()) {
    global $WParty;
-   include_once($WParty['wparty.dir']."/wparty-admin.php");   
+   include_once($WParty['wparty.dir']."/admin/wparty-admin.php");   
 }
 
 

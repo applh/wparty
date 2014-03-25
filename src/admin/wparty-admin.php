@@ -105,7 +105,8 @@ function wparty_admin () {
 
    $data2html='';
    global $WParty_options;
-   foreach($WParty_options as $ovar => $oval) {
+   if (is_array($WParty_options)) {
+   		foreach($WParty_options as $ovar => $oval) {
       if ($ovar != "admin_html") {
          $data2html.=
 <<<DATA2HTML
@@ -118,7 +119,8 @@ DATA2HTML;
       }
 
    }
-
+   }
+   
    $var2html="";
    foreach($WParty as $ovar => $oval) {
       $var2html.=" / $ovar";

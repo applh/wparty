@@ -237,7 +237,11 @@ https://docs.google.com/spreadsheet/pub?key=0AhDBS7EaaokRdGFFRGNjam1HOEk2dU84d19
 = THEME BUILDER =
 * Need to create a new Theme ?
 * WParty is also a theme builder
-* [part theme="My Theme" name="new-theme"]
+`
+[part widget="dev"]
+[theme action="create" name="new-theme" title="My Theme"]
+[/part]
+`
 * creates the folder /themes/new-theme/ and WP theme files inside to show as "My Theme" in Appearance Menu
 * (note: edit-theme role capability is required)
 

@@ -5,7 +5,7 @@ function wparty_widget_mark () {
    global $WParty;
 
    $curdir=$WParty['wparty.dir'];   
-   include_once("$curdir/Markdown.php");
+   include_once("$curdir/modules/markdown/Markdown.php");
 
    $content=trim($WParty['part.mark']);
 

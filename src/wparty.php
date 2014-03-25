@@ -209,7 +209,9 @@ function shortcode_part ($atts, $content, $tag) {
             the_widget('WP_Widget_Meta', $instance, $args);
          }
          else if ($widget == 'redirect') {
-            wp_redirect($instance);
+            if (!headers_sent()) {
+               wp_redirect($instance);
+            }
          }
          else if ($widget == 'lorem') {
             $WParty['part.max']=$max;

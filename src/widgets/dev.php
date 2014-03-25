@@ -5,9 +5,11 @@ function wparty_dev_create_theme ($theme, $name) {
 
    if (current_user_can('edit_themes')) {
       
-      // CREATE THEME my-theme MY THEME
+      	// CREATE THEME my-theme MY THEME
+		global $WParty;
+   		$wpartydir=$WParty['wparty.dir'];
 
-      include_once(__DIR__."/wparty-theme-install.php");
+      include_once("$wpartydir/theme/wparty-theme-install.php");
       if (function_exists('wparty_create_theme')) {
          wparty_create_theme($theme, $name);
       }

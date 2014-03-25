@@ -5,7 +5,20 @@
 $WParty['admin_html']=
 <<<WPARTYADMIN
 <h3>WParty</h3>
-
+<hr>
+<div><span>URL: </span><input name="user-url" value=""><span> <a class="act-go" href="#go">GO</a></span></div>
+<div class="act-go-response"></div>
+<script type="text/javascript">
+var WPrt={};
+WPrt.jinit=function() {
+   jQuery(".act-go").on("click", WPrt.act_go);
+};
+WPrt.act_go=function() {
+   jQuery(".act-go-response").load("/wp-admin/admin-ajax.php", {action: "wparty"});
+};
+jQuery(WPrt.jinit);
+</script>
+<hr>
 <form method="post" action="{$_SERVER['REQUEST_URI']}">
 <table>
 <tbody>
@@ -160,8 +173,29 @@ function wparty_admin_init () {
    add_options_page( 'WParty', 'WParty', 'edit_themes', 'wparty.php', 'wparty_admin');
 }
 
+function wparty_ajax_admin () {
+	echo date("H:i:s");
+	WP_Filesystem();
+	$source="https://github.com/applh/wparty/archive/master.zip";
+	$downloadfile=download_url($source);
+	$target=WP_CONTENT_DIR."/wparty";
+	$sourcezip="$target/toto.zip";
+	$targetdir="$target/new";
+	echo date("H:i:s")." / $downloadfile / $targetdir";
+	
+	rename($downloadfile, $sourcezip);
+	$unzipfile = unzip_file($sourcezip, $targetdir);
+   
+    if ($unzipfile) {
+       echo ' / OK';       
+    } else {
+       echo ' / KO';       
+    }
+	wp_die();
+}
 
 add_action('admin_menu', 'wparty_admin_init');
+add_action('wp_ajax_wparty', 'wparty_ajax_admin');
 
 
 

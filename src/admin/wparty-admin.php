@@ -178,14 +178,17 @@ function wparty_ajax_admin () {
 	WP_Filesystem();
 	$source="https://github.com/applh/wparty/archive/master.zip";
 	$downloadfile=download_url($source);
-	$target=WP_CONTENT_DIR."/wparty";
-	$sourcezip="$target/toto.zip";
-	$targetdir="$target/new";
-	echo date("H:i:s")." / $downloadfile / $targetdir";
-	
-	rename($downloadfile, $sourcezip);
-	$unzipfile = unzip_file($sourcezip, $targetdir);
-   
+	$destination = wp_upload_dir();
+	$destination_path = $destination['basedir'];
+	$target=$destination_path."/wparty";
+	$sourcezip="$target/data.zip";
+	$targetdir="$target/tmp";
+	echo " / $downloadfile / $targetdir";
+	$unzipfile=false;
+	if (wp_mkdir_p($target)) {
+		rename($downloadfile, $sourcezip);
+		$unzipfile = unzip_file($sourcezip, $targetdir);
+    }
     if ($unzipfile) {
        echo ' / OK';       
     } else {

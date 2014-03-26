@@ -7,6 +7,7 @@ $curdir=__DIR__;
 global $WParty;
 $WParty=array(
    "version" => "2.0",
+   "wparty.rootdir" => dirname(__DIR__),
    "wparty.dir" => $curdir,
    "wparty.dir2" => __DIR__,
    "FS_CHMOD_FILE" => 0666,

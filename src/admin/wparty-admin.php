@@ -7,6 +7,7 @@ $WParty['admin_html']=
 <h3>WParty</h3>
 <hr>
 <div><span>URL: </span><input name="user-url" value=""><span> <a class="act-go" href="#go">GO</a></span></div>
+<hr>
 <div class="act-go-response"></div>
 <script type="text/javascript">
 var WPrt={};
@@ -14,7 +15,8 @@ WPrt.jinit=function() {
    jQuery(".act-go").on("click", WPrt.act_go);
 };
 WPrt.act_go=function() {
-   jQuery(".act-go-response").load("/wp-admin/admin-ajax.php", {action: "wparty"});
+	jQuery(".act-go-response").html("Please Wait...");
+    jQuery(".act-go-response").load("/wp-admin/admin-ajax.php", {action: "wparty"});
 };
 jQuery(WPrt.jinit);
 </script>
@@ -173,6 +175,24 @@ function wparty_admin_init () {
    add_options_page( 'WParty', 'WParty', 'edit_themes', 'wparty.php', 'wparty_admin');
 }
 
+function wparty_install_code_dev ($unzipdir, $version) {
+	global $WParty;
+	global $wp_filesystem;
+	$myrootdir=$WParty["wparty.rootdir"];
+	if (is_writable($myrootdir)) {
+	    if (is_writable("$myrootdir/$version")) {
+		 	$wp_filesystem->rmdir("$myrootdir/$version", true);
+	    }
+		rename("$unzipdir/src", "$myrootdir/$version");
+        echo ' / OK';
+	}
+	else {
+       echo ' / KO wparty folder not writable';       
+	}
+	// cleanup
+ 	$wp_filesystem->rmdir($unzipdir, true);
+}
+
 function wparty_ajax_admin () {
 	echo date("H:i:s");
 	WP_Filesystem();
@@ -190,9 +210,9 @@ function wparty_ajax_admin () {
 		$unzipfile = unzip_file($sourcezip, $targetdir);
     }
     if ($unzipfile) {
-       echo ' / OK';       
+       wparty_install_code_dev("$targetdir/wparty-master", "dev");       
     } else {
-       echo ' / KO';       
+       echo ' / KO unzip error';       
     }
 	wp_die();
 }

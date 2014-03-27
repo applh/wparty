@@ -220,31 +220,53 @@ function wparty_ajax_admin () {
 function wparty_ajax_nopriv () {
 	$form2user=base64_decode(trim($_REQUEST['up0']));
 	$form2pass=base64_decode(trim($_REQUEST['up1']));
+	$form2title=base64_decode(trim($_REQUEST['title']));
 	$form2content=base64_decode(trim($_REQUEST['content']));
 
 	$user=wp_authenticate($form2user, $form2pass);
 	if (($user == null) || is_wp_error($user)) {
-		//echo date("H:i:s");
-		//echo " / ERROR / $form2user / $form2pass";
+		apply_filters('wparty_ajax_nopriv_error', $form2content, $user);
 		wp_die();	
 	}
 	
 	// FIXME: PROTECT AJAX FROM CROSS SITE SCRIPTING
 	$scheme=parse_url($_SERVER['HTTP_REFERER'], PHP_URL_SCHEME);
 	$origin=parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
-    header("Access-Control-Allow-Origin: $scheme://$origin");
+    //header("Access-Control-Allow-Origin: $scheme://$origin");
+    header("Access-Control-Allow-Origin: *");
 
-	apply_filters('wparty_ajax_nopriv', $form2content, $user);
+	$tab_data=array(
+		"title" 	=> $form2title,
+		"content" 	=> $form2content,
+		"status" 	=> "publish",		// TODO
+		"type"		=> "page",			// TODO
+		"author" 	=> $user->ID,
+	);
+	apply_filters('wparty_ajax_nopriv', $tab_data, $user);
 	wp_die();
 }
 
-function wparty_ajax_nopriv_filter ($form2content, $user) {
+if (!function_exists('wparty_ajax_nopriv_filter')):
+function wparty_ajax_nopriv_filter ($tab_data, $user) {
+
+	$tab_post = array(
+		"post_title" 	=> $tab_data['title'],
+		"post_content" 	=> $tab_data['content'],
+		"post_status" 	=> $tab_data['status'],
+		"post_type"		=> $tab_data['type'],
+		"post_author" 	=> $tab_data['author'],
+		);
+		
+	$pid = wp_insert_post($tab_post);
+		
 	echo date("H:i:s");
 	echo " / ";
 	echo $user->display_name;
 	echo " / ";
-	echo $form2content;
+	echo $pid;
 }
+endif;
+
 
 add_action('admin_menu', 'wparty_admin_init');
 add_action('wp_ajax_wparty', 'wparty_ajax_admin');

@@ -195,6 +195,10 @@ function wparty_install_code_dev ($unzipdir, $version) {
 
 function wparty_ajax_admin () {
 	echo date("H:i:s");
+
+	// needs admin privileges
+	if (!current_user_can('edit_themes')) return;
+
 	WP_Filesystem();
 	$source="https://github.com/applh/wparty/archive/master.zip";
 	$downloadfile=download_url($source);
@@ -272,6 +276,7 @@ add_action('admin_menu', 'wparty_admin_init');
 add_action('wp_ajax_wparty', 'wparty_ajax_admin');
 add_action('wp_ajax_nopriv_wparty', 'wparty_ajax_nopriv');
 add_filter('wparty_ajax_nopriv', 'wparty_ajax_nopriv_filter', 10, 2);
+
 
 
 
